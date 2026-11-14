@@ -1,0 +1,1204 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fbf5f4">
+  <meta name="description" content="Diario de tomas, pañales y cuidados de Hodei.">
+  <meta name="robots" content="noindex,nofollow">
+  <title>El rinconcito de Hodei · Nuestro diario</title>
+  <style>
+    :root{--ink:#263830;--muted:#687970;--line:#dfe8df;--canvas:#f6f8f4;--white:#fff;--green:#266d53;--green-dark:#18543e;--mint:#e7f3eb;--peach:#fff0e5;--lilac:#f0edfc;--blue:#e7f0fb;--shadow:0 12px 35px rgba(30,60,45,.06);--radius:22px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--canvas);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;font-size:15px;line-height:1.5}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    button:disabled{opacity:.45;cursor:not-allowed}
+    button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #8bc3a7;outline-offset:2px}
+    .wrap{width:min(1130px,calc(100% - 34px));margin-inline:auto}
+    header.topbar{border-bottom:1px solid #e3eae3;background:#fffaf8a8;backdrop-filter:blur(12px)}
+    .topbar-inner{display:flex;justify-content:space-between;align-items:center;min-height:76px;gap:16px}
+    .brand{display:flex;gap:12px;align-items:center;font-weight:800;letter-spacing:-.03em;font-size:20px}
+    .brand-mark{width:39px;height:39px;border-radius:14px;display:grid;place-items:center;background:#d9efe3;color:#25664c;font-size:23px;font-weight:500}
+    .topnote{font-size:12px;color:var(--muted);background:#edf3ec;border:1px solid #e0e9df;border-radius:999px;padding:7px 12px}
+    .hero{padding:37px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative}
+    .eyebrow{text-transform:uppercase;font-size:11px;font-weight:850;color:var(--green);letter-spacing:.16em;margin:0 0 7px}
+    h1{font-size:clamp(31px,5vw,49px);letter-spacing:-.052em;line-height:1.12;margin:0;font-weight:850}
+    .lead{color:var(--muted);font-size:16px;line-height:1.6;margin:11px 0 0;max-width:590px}
+    .hero-art{min-width:129px;height:129px;border-radius:50%;background:linear-gradient(145deg,#ffedde,#ffe5e9);display:flex;justify-content:center;align-items:center;font-size:70px;box-shadow:0 0 0 17px #fff1ea6e;transform:rotate(-8deg)}
+    .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:27px 0 13px}
+    .section-head h2{font-size:20px;letter-spacing:-.03em;line-height:1.2;margin:0}
+    .subtle{color:var(--muted);font-size:13px}
+    .date-tools{display:flex;align-items:center;gap:8px}
+    .date-tools input{padding:8px 10px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);max-width:170px}
+    .tinybtn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:8px 12px;font-weight:700;color:var(--green-dark);font-size:13px}
+    .stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px}
+    .stat{border-radius:17px;background:#fff;padding:18px 15px;min-width:0;border:1px solid #e9efea;box-shadow:0 3px 18px #273b2710}
+    .stat .stat-icon{font-size:21px;display:block;margin-bottom:9px}
+    .stat strong{font-size:29px;line-height:1.1;letter-spacing:-.05em;display:block;font-variant-numeric:tabular-nums}
+    .stat small{display:block;color:var(--muted);font-weight:650;line-height:1.35;margin-top:6px;font-size:12px}
+    .stat:nth-child(1){background:#ecf6ef}.stat:nth-child(2){background:#fff4e9}.stat:nth-child(3){background:#edf3ff}.stat:nth-child(4){background:#f2edfb}.stat:nth-child(5){background:#fff}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.99fr);gap:19px;align-items:start;margin:27px 0 34px}
+    .panel{background:var(--white);border:1px solid #e5ebe4;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .panel-inner{padding:24px}
+    .panel-title{margin:0 0 5px;letter-spacing:-.035em;font-size:24px;line-height:1.2}
+    .panel-desc{margin:0 0 20px;color:var(--muted);font-size:13px}
+    .tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;padding:6px;background:#f4f7f3;border-radius:16px;margin-bottom:23px}
+    .tab{background:transparent;border:1px solid transparent;color:#61736b;border-radius:11px;padding:10px 2px;font-weight:750;font-size:12px;line-height:1.25;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
+    .tab .emoji{font-size:23px;line-height:1.2}
+    .tab[aria-selected="true"]{background:#fff;border-color:#e1eae0;color:var(--green-dark);box-shadow:0 3px 8px #234b3420}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+    .field{display:flex;flex-direction:column;gap:6px;min-width:0}
+    .field.full{grid-column:1/-1}
+    label,fieldset legend{color:#42564c;font-size:13px;font-weight:800}
+    fieldset{border:0;margin:0;padding:0;min-width:0}
+    .control{width:100%;border:1px solid #dbe5dc;border-radius:12px;background:#fff;color:var(--ink);padding:12px 11px;min-height:46px;outline-offset:2px}
+    input[type="datetime-local"],input[type="date"]{min-width:0;max-width:100%}
+    textarea.control{min-height:83px;resize:vertical}
+    .field-help{font-size:12px;color:var(--muted)}
+    .segmented{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:8px}
+    .segmented.sides{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .choice{border:1.5px solid #e0e8e0;background:#fff;border-radius:13px;text-align:center;min-height:65px;padding:10px 5px;display:flex;justify-content:center;align-items:center;flex-direction:column;gap:2px;color:#5a7063;font-size:12px;font-weight:750}
+    .choice span{font-size:23px;line-height:1.2}
+    .choice.selected{background:var(--mint);border-color:#62a885;color:#19593f}
+    .choice.sides{min-height:40px;display:block;font-size:13px;padding:9px 4px}
+    .block{margin-top:18px}
+    .form-area[hidden],.conditional[hidden],[hidden]{display:none!important}
+    .time-row{display:flex;gap:7px;align-items:end}
+    .time-row .field{flex:1}
+    .time-row .tinybtn{height:46px;white-space:nowrap}
+    .tinybtn.is-set{background:#e5f3e9;border-color:#7ab996;color:#1e6349}
+    .time-feedback{color:#216447;font-size:12px;font-weight:700;margin:5px 0 0;min-height:0}
+    .timer{background:#f2f8f3;border:1px dashed #a8cbb4;border-radius:13px;margin-top:13px;padding:11px 13px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .timer .clock{font-weight:800;font-size:20px;color:var(--green-dark);font-variant-numeric:tabular-nums}
+    .timer .hint{font-size:11px;color:var(--muted)}
+    .timer-buttons{display:flex;gap:7px}
+    .timer-buttons button{border-radius:11px;border:1px solid #c6dccc;background:#fff;color:var(--green-dark);padding:10px 12px;font-weight:800;font-size:13px;min-height:44px}
+    .breast-tracker{margin-top:15px;border:1px solid #c6dfcc;border-radius:19px;padding:18px;background:linear-gradient(135deg,#f0f9f2,#fffaf5);box-shadow:inset 0 1px #fff}
+    .tracker-label{display:flex;gap:9px;align-items:center;flex-wrap:wrap;justify-content:space-between;font-size:12px;color:#587463;font-weight:800}
+    .tracker-state{background:#e3eee5;color:#295d43;padding:5px 10px;border-radius:999px}
+    .tracker-state.running{background:#216b4d;color:#fff}
+    .tracker-big{font-size:41px;font-variant-numeric:tabular-nums;font-weight:850;letter-spacing:-.065em;color:#195b42;line-height:1.15;margin:10px 0 3px}
+    .tracker-clock-caption{color:#637f6d;font-size:12px;margin-bottom:14px}
+    .tracker-splits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-bottom:12px}
+    .tracker-split{border:1px solid #e2eae1;background:#ffffffdc;border-radius:12px;padding:11px 8px;min-width:0}
+    .tracker-split span{display:block;font-size:11px;color:#607567;font-weight:750}
+    .tracker-split strong{display:block;font-size:21px;font-variant-numeric:tabular-nums;letter-spacing:-.045em;color:#2a5340;margin-top:3px}
+    .tracker-split.active{border-color:#4da77a;background:#e0f5e9;box-shadow:inset 0 0 0 1px #73bd92}
+    .tracker-times{display:flex;flex-wrap:wrap;gap:12px;color:#64786c;font-size:12px;margin:2px 0 13px}
+    .tracker-times strong{color:#2b5140}
+    .breast-tracker .timer-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .breast-tracker .timer-buttons .start-action{background:#266d53;border-color:#266d53;color:white;grid-column:1/-1}
+    .breast-tracker .timer-buttons .switch-action{background:#e0f4e8;border-color:#a6d3b6;color:#1f6647}
+    .breast-tracker .timer-buttons .finish-action{background:#fff;border-color:#92b79d}
+    .tracker-instruction{margin:12px 0 0;color:#627667;font-size:12px;line-height:1.5}
+    .tracker-done{font-weight:750;color:#236647;margin-top:11px;font-size:12px}
+    .timer[hidden]{display:none}
+    @media(max-width:400px){.tracker-big{font-size:35px}.tracker-split strong{font-size:18px}.breast-tracker{padding:13px}.breast-tracker .timer-buttons{grid-template-columns:1fr}.breast-tracker .timer-buttons .start-action{grid-column:auto}}
+    .check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:8px 0 0}
+    .check-tile{border:1.5px solid #dce8dd;border-radius:16px;background:#fafcf9;padding:14px;display:flex;gap:8px;align-items:center;cursor:pointer;font-weight:800;font-size:16px}
+    .check-tile:has(input:checked){border-color:#67ac85;background:#e8f5eb}
+    .check-tile input{width:20px;height:20px;accent-color:#277454}
+    .check-tile span{font-size:24px}
+    .other-help{border-left:3px solid #abcaba;background:#f4f9f5;border-radius:9px;padding:9px 12px;color:#536e5d;font-size:12px}
+    .common-note{margin-top:19px}
+    .submit-line{display:flex;gap:10px;margin-top:19px;align-items:center}
+    .primary{background:var(--green);border:1px solid var(--green);border-radius:13px;color:#fff;padding:13px 18px;font-weight:800;min-height:49px;flex:1;box-shadow:0 7px 13px #195b3f22}
+    .primary:hover{background:var(--green-dark)}
+    .secondary{border:1px solid #d4e1d7;background:#fff;color:var(--green-dark);font-weight:750;border-radius:13px;padding:12px 14px;min-height:49px}
+    .message{font-size:12px;color:var(--muted);margin:11px 0 0;min-height:19px}
+    .message.error{color:#a34335;font-weight:700}.message.ok{color:var(--green-dark);font-weight:750}
+    .history-panel .panel-inner{padding-bottom:12px}
+    .history-tools{display:flex;gap:9px;flex-wrap:wrap;margin:17px 0 0}
+    .history-tools select,.history-tools input{border:1px solid #dce8dd;background:#fff;border-radius:10px;padding:9px 11px;color:var(--ink);font-size:12px;min-height:41px;max-width:100%}
+    .history-tools select{flex:1}
+    .history-tools input{max-width:165px}
+    .timeline{padding:0 24px 24px;max-height:1160px;overflow-y:auto;overscroll-behavior:contain}
+    .day-title{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#658070;font-weight:850;margin:20px 0 9px}
+    .entry{display:flex;gap:12px;border:1px solid #e8eee8;border-radius:16px;padding:13px 12px;margin-bottom:9px;background:#fff}
+    .entry-icon{flex-shrink:0;display:grid;place-items:center;border-radius:13px;background:#e9f4ed;width:44px;height:44px;font-size:23px}
+    .entry[data-kind="diaper"] .entry-icon{background:#f1eafa}
+    .entry[data-kind="sleep"] .entry-icon{background:#e9f0ff}
+    .entry[data-kind="extraction"] .entry-icon{background:#fff1e5}
+    .entry[data-kind="other"] .entry-icon{background:#f0f2e8}
+    .entry-main{flex:1;min-width:0}
+    .entry-top{display:flex;justify-content:space-between;gap:6px;align-items:baseline}
+    .entry-title{font-size:14px;font-weight:850;color:#2c4134;line-height:1.32}
+    .entry-time{white-space:nowrap;font-size:12px;color:#647970;font-weight:700;font-variant-numeric:tabular-nums}
+    .entry-detail{font-size:13px;color:#536b5d;margin-top:4px;line-height:1.43;overflow-wrap:anywhere}
+    .entry-note{font-size:12px;color:#78847c;margin-top:6px;overflow-wrap:anywhere;white-space:pre-wrap}
+    .entry-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:7px}
+    .entry-actions button{font-size:11px;border:0;background:transparent;color:var(--green);padding:3px 0;font-weight:800}
+    .entry-actions button.delete{color:#b45c53}
+    .empty{text-align:center;background:#fafcf9;padding:47px 15px;margin-top:18px;border-radius:17px;border:1px dashed #d5e5d8}
+    .empty .big{font-size:41px;display:block}.empty p{color:var(--muted);margin-bottom:0}
+    .backup{padding:22px 24px;border-top:1px solid #edf1ed;background:#fbfcfa}
+    .backup h3{margin:0 0 5px;font-size:15px;letter-spacing:-.02em}
+    .backup p{font-size:12px;color:var(--muted);margin:0 0 13px}
+    .backup-actions{display:flex;flex-wrap:wrap;gap:7px}
+    .backup-actions button,.backup-actions label{border:1px solid #d8e5d8;border-radius:10px;background:#fff;color:#305b45;font-size:12px;font-weight:800;padding:9px 11px;cursor:pointer;display:inline-flex;align-items:center}
+    .backup-actions .danger{color:#ab5547;border-color:#f1d4cf}
+    .backup-actions input{display:none}
+    .storage-alert{background:#fff0e8;border:1px solid #f1c7b2;color:#754032;border-radius:12px;padding:13px 15px;margin:10px 0 0;font-size:13px}
+    .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:0 0 44px}
+    .info-card{border-radius:18px;border:1px solid #e4ece4;background:white;padding:19px 21px}
+    .info-card h3{font-size:15px;margin:0 0 6px}.info-card p{font-size:13px;color:#5f7065;margin:0 0 9px;line-height:1.55}
+    .info-card a{font-size:12px;color:#2c6c50;text-decoration:underline;text-underline-offset:3px}
+    .info-card.urgent{background:#fffaf6;border-color:#f3e3d1}
+    footer{text-align:center;color:#869188;font-size:12px;padding:0 0 32px}
+    .toast{position:fixed;bottom:max(22px,env(safe-area-inset-bottom));left:50%;transform:translate(-50%,18px);background:#263f30;color:white;border-radius:15px;padding:12px 17px;z-index:10;box-shadow:0 10px 30px #17321c44;transition:transform .2s,opacity .2s;opacity:0;pointer-events:none;max-width:calc(100vw - 20px);text-align:center;font-weight:700;font-size:13px}
+    .toast.show{transform:translate(-50%,0);opacity:1}
+    details.settings{margin-top:11px;font-size:12px;color:#65766c}
+    details.settings summary{cursor:pointer;font-weight:800;color:#467357}
+    details.settings .settings-row{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:10px}
+    details.settings input{border:1px solid var(--line);border-radius:9px;padding:8px}
+    @media(max-width:900px){.stats{grid-template-columns:repeat(3,1fr)}.layout{grid-template-columns:1fr}.timeline{max-height:none}.hero-art{min-width:93px;height:93px;font-size:49px}}
+    @media(max-width:580px){.wrap{width:min(100% - 22px,1130px)}.topbar-inner{min-height:61px}.brand{font-size:17px}.brand-mark{width:34px;height:34px;font-size:20px;border-radius:11px}.topnote{font-size:10px;padding:6px 8px}.hero{padding:29px 0 8px}.hero-art{display:none}.lead{font-size:14px}.section-head{margin-top:19px}.section-head h2{font-size:19px}.stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.stat{padding:11px 10px;border-radius:14px}.stat .stat-icon{font-size:18px;margin-bottom:6px}.stat strong{font-size:24px}.stat small{font-size:11px;margin-top:3px}.layout{gap:17px;margin-top:19px}.panel-inner{padding:16px}.panel-title{font-size:22px}.panel-desc{margin-bottom:15px}.tabs{gap:3px;margin-bottom:18px;padding:5px}.tab{font-size:10px;padding:9px 1px}.tab .emoji{font-size:21px}.segmented{gap:5px}.choice{font-size:11px;padding:8px 2px}.form-grid{gap:12px}.control{padding:11px 9px}.timeline{padding:0 16px 18px}.backup{padding:18px 16px}.entry{padding:11px 9px;gap:9px}.entry-icon{width:36px;height:36px;font-size:19px}.entry-title{font-size:13px}.entry-detail{font-size:12px}.info-grid{grid-template-columns:1fr}.date-tools input{width:140px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toast{transition:none}}
+
+    /* ──────────────────────────────────────────────
+       HODEI · Soft illustrated nursery diary
+       Visual redesign. All tracking/storage JS retained.
+    ────────────────────────────────────────────── */
+    :root {
+      --ink:#52485a; --muted:#837987; --line:#ebdfe6; --canvas:#fbf6f5;
+      --white:#fffdfd; --green:#975a7e; --green-dark:#794264;
+      --mint:#f4e6ed; --peach:#fff0e6; --lilac:#f3eaf9; --blue:#ebf3fa;
+      --shadow:0 10px 32px rgba(104,73,100,.075);
+      --radius:27px;
+    }
+    * { -webkit-tap-highlight-color:transparent }
+    body {background:radial-gradient(ellipse 550px 430px at -110px 50px,#fff0f1 0%,transparent 72%), radial-gradient(ellipse 430px 350px at 100% 320px,#f2edf9 0%,transparent 76%),var(--canvas);font-family:"Trebuchet MS",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink);font-size:14px;letter-spacing:.005em}
+    button,input,textarea,select{font-family:inherit}
+    button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #ce95b3;outline-offset:2px}
+    .wrap{width:min(1180px,calc(100% - 44px))}
+    header.topbar{background:#fffafcda;border-bottom:1px solid #f0e3ea;position:relative;z-index:2;backdrop-filter:blur(12px)}
+    .topbar-inner{min-height:76px}
+    .brand{font-size:19px;color:#594d60;font-weight:800;letter-spacing:-.035em;gap:11px}
+    .brand b{color:#ad7190;font-weight:900}
+    .brand-mark{width:43px;height:43px;background:#f9e3e8;border:2px solid #f2d4df;color:#b76f90;border-radius:17px;font-size:24px;box-shadow:0 3px 0 #f5e4e5;transform:rotate(-8deg)}
+    .topnote{background:#f8e8f0;color:#9a6882;border:1px solid #efdae7;font-weight:800;font-size:12px;padding:8px 14px}
+    .hero {isolation:isolate;border:1px solid #f5e4ea;border-radius:35px;background:linear-gradient(112deg,#fff0f0 0%,#fff8f4 57%,#f0eafa 100%);padding:37px 43px;min-height:258px;margin:29px 0 29px;overflow:hidden;box-shadow:0 12px 32px #bd899711;position:relative;align-items:center}
+    .hero:before{content:"";position:absolute;right:70px;top:-160px;width:360px;height:340px;background:#f7dbe656;border-radius:50%;z-index:-1}
+    .hero:after{content:"";position:absolute;left:-40px;bottom:-94px;width:180px;height:180px;background:#fff9f7b2;border-radius:50%;z-index:-1}
+    .hero-copy{max-width:650px;z-index:1;position:relative}
+    .eyebrow{font-size:11px;letter-spacing:.11em;color:#ad6685;font-weight:900;margin:0 0 11px}
+    .eyebrow span{color:#d59db1;padding:0 3px}
+    h1{font-size:clamp(37px,4.6vw,56px);font-weight:900;letter-spacing:-.055em;line-height:1.09;color:#58465c}
+    h1 span:not(.hero-heart){color:#bf7d9d}
+    .hero-heart{display:inline-block;font-size:.66em;color:#c990aa;margin-left:11px;transform:rotate(18deg)}
+    .lead{max-width:470px;color:#816e7c;margin-top:14px;font-size:15px;line-height:1.55}
+    .hero-chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:19px}
+    .hero-chips span{font-size:11px;font-weight:800;background:#fffafbc7;border:1px solid #f1dfe7;padding:7px 12px;border-radius:999px;color:#a67590}
+    .hero-art{display:block;flex:0 0 235px;min-width:235px;width:235px;height:235px;border-radius:50%;background:radial-gradient(circle at 38% 39%,#fff9f3,#f8dce4);box-shadow:0 0 0 13px #fffaf8a6,0 12px 20px #e4b8c34d;position:relative;transform:rotate(-3deg);font-size:inherit}
+    .teddy-svg{width:100%;height:100%;display:block;filter:drop-shadow(0 4px 2px #a9697626)}
+    .art-star{position:absolute;color:#ba82ab;font-weight:900;line-height:1}.art-star-one{right:-18px;top:30px;font-size:27px}.art-star-two{left:-20px;bottom:52px;font-size:34px;color:#cf9eb3}
+    .art-cloud{position:absolute;right:-23px;bottom:9px;font-size:47px;color:#fff;filter:drop-shadow(0 3px 1px #dcb6c757)}
+    .section-head{margin:28px 0 14px;align-items:center}
+    .section-head h2{font-size:23px;color:#61536b;font-weight:900;letter-spacing:-.04em}
+    .subtle{color:#998999;font-size:12px;margin-top:2px}
+    .date-tools input{border-radius:13px;border-color:#ecdfeb;background:#fffdfd;min-height:40px}
+    .tinybtn{border-color:#ebdce5;background:#fff9fc;color:#895774;border-radius:13px;min-height:40px;font-size:12px;box-shadow:0 2px 6px #9d648008}
+    .tinybtn.is-set{color:#5f755c;background:#eef8e8;border-color:#bdd5b6}
+    .stats{gap:12px}
+    .stat{border:1px solid #f1e4e9;border-radius:22px;padding:17px 18px;box-shadow:0 6px 17px #ad7b9520;position:relative;overflow:hidden;min-height:139px}
+    .stat:after{content:"✧";position:absolute;right:12px;top:6px;color:#fff8ff;opacity:.9;font-size:27px;transform:rotate(10deg)}
+    .stat:nth-child(1){background:#fce9ef}
+    .stat:nth-child(2){background:#fff1e6}
+    .stat:nth-child(3){background:#eaf4fc}
+    .stat:nth-child(4){background:#f1eafb}
+    .stat:nth-child(5){background:#f8f0e8}
+    .stat .stat-icon{display:grid;place-items:center;background:#ffffff9c;width:40px;height:40px;border-radius:14px;font-size:22px;margin-bottom:10px}
+    .stat strong{font-size:30px;font-weight:900;line-height:1.1;color:#66526b;letter-spacing:-.045em}
+    .stat small{font-size:12px;color:#807382;font-weight:750;margin-top:7px}
+    .layout{gap:22px;margin-top:28px;align-items:start}
+    .panel{border:1px solid #f0e4e9;border-radius:29px;background:#fffefd;box-shadow:var(--shadow)}
+    .panel-inner{padding:27px}
+    .panel-title{color:#64536b;font-size:26px;font-weight:900;letter-spacing:-.045em}
+    .panel-desc{color:#938393;font-size:13px;margin-top:3px}
+    .tabs{background:#fcf2f6;border:1px solid #f4e7ef;padding:6px;gap:5px;border-radius:18px;margin-bottom:23px}
+    .tab{color:#907a8d;padding:12px 3px 10px;border-radius:14px;font-size:12px;font-weight:850;transition:background .15s,transform .15s}
+    .tab .emoji{font-size:24px}
+    .tab[aria-selected="true"]{color:#8b506f;background:#fff;box-shadow:0 3px 9px #b8869c23;border-color:#efdce7;transform:translateY(-1px)}
+    label,fieldset legend{font-size:13px;color:#6c5d6b;font-weight:850}
+    .control{border:1.5px solid #eaddE7;border-radius:14px;background:#fffdfd;min-height:48px;padding:12px;color:#574c5e}
+    .control::placeholder{color:#b7a4b3}
+    .field-help{color:#918290;font-size:12px;line-height:1.5}
+    .block{margin-top:20px}
+    .time-row .tinybtn{min-height:48px;height:48px;padding-inline:17px}
+    .time-feedback{color:#65876a}
+    .segmented{gap:8px;margin-top:10px}
+    .choice{border-color:#eedee9;border-radius:15px;min-height:71px;color:#856f83;background:#fffafa;font-size:12px}
+    .choice span{font-size:26px}
+    .choice.selected{border-color:#c88ea9;background:#fbe8f0;color:#86506e;box-shadow:inset 0 0 0 1px #f1cada}
+    .choice.sides{min-height:45px;padding:10px 5px;font-size:12px}
+    .check-tile{border-color:#efdfeb;background:#fffafa;color:#786779;border-radius:16px}
+    .check-tile:has(input:checked){background:#f8e5ef;border-color:#ce9fbb}
+    .check-tile input{accent-color:#a36787}
+    .breast-tracker{border:1.5px solid #eddae6;background:linear-gradient(135deg,#fff5f9,#f9f0fc 78%,#fff7ef);border-radius:23px;padding:21px;box-shadow:inset 0 1px #fff,0 6px 20px #d4aec81a;margin-top:21px;position:relative}
+    .breast-tracker:before{content:"✦";position:absolute;right:20px;top:57px;font-size:21px;color:#eed4e2}
+    .tracker-label{color:#8b6380;font-size:12px}
+    .tracker-state{background:#f5e8ef;color:#8b5f7c}
+    .tracker-state.running{background:#91607e;color:#fff}
+    .tracker-big{color:#8d567a;font-size:49px;font-weight:900;margin:12px 0 3px}
+    .tracker-clock-caption{color:#9a8294;margin-bottom:17px}
+    .tracker-splits{gap:8px}
+    .tracker-split{border:1px solid #eddfeb;background:#fffdfdcf;border-radius:15px;padding:12px 10px}
+    .tracker-split span{color:#987f95}
+    .tracker-split strong{color:#7b5978;font-size:23px}
+    .tracker-split.active{border-color:#c887ac;background:#fae3ee;box-shadow:inset 0 0 0 1px #eabed6}
+    .tracker-times{color:#978494}.tracker-times strong{color:#75566c}
+    .timer-buttons button{border-color:#ebd7e5;border-radius:14px;color:#855b75;background:#fffafb;font-size:13px}
+    .breast-tracker .timer-buttons{gap:9px}
+    .breast-tracker .timer-buttons .start-action{background:#a16687;border-color:#a16687;color:white;min-height:52px;font-size:14px;box-shadow:0 5px 13px #9e668733}
+    .breast-tracker .timer-buttons .switch-action{background:#f8e0ec;border-color:#e9bdd2;color:#81516f;min-height:48px}
+    .breast-tracker .timer-buttons .finish-action{background:#fffafb;border-color:#e6cbdc;min-height:48px;color:#7f5672}
+    .tracker-instruction{color:#958393;font-size:12px;margin-top:15px}
+    .tracker-done{color:#6d8868}
+    .common-note{margin-top:22px}
+    .primary{background:#a36787;border-color:#a36787;border-radius:15px;min-height:54px;box-shadow:0 7px 13px #a3678733;font-size:14px;letter-spacing:.015em}
+    .primary:hover{background:#874c6e}
+    .secondary{border-color:#eadbe5;color:#885c77;border-radius:15px}
+    .message.ok{color:#5b7e68}
+    .history-tools select,.history-tools input{background:#fffafa;border:1px solid #f0dfe9;color:#776478;border-radius:12px;min-height:43px;font-size:12px}
+    .timeline{padding:0 25px 26px}
+    .day-title{color:#a16f89;font-size:11px;letter-spacing:.075em}
+    .entry{border-color:#f2e6ed;border-radius:18px;background:#fffafb;gap:12px;margin-bottom:10px;padding:15px}
+    .entry-icon{background:#f8e5ed;border-radius:15px;width:45px;height:45px;font-size:23px}
+    .entry[data-kind="diaper"] .entry-icon{background:#f0e8fa}
+    .entry[data-kind="sleep"] .entry-icon{background:#e8f1fd}
+    .entry[data-kind="extraction"] .entry-icon{background:#fff0e4}
+    .entry[data-kind="other"] .entry-icon{background:#eaf5e9}
+    .entry-title{color:#65536c;font-weight:850}
+    .entry-time{color:#9a8295}
+    .entry-detail{color:#8c7688}
+    .entry-note{color:#9d8b9a}
+    .entry-actions button{color:#985d80}
+    .entry-actions button.delete{color:#ad6975}
+    .empty{border:1px dashed #ecd5e5;background:#fff8fc;border-radius:21px}
+    .empty p{color:#988596}
+    .backup{background:#fff9fc;border-color:#f1e5ec;padding:23px 26px}
+    .backup h3{color:#70586f;font-size:16px}
+    .backup p{color:#9a8796}
+    .backup-actions button,.backup-actions label{border-color:#ead8e5;background:white;color:#90627c;border-radius:11px}
+    details.settings{color:#92818e}details.settings summary{color:#946581}
+    .info-grid{gap:17px;margin-bottom:45px}
+    .info-card{border:1px solid #f0dfea;border-radius:23px;background:#fffafd;padding:23px 24px}
+    .info-card h3{color:#6d5970;font-size:15px}
+    .info-card p{color:#867486;font-size:13px}
+    .info-card a{color:#8b587a}
+    .info-card.urgent{background:#fff9f5;border-color:#f1e4d9}
+    .storage-alert{border:1px solid #f4d5ba;background:#fff4e9;color:#775b57;border-radius:17px}
+    .other-help{background:#f9eef6;border-color:#d5abc4;color:#806379}
+    .toast{background:#73556c;box-shadow:0 10px 30px #73556c50}
+    footer{color:#b19dab;font-size:12px}
+    @media(max-width:1000px){.hero-art{flex-basis:205px;min-width:205px;width:205px;height:205px}.hero{padding:31px 35px}}
+    @media(max-width:900px){.hero{min-height:235px}.stats{grid-template-columns:repeat(5,minmax(0,1fr))}.layout{grid-template-columns:1fr}.timeline{max-height:none}}
+    @media(max-width:680px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-art{width:156px;height:156px;min-width:156px;flex-basis:156px}.hero{padding:29px 26px}.hero-copy{max-width:65%}h1{font-size:clamp(30px,6vw,40px)}.lead{font-size:13px}}
+    @media(max-width:580px){
+      .wrap{width:calc(100% - 24px)}
+      .topbar-inner{min-height:67px}.brand{font-size:16px;gap:9px}.brand-mark{width:37px;height:37px;font-size:21px;border-radius:13px}.topnote{font-size:10px;padding:7px 9px}
+      .hero{margin:17px 0 23px;min-height:233px;border-radius:25px;padding:25px 19px 19px;align-items:flex-start}
+      .hero-copy{max-width:none;width:100%;padding-right:96px}
+      .eyebrow{font-size:9px;letter-spacing:.06em;margin:0 0 11px}
+      h1{font-size:clamp(27px,7.5vw,36px);line-height:1.12;letter-spacing:-.05em}
+      .hero-heart{margin-left:4px}
+      .lead{font-size:11.8px;line-height:1.47;max-width:none;margin-top:11px}
+      .hero-chips{gap:5px;margin-top:15px;flex-wrap:wrap}
+      .hero-chips span{font-size:9px;padding:6px 8px}
+      .hero-art{position:absolute;right:-5px;bottom:3px;width:128px;height:128px;min-width:128px;box-shadow:0 0 0 6px #fffaf8a6;opacity:.97}
+      .art-star-one{font-size:16px;right:0}.art-star-two{font-size:23px;left:-13px}.art-cloud{font-size:30px;right:0}
+      .section-head{margin:19px 0 12px}.section-head h2{font-size:20px}.subtle{font-size:11px}
+      .date-tools input{width:128px;font-size:12px;min-height:39px}.date-tools{gap:5px}.date-tools .tinybtn{padding:8px 9px}
+      .stats{gap:8px;grid-template-columns:repeat(3,minmax(0,1fr))}
+      .stat{padding:12px 11px;border-radius:17px;min-height:120px}
+      .stat .stat-icon{width:31px;height:31px;border-radius:11px;font-size:17px;margin-bottom:7px}
+      .stat strong{font-size:25px}.stat small{font-size:10px;line-height:1.25;margin-top:6px}
+      .layout{margin-top:21px;gap:19px}.panel{border-radius:23px}.panel-inner{padding:17px}.panel-title{font-size:22px}.panel-desc{font-size:12px;margin-bottom:16px}
+      .tabs{gap:3px;margin-bottom:18px;padding:5px}.tab{font-size:10px;padding:10px 0 9px;border-radius:11px}.tab .emoji{font-size:21px}
+      .choice{font-size:11px;min-height:66px;padding:9px 3px}.choice span{font-size:22px}.choice.sides{font-size:11px}
+      .control{padding:11px 10px}.breast-tracker{border-radius:20px;padding:15px;margin-top:18px}
+      .tracker-big{font-size:41px}.tracker-splits{gap:6px}.tracker-split{padding:11px 7px;border-radius:12px}.tracker-split strong{font-size:19px}.tracker-split span{font-size:10px}
+      .breast-tracker .timer-buttons{grid-template-columns:1fr 1fr;gap:7px}.breast-tracker .timer-buttons .start-action{grid-column:1/-1}
+      .timeline{padding:0 16px 20px}.entry{padding:12px 10px}.entry-icon{width:39px;height:39px;font-size:20px}.entry-detail{font-size:12px}
+      .backup{padding:18px}.info-grid{gap:12px;margin-bottom:28px}.info-card{padding:18px;border-radius:19px}
+    }
+    @media(max-width:375px){.hero-copy{padding-right:85px}.hero-art{width:109px;height:109px;min-width:109px;right:-12px}.hero-chips span{font-size:8px}.topnote{font-size:9px}.brand{font-size:15px}.tracker-split strong{font-size:16px}.hero{padding-left:15px}}
+    @media(prefers-reduced-motion:reduce){.tab{transition:none}}
+
+    /* Hodei · interfaz móvil de lactancia, versión compacta */
+    .time-row {align-items:end}
+    .segmented.sides{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+    #breastChoices .choice.sides{min-height:53px;background:#fff8fb;border:1.5px solid #efdeea;border-radius:14px;font-size:14px;font-weight:850;padding:10px 5px;display:flex;flex-direction:row;gap:8px;align-items:center;justify-content:center;white-space:normal}
+    #breastChoices .choice.sides span{font-size:20px;color:#c48dad;line-height:1}
+    #breastChoices .choice.sides.selected{background:#f6dfe9;border-color:#ba7d9d;color:#7f4d6d;box-shadow:inset 0 0 0 1px #d99db8}
+    #breastChoices .manual-side{grid-column:1/-1;min-height:32px!important;padding:5px!important;background:transparent!important;border:none!important;text-decoration:underline;text-underline-offset:3px;color:#8c7186!important;font-size:11px!important;font-weight:650!important}
+    #breastChoices .manual-side.selected{background:#fae6ee!important;text-decoration:none}
+    .breast-help{margin:7px 0 0;line-height:1.4}
+    .breast-tracker{margin-top:14px;background:linear-gradient(160deg,#fff8fb 0%,#fbf2fc 100%);border:1px solid #ead9e6;border-radius:21px;padding:16px;box-shadow:0 5px 17px #c49dbb1b}
+    .breast-tracker::before{display:none}
+    .tracker-label{font-size:11px;letter-spacing:.065em;color:#906580;gap:5px}
+    .tracker-state{font-size:11px;letter-spacing:0;font-weight:800;background:#f4e7ef;padding:6px 9px;white-space:nowrap}
+    .tracker-state.running{background:#e6d5e7;color:#724c71}
+    .tracker-live{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px}
+    .tracker-symbol{font-size:28px;background:#fff6f7;border-radius:50%;width:48px;height:48px;display:grid;place-items:center;box-shadow:0 3px 12px #bc8ba91f}
+    .tracker-live .tracker-clock-caption{font-size:11px;font-weight:750;margin:0 0 2px;color:#9a8094}
+    .tracker-big{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:51px;line-height:1;letter-spacing:-.04em;color:#82516f;margin:0;font-weight:850}
+    .tracker-hint{font-size:12px;margin:8px 0 14px;line-height:1.4;color:#937e90}
+    .tracker-splits{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-bottom:10px}
+    .tracker-split{padding:11px 12px;border-radius:14px;background:#fffafdee;border:1px solid #ebdce7;transition:background .15s,border-color .15s}
+    .tracker-split span{font-size:11px;display:flex;gap:6px;align-items:center;color:#94778c}
+    .tracker-split strong{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:24px;line-height:1.2;margin-top:5px;color:#80647d}
+    .tracker-split.active{background:#f4dfeb;border-color:#bc85a5;box-shadow:inset 0 0 0 1px #d6a2bc}
+    .tracker-split.active span{color:#7f4c6d}
+    .tracker-split.active strong{color:#7f4c6d}
+    .side-dot{display:inline-block;width:7px;height:7px;background:#e6c3d5;border-radius:50%;flex:none}
+    .tracker-split.active .side-dot{background:#a06187;box-shadow:0 0 0 3px #e6bfd4}
+    .tracker-total-mini{display:none!important}
+    .tracker-times{display:flex;gap:16px;align-items:center;font-size:11px;margin:0 0 12px;color:#998396}
+    .tracker-times strong{font-weight:850;color:#805a72;font-variant-numeric:tabular-nums}
+    .breast-tracker .timer-buttons{display:flex;flex-direction:column;gap:8px}
+    .breast-tracker .timer-buttons button{min-height:48px;width:100%;border-radius:13px;font-size:14px;letter-spacing:0;font-weight:850;padding:10px 12px}
+    .breast-tracker .timer-buttons button[hidden]{display:none!important}
+    .breast-tracker .timer-buttons .start-action{color:white;background:#a06587;border-color:#a06587;box-shadow:0 4px 10px #a065872d}
+    .breast-tracker .timer-buttons .switch-action{color:#fff;background:#94607f;border-color:#94607f;box-shadow:0 4px 10px #a065872d;min-height:55px;font-size:16px}
+    .breast-tracker .timer-buttons .finish-action{color:#784e69;background:#fffdfd;border-color:#dfcad8;box-shadow:none;min-height:45px;font-size:13px}
+    .tracker-details{font-size:11px;margin-top:10px;color:#867386}
+    .tracker-details summary{font-size:11px;font-weight:750;color:#946e8a;cursor:pointer;list-style-position:inside}
+    .tracker-details p{margin:5px 0 0;line-height:1.5}
+    .timer-cancel{display:block;margin:10px auto 0;border:none;background:transparent;text-decoration:underline;text-underline-offset:3px;font-size:11px;color:#966b80;padding:5px}
+    .timer-cancel[hidden]{display:none!important}
+    .manual-entry{margin-top:14px;border-top:1px solid #f1e7ed;padding:10px 0 0;color:#8e7185}
+    .manual-entry summary{cursor:pointer;font-size:12px;font-weight:750;color:#916b85;line-height:1.4}
+    .manual-entry .form-grid{margin:12px 0 4px}
+    .tracker-done:empty{display:none}
+    .tracker-done:not(:empty){border-radius:10px;background:#eaf6eb;padding:9px 10px}
+    #feedTimerBox[data-mode="running"] .tracker-symbol{background:#f9e5ef;animation:pulseHodei 2.2s ease-in-out infinite}
+    @keyframes pulseHodei{50%{transform:scale(1.08)}}
+    @media(max-width:580px){
+      .form-grid{gap:10px}.panel-inner{padding:14px}.panel-title{font-size:20px}
+      .block{margin-top:13px}.segmented{margin-top:7px}.choice{min-height:57px}
+      .breast-tracker{padding:14px;margin-top:12px;border-radius:18px}
+      .tracker-big{font-size:50px}.tracker-split strong{font-size:23px}
+      .tracker-splits{gap:7px}
+      .manual-entry .form-grid{grid-template-columns:1fr}
+      .manual-entry input[type="datetime-local"]{max-width:100%;width:100%;min-width:0}
+      .time-row{gap:7px}.time-row .tinybtn{padding-inline:11px}
+      .tracker-label{font-size:10px}
+      .tracker-state{font-size:10px}
+    }
+    @media(max-width:375px){
+      .tracker-big{font-size:44px}.tracker-split strong{font-size:21px}
+      .breast-tracker{padding:12px}
+      .tracker-symbol{width:40px;height:40px;font-size:22px}
+      #breastChoices .choice.sides{font-size:12px}
+    }
+    @media(prefers-reduced-motion:reduce){#feedTimerBox[data-mode="running"] .tracker-symbol{animation:none}}
+
+
+    #breastChoices .choice.locked{pointer-events:none;cursor:default}
+
+    /* Cantidades de biberón: acceso rápido y legible desde el móvil */
+    .bottle-card{background:linear-gradient(150deg,#fff3ee,#fff9f7 67%,#fff0f4);border:1.5px solid #f0d7d7;border-radius:21px;padding:17px;box-shadow:0 4px 14px #d99b971a;margin-top:15px}
+    .bottle-heading{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+    .bottle-icon{flex:0 0 43px;width:43px;height:43px;border-radius:15px;background:#fff;border:1px solid #f6e0df;display:grid;place-items:center;font-size:24px}
+    .bottle-heading h3{margin:0;font-size:16px;line-height:1.3;letter-spacing:-.025em;color:#785b6c;font-weight:900}
+    .bottle-heading p{margin:2px 0 0;color:#a37b8c;font-size:12px;font-weight:700}
+    .required-tag{font-size:10px;background:#f9e2e8;color:#97637a;border-radius:99px;padding:4px 7px;white-space:nowrap;display:inline-block;margin-left:4px}
+    .bottle-main-field label{font-size:13px;color:#795b6f}
+    .milk-quantity{display:grid;grid-template-columns:62px minmax(0,1fr) 62px;gap:8px;align-items:stretch;margin-top:4px}
+    .milk-step{min-height:66px;border:1.5px solid #e8cbd4;background:#fff;border-radius:15px;color:#9f6487;font-size:20px;font-weight:900;touch-action:manipulation}
+    .milk-step:active{background:#f8e4ec;transform:scale(.98)}
+    .milk-input-wrap,.offered-input-wrap{position:relative;min-width:0}
+    .milk-input-wrap .control{width:100%;height:66px;min-height:66px;padding:10px 37px 10px 10px;font-size:30px;font-weight:900;letter-spacing:-.04em;text-align:center;border:2px solid #d9a5b9;border-radius:15px;background:#fff;color:#805371;font-variant-numeric:tabular-nums}
+    .milk-input-wrap>span,.offered-input-wrap>span{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-weight:850;color:#a88698;font-size:14px;pointer-events:none}
+    .milk-main-field .field-help,.bottle-main-field .field-help{margin:7px 0 0}
+    .milk-feedback{font-size:12px;font-weight:850;color:#7a5a70;margin:8px 0 0;line-height:1.4}
+    .milk-feedback.filled{color:#548168}
+    .bottle-offered{margin-top:15px;padding:12px 13px;border-radius:13px;background:#fff9fa;border:1px solid #f3e2e4}
+    .bottle-offered summary{font-size:12px;font-weight:850;color:#966981;cursor:pointer;line-height:1.5}
+    .bottle-offered-field{margin-top:11px}
+    .bottle-offered-field .control{padding-right:43px}
+    .bottle-offered-field p{margin:2px 0}
+    .breast-tracker.bottle-mode .tracker-splits{display:none!important}
+    .breast-tracker.bottle-mode .tracker-hint{margin-bottom:11px}
+    @media(max-width:400px){.bottle-card{padding:13px}.milk-quantity{grid-template-columns:53px minmax(0,1fr) 53px;gap:6px}.milk-step{min-height:60px}.milk-input-wrap .control{height:60px;min-height:60px;font-size:27px}.bottle-heading h3{font-size:15px}}
+
+    /* This message remains visible only if JavaScript cannot initialize the diary. */
+    .activation-warning{max-width:1130px;margin:15px auto;padding:17px 19px;border-radius:18px;background:#fff0e8;border:2px solid #e9c5b5;color:#75433d;box-shadow:0 5px 20px #a7755310;font-size:14px;line-height:1.55}
+    .activation-warning strong{display:block;font-size:16px;margin-bottom:5px}
+    .activation-warning p{margin:0 0 8px}
+    .activation-warning p:last-child{margin-bottom:0}
+    .activation-warning[hidden]{display:none!important}
+    @media(max-width:580px){.activation-warning{margin:9px 12px;padding:14px 15px}}
+
+    /* Registro de sacaleches: fácil de usar en el móvil */
+    .stats{grid-template-columns:repeat(6,minmax(0,1fr))}
+    .stat:nth-child(3){background:#f4f3ff}
+    .stat:nth-child(4){background:#eaf4fc}
+    .stat:nth-child(5){background:#f1eafb}
+    .stat:nth-child(6){background:#f8f0e8}
+    .pump-card{background:linear-gradient(145deg,#fff7fc,#f8f2ff 85%,#fff9f5);border:1.5px solid #ebd9ed;border-radius:22px;padding:17px;box-shadow:0 5px 19px #ac8caf15}
+    .pump-heading{display:flex;gap:11px;align-items:center;margin-bottom:18px}
+    .pump-icon{flex:0 0 46px;display:grid;place-items:center;width:46px;height:46px;background:#fff;border:1px solid #f0dfed;border-radius:16px;font-size:25px}
+    .pump-heading h3{color:#785b80;letter-spacing:-.025em;font-size:17px;line-height:1.2;margin:0 0 3px;font-weight:900}
+    .pump-heading p{color:#977f95;font-size:12px;line-height:1.45;margin:0}
+    .pump-block legend{font-size:13px;color:#7b5e7f;font-weight:850}
+    .pump-sides{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:9px}
+    .pump-side{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;border:1.5px solid #e9d6e6;background:#fffdfd;border-radius:15px;min-height:70px;color:#826981;font-size:12px;font-weight:800;padding:9px 5px;touch-action:manipulation}
+    .pump-side span{font-size:25px;line-height:1.1;color:#c28ea9}
+    .pump-side.selected{background:#f4deeb;border-color:#b97c9b;color:#794966;box-shadow:inset 0 0 0 1px #dab0c5}
+    .pump-main{margin-top:18px}.pump-main>label{color:#785b77;font-size:13px}
+    .pump-quantity{margin-top:7px}.pump-feedback{color:#987e93;font-size:12px;font-weight:750;line-height:1.45;margin:8px 0 0;min-height:18px}
+    .pump-feedback.filled{color:#557c6b}
+    .pump-split{border:1px solid #eddee9;border-radius:14px;background:#fffcff;padding:12px 13px;margin-top:15px}
+    .pump-split summary{color:#916a86;font-size:12px;font-weight:850;cursor:pointer;line-height:1.45}
+    .pump-split .block{margin-top:12px}.pump-split .field-help{margin:6px 0 1px}
+    .pump-duration{margin-top:17px}.optional-tag{font-size:11px;font-weight:650;color:#a78c9d}
+    .pump-duration-input{position:relative;max-width:270px}.pump-duration-input input{padding-right:87px}
+    .pump-duration-input span{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:750;color:#a3879a;pointer-events:none}
+    .pump-note{margin-top:18px;background:#fffefe;border:1px solid #eedfe7;border-radius:14px;padding:12px;display:flex;align-items:start;gap:8px;color:#897284}
+    .pump-note>span{color:#b9809e;font-size:18px;line-height:1.1}
+    .pump-note p{font-size:12px;line-height:1.5;margin:0}.pump-note strong{color:#785b77}
+    @media(max-width:900px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:580px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.pump-card{padding:14px;border-radius:20px}.pump-heading h3{font-size:16px}.pump-sides{gap:6px}.pump-side{font-size:11px;min-height:63px}.pump-side span{font-size:23px}.pump-quantity .milk-step{min-height:62px}}
+    @media(max-width:370px){.pump-card{padding:11px}.pump-side{font-size:10px}.pump-quantity{grid-template-columns:47px minmax(0,1fr) 47px;gap:5px}}
+  
+    /* v4 · Más visual, más accesible y diseñado para el móvil */
+    :root {--text-strong:#49384b;--text-body:#5a4c5e;--text-muted:#6e5b70;--accent-strong:#874669;--outline:#8e4d71}
+    html{scroll-padding-top:24px}
+    body{font-size:15px;color:var(--text-body)}
+    p{line-height:1.55}
+    a{color:var(--accent-strong)}
+    button,a,input,select,textarea{touch-action:manipulation}
+    button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--outline);outline-offset:3px}
+    button:disabled{opacity:.54}
+    .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+    .hero-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:20px}
+    .hero-actions a{min-height:46px;display:inline-flex;align-items:center;justify-content:center;border-radius:14px;padding:11px 17px;text-decoration:none;font-weight:900;font-size:14px}
+    .hero-main-link{background:#935575;color:#fff;box-shadow:0 5px 12px #af769c2b}
+    .hero-secondary-link{background:#fffbff;border:1px solid #e9ccdd;color:#774762}
+    .hero-secondary-link span{padding-left:6px}
+    .lead,.panel-desc,.subtle,.field-help,.tracker-clock-caption,.pump-heading p{color:var(--text-muted)}
+    .choice,.tab,.pump-side{color:#694f63}
+    .choice.selected,.tab[aria-selected="true"],.pump-side.selected{color:#6d3153}
+    .field label,fieldset legend{color:#59485a}
+    .control,select,input,textarea{font-size:16px}
+    .date-tools input,.history-tools input{font-size:16px}
+    .stat small{color:#655465;font-size:12px}
+    .stat strong{color:#57435b}
+    .history-panel{border:1.5px solid #e7d6df;background:#fffefd}
+    .history-panel .panel-inner{padding-bottom:15px}
+    .history-panel .panel-title{font-size:25px}
+    .history-panel .panel-desc{margin:6px 0 4px;font-size:13px;color:#725d6e}
+    .history-intro{font-size:13px;color:#806c7f;margin:0 0 17px}
+    .history-filterchips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:#e3c4d6 transparent;scroll-snap-type:x proximity;padding:1px 2px 11px;margin:0 -2px 9px;overscroll-behavior-x:contain}
+    .history-filterchips button{flex:0 0 auto;scroll-snap-align:start;min-height:44px;padding:9px 14px;border:1.5px solid #e6d1dd;background:#fff9fc;color:#77526a;border-radius:999px;font-size:13px;font-weight:850;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+    .history-filterchips button.selected,.history-filterchips button[aria-pressed="true"]{background:#8f5075;color:#fff;border-color:#8f5075;box-shadow:0 4px 9px #a96e8b24}
+    .history-tools{display:flex;gap:8px;align-items:end;flex-wrap:wrap;margin:0!important;padding:0!important}
+    .history-find{flex:1 1 180px;display:flex;align-items:center;min-width:0;min-height:48px;border:1.5px solid #e9d8e2;border-radius:14px;background:#fff;overflow:hidden}
+    .history-find>span{font-size:27px;color:#976781;padding-left:11px;line-height:1}
+    .history-find input{border:0;background:transparent;width:100%;min-width:0;min-height:46px;padding:9px 11px;color:#5d475a;outline-offset:-3px}
+    .history-find input::placeholder{color:#8b7687}
+    .history-date-filter{display:flex;flex-direction:column;gap:2px;min-width:140px;max-width:175px;flex:1 1 140px;color:#6f5970;font-size:12px;font-weight:850}
+    .history-date-filter input{height:47px;padding:6px 8px;border-radius:12px;border:1.5px solid #e9d8e2;background:#fff;color:#674a62;width:100%}
+    .history-tools .tinybtn{min-height:47px;font-size:13px;padding-inline:13px;color:#75465f;border:1.5px solid #e9d8e2;background:#fff}
+    .history-overview{display:flex;gap:6px;flex-wrap:wrap;margin-top:13px;min-height:1px}
+    .history-overview:empty{display:none}
+    .history-overview span{display:inline-flex;align-items:center;padding:5px 9px;background:#f6edf3;border:1px solid #f0e3eb;border-radius:999px;color:#74526b;font-size:12px;font-weight:800}
+    .timeline{padding:0 19px 21px;max-height:none;overflow:visible}
+    .history-day{margin-top:10px}
+    .day-divider{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 1px 10px;border-top:1px solid #f0e5eb;margin-top:13px}
+    .day-divider h3{margin:0;font-size:16px;line-height:1.2;color:#614362;font-weight:900;letter-spacing:-.025em}
+    .day-divider>div>span{display:block;font-size:11px;color:#806d7b;margin-top:4px;text-transform:capitalize}
+    .day-count{background:#faf1f6;border-radius:999px;padding:6px 10px;color:#765b70;font-weight:750;font-size:11px;text-align:right}
+    .moment-card{border-radius:20px;border:1.5px solid #eadde6;background:#fff;box-shadow:0 5px 18px #7b50700c;padding:15px 15px 10px;margin-bottom:11px;overflow:hidden;border-left:5px solid #cb95b4}
+    .moment-card[data-kind="bottle"]{border-left-color:#e8b47b;background:linear-gradient(110deg,#fffdfa,#fff8f4)}
+    .moment-card[data-kind="diaper"]{border-left-color:#98b6dd;background:linear-gradient(110deg,#fff,#f7fbff)}
+    .moment-card[data-kind="extraction"]{border-left-color:#a9a1d5;background:linear-gradient(110deg,#fff,#faf8ff)}
+    .moment-card[data-kind="sleep"]{border-left-color:#bcaedb}
+    .moment-card[data-kind="other"]{border-left-color:#b2b5b5}
+    .moment-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+    .moment-ident{display:flex;gap:9px;align-items:center;min-width:0}
+    .moment-icon{width:42px;height:42px;border-radius:14px;background:#fae6f0;display:grid;place-items:center;flex:0 0 auto;font-size:23px}
+    [data-kind="bottle"] .moment-icon{background:#fff0df}
+    [data-kind="diaper"] .moment-icon{background:#eaf4ff}
+    [data-kind="extraction"] .moment-icon{background:#f0ebff}
+    [data-kind="sleep"] .moment-icon{background:#f1ebff}
+    .moment-ident h4{font-size:14px;line-height:1.24;font-weight:900;color:#59465d;margin:2px 0 0;letter-spacing:-.016em}
+    .moment-category{font-size:10px;display:block;color:#805870;font-weight:900;text-transform:uppercase;letter-spacing:.07em}
+    .moment-clock{flex:0 0 auto;font-size:21px;font-variant-numeric:tabular-nums;letter-spacing:-.045em;line-height:1.3;font-weight:900;color:#62465a;white-space:nowrap}
+    .moment-clock span{font-size:12px;vertical-align:2px;color:#957b8b}
+    .moment-main{display:flex;gap:10px;align-items:stretch;margin-top:13px}
+    .moment-metric{padding:12px 15px;background:#f9f3f7;border-radius:14px;display:flex;flex-direction:column;min-width:0;gap:1px}
+    .moment-metric.major{width:100%;background:#fbf1f7}
+    [data-kind="bottle"] .moment-metric.major{background:#fff1e1}
+    [data-kind="diaper"] .moment-metric.major{background:#eaf4ff}
+    [data-kind="extraction"] .moment-metric.major{background:#f2edff}
+    .moment-metric strong{font-size:26px;color:#744362;letter-spacing:-.055em;font-weight:950;line-height:1.2;overflow-wrap:anywhere}
+    [data-kind="bottle"] .moment-metric strong{color:#845a34}
+    [data-kind="diaper"] .moment-metric strong{color:#496685;font-size:22px}
+    [data-kind="extraction"] .moment-metric strong{color:#665a91}
+    .moment-metric>span{font-size:11px;font-weight:800;color:#725d70}
+    .moment-chips{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:9px}
+    .moment-inline-chip{font-size:11px;color:#644b61;border:1px solid #eddee7;background:#fffafd;border-radius:999px;padding:6px 9px;font-weight:750}
+    .breast-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+    .breast-break-row{padding:9px 8px;border:1px solid #ecdce6;border-radius:12px;background:#fffbfd;display:grid;grid-template-columns:1fr auto;gap:5px 3px;align-items:center;min-width:0}
+    .breast-break-row>span{font-size:11px;font-weight:800;color:#735b6f}
+    .breast-break-row strong{font-size:12px;color:#674861;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .breast-progress{grid-column:1/-1;height:6px;border-radius:50px;background:#f3dfe9;overflow:hidden}
+    .breast-progress i{background:#a8688a;display:block;height:100%;border-radius:inherit}
+    .moment-detail{margin-top:10px;border-radius:12px;background:#fff9fc;border:1px solid #f1e5ed;padding:8px 10px}
+    .moment-detail summary{font-size:12px;color:#7c4b6a;font-weight:850;cursor:pointer;min-height:26px}
+    .moment-detail ol{padding-left:21px;margin:7px 0 2px;color:#655568;font-size:12px;line-height:1.75}
+    .moment-note{display:flex;align-items:start;gap:7px;margin-top:11px;padding:9px 11px;border-radius:11px;background:#f8f4f6;color:#665566}
+    .moment-note>span{font-size:13px;flex:none}
+    .moment-note p{margin:0;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+    .moment-footer{display:flex;justify-content:flex-end;gap:6px;margin-top:10px;padding-top:8px;border-top:1px solid #f1e7ed}
+    .moment-footer button{min-height:43px;border-radius:11px;border:1px solid #ead9e3;background:#fffdfd;padding:9px 14px;font-weight:850;font-size:12px;color:#754765;display:inline-flex;gap:6px;align-items:center;justify-content:center}
+    .moment-footer button.moment-delete{color:#965655;border-color:#f1dddd;background:#fffafa}
+    .history-empty{text-align:center;padding:36px 16px 42px;border:1.5px dashed #e9d2de;background:#fff9fc;border-radius:21px;margin-top:15px}
+    .history-empty>div{font-size:44px;margin-bottom:8px}
+    .history-empty strong{font-size:17px;color:#634b61}
+    .history-empty p{font-size:13px;color:#725e70;max-width:285px;margin:8px auto 16px}
+    .history-empty a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;background:#955676;color:white;text-decoration:none;border-radius:12px;padding:9px 16px;font-weight:850}
+    .mobile-nav{display:none}
+    #new-entry,#history-title,#day-summary{scroll-margin-top:18px}
+    @media(max-width:900px){.layout{grid-template-columns:1fr}.moment-main{flex-wrap:wrap}}
+    @media(max-width:580px){
+      body{font-size:15px;padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+      .wrap{width:calc(100% - 22px)}
+      header.topbar .topnote{display:none}
+      header.topbar .topbar-inner{min-height:55px}
+      .hero{margin:13px 0 17px;padding:22px 20px;min-height:0;border-radius:25px}
+      .hero .hero-art{display:none}
+      .hero h1{font-size:33px}
+      .hero .lead{font-size:13px;margin:9px 0 0}
+      .hero-chips{display:none}
+      .hero-actions{margin-top:13px;gap:8px}
+      .hero-actions a{min-height:43px;padding:9px 13px;font-size:12px}
+      .section-head{gap:8px}
+      .section-head h2{font-size:21px}
+      .stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+      .stat{min-height:112px;padding:11px 9px;border-radius:16px}
+      .stat strong{font-size:23px}
+      .stat small{font-size:11px}
+      .stat .stat-icon{width:30px;height:30px;font-size:17px;margin-bottom:6px}
+      .panel-inner{padding:15px}
+      .tabs{margin-bottom:12px}
+      .tab{min-height:58px}
+      .history-panel .panel-inner{padding:18px 14px 13px}
+      .history-panel .panel-title{font-size:23px}
+      .history-tools{gap:7px}
+      .history-find{flex:1 1 100%}
+      .history-date-filter{flex:1 1 130px;min-width:120px;max-width:none}
+      .history-tools .tinybtn{min-height:47px}
+      .history-overview{margin-top:10px}
+      .timeline{padding:0 11px 15px}
+      .day-divider{margin-top:7px;padding:15px 3px 11px;align-items:start}
+      .day-count{max-width:52%;font-size:10px}
+      .moment-card{padding:12px 11px 8px;margin-bottom:10px;border-radius:17px}
+      .moment-ident{gap:7px}
+      .moment-icon{width:38px;height:38px;font-size:21px}
+      .moment-ident h4{font-size:13px}
+      .moment-category{font-size:10px}
+      .moment-clock{font-size:20px}
+      .moment-main{margin-top:10px;gap:7px;display:block}
+      .moment-metric{padding:11px 13px}
+      .moment-metric strong{font-size:25px}
+      .breast-breakdown{margin-top:8px;gap:6px}
+      .breast-break-row{padding:9px 8px}
+      .breast-break-row>span{font-size:11px}
+      .moment-chips{gap:5px}
+      .moment-footer button{min-height:44px;font-size:12px;padding-inline:14px}
+      .mobile-nav{position:fixed;z-index:50;bottom:0;left:0;right:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:9px 14px calc(10px + env(safe-area-inset-bottom));background:#fffcffef;border-top:1px solid #eddee9;backdrop-filter:blur(14px);box-shadow:0 -6px 20px #66415c13}
+      .mobile-nav a{color:#77516a;text-align:center;min-height:48px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;text-decoration:none;font-size:11px;font-weight:850;border-radius:11px}
+      .mobile-nav a span:first-child{font-size:20px;line-height:1.1}
+      .mobile-nav .nav-add{background:#975877;color:#fff}
+    }
+    @media(max-width:350px){.moment-clock{font-size:18px}.moment-ident h4{font-size:12px}.moment-icon{width:34px;height:34px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+  
+    /* Extracción: el mismo lenguaje visual que el reloj de las tomas */
+    .pump-after-feed{margin-top:14px;width:100%;display:flex;align-items:center;gap:9px;justify-content:center;padding:15px 10px;min-height:54px;background:#f9f3fd;border:1.5px solid #decce9;border-radius:16px;color:#6e507e;font-weight:700;font-size:14px;text-align:center}
+    .pump-after-feed strong{color:#734388}
+    .pump-after-feed span:first-child{font-size:21px}
+    .pump-after-feed span:last-child{font-size:25px}
+    .pump-tracker{margin-top:15px;background:linear-gradient(135deg,#faf0fc,#f6f1ff);border-color:#e0cde8}
+    .pump-tracker .tracker-label,.pump-tracker .tracker-big{color:#885a9b}
+    .pump-tracker .tracker-split.active{border-color:#a77abe;background:#f0e5f7;box-shadow:inset 0 0 0 1px #b997ca}
+    .pump-tracker .timer-buttons .start-action{background:#865c9e;border-color:#865c9e}
+    .pump-tracker .timer-buttons .switch-action{background:#775292;border-color:#775292;color:#fff}
+    .pump-sides .pump-side[aria-disabled="true"]{opacity:.65}
+    .pump-measures{margin-top:20px}
+    .pump-measures h4{font-size:17px;font-weight:900;color:#694873;margin:0 0 5px}
+    .pump-measures .field-help{margin:0 0 12px}
+    .pump-ml-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .pump-ml-side{background:#fff;border:1.5px solid #e7d6e9;border-radius:17px;padding:13px 11px;min-width:0}
+    .pump-ml-side label{display:block;color:#6c526f;font-size:13px;font-weight:850;margin-bottom:9px}
+    .pump-ml-input{position:relative}.pump-ml-input input{width:100%;padding:12px 33px 12px 10px;font-size:24px;font-weight:900;text-align:center;min-height:58px;font-variant-numeric:tabular-nums}
+    .pump-ml-input span{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-weight:800;color:#936f92}
+    .pump-step-row{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px}
+    .pump-step-row button{border:1px solid #e1c7e1;background:#fcf5fd;border-radius:10px;min-height:43px;color:#764f83;font-weight:900;font-size:14px}
+    .pump-total{margin-top:12px;padding:15px;background:#f0e4f7;border-radius:15px;display:flex;gap:10px;align-items:center;justify-content:space-between;color:#6d4e7a;font-weight:800;font-size:13px}
+    .pump-total strong{font-size:25px;color:#76518e;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .pump-manual{margin-top:15px}
+    .pump-measures .pump-feedback{margin-top:9px}
+    @media(max-width:390px){.pump-ml-grid{gap:7px}.pump-ml-side{padding:10px 7px}.pump-ml-side label{font-size:11px}.pump-ml-input input{font-size:21px}.pump-total strong{font-size:22px}}
+</style>
+</head>
+<body>
+<div id="activationHelp" class="activation-warning" role="alert">
+  <strong>🧸 Esta vista no permite utilizar el diario todavía</strong>
+  <p>El visor de archivos del iPhone o de ChatGPT puede mostrar el diseño, pero bloquear el código que activa los botones. No es un error del temporizador.</p>
+  <p>Para registrar las tomas y conservar los datos, hay que abrir esta página desde un navegador compatible (por ejemplo, Safari) como una web con su propio enlace. <strong>No guardes registros importantes en una vista previa.</strong></p>
+</div>
+<header class="topbar"><div class="wrap topbar-inner"><div class="brand"><div class="brand-mark" aria-hidden="true">✿</div> <span>El diario de <b>Hodei</b></span></div><div class="topnote">♡ Hecho con amor</div></div></header>
+<main class="wrap">
+  <section class="hero" aria-labelledby="main-title">
+    <div class="hero-copy"><p class="eyebrow"><span aria-hidden="true">✦</span> UN RINCONCITO MUY ESPECIAL <span aria-hidden="true">✦</span></p>
+      <h1 id="main-title">El pequeño mundo<br>de <span>Hodei</span><span class="hero-heart" aria-hidden="true">♡</span></h1>
+      <p class="lead">Cada toma, cada siesta y cada pequeño descubrimiento. Guardamos sus primeros días con todo nuestro cariño.</p>
+      <div class="hero-chips" aria-hidden="true"><span>☁ Sus primeras aventuras</span><span>✿ Día a día</span></div><div class="hero-actions"><a href="#new-entry" class="hero-main-link">＋ Anotar un cuidado</a><a href="#history-title" class="hero-secondary-link">Ver el historial <span aria-hidden="true">↓</span></a></div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg class="teddy-svg" viewBox="0 0 260 250" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        <path d="M42 203 Q2 167 47 144 Q9 114 56 96" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".65"/>
+        <path d="M214 71 q-2 -19 13 -28 q10 17 -3 34" fill="#f9d4de"/>
+        <path d="M217 81 q22 -19 32 0 q-9 11 -28 5" fill="#eac5ea"/>
+        <circle cx="70" cy="84" r="27" fill="#c9937b"/><circle cx="190" cy="84" r="27" fill="#c9937b"/>
+        <circle cx="70" cy="84" r="15" fill="#f9d6ce"/><circle cx="190" cy="84" r="15" fill="#f9d6ce"/>
+        <ellipse cx="131" cy="183" rx="70" ry="54" fill="#c9937b"/>
+        <ellipse cx="129" cy="188" rx="39" ry="38" fill="#fff5e7"/>
+        <ellipse cx="75" cy="198" rx="26" ry="23" fill="#c9937b" transform="rotate(-28 75 198)"/>
+        <ellipse cx="185" cy="198" rx="26" ry="23" fill="#c9937b" transform="rotate(28 185 198)"/>
+        <circle cx="130" cy="115" r="76" fill="#d2a18b"/>
+        <ellipse cx="129" cy="140" rx="37" ry="27" fill="#fff2e7"/>
+        <ellipse cx="107" cy="115" rx="3.6" ry="5" fill="#5d4c51"/><ellipse cx="153" cy="115" rx="3.6" ry="5" fill="#5d4c51"/>
+        <ellipse cx="88" cy="136" rx="12" ry="6" fill="#eaa6a1" opacity=".82"/><ellipse cx="173" cy="136" rx="12" ry="6" fill="#eaa6a1" opacity=".82"/>
+        <path d="M123 136 Q130 128 137 136 Q134 143 130 143 Q126 143 123 136" fill="#74565d"/>
+        <path d="M130 143 v5 q-9 10 -15 0 M130 148 q9 10 15 0" fill="none" stroke="#74565d" stroke-width="3" stroke-linecap="round"/>
+        <path d="M81 50 Q116 18 157 39" fill="none" stroke="#f1cfb4" stroke-width="4" opacity=".5" stroke-linecap="round"/>
+        <path d="M54 54 l3 -8 3 8 8 3 -8 3 -3 8 -3 -8 -8 -3z" fill="#fff9ee"/>
+        <path d="M210 144 l3 -8 3 8 8 3 -8 3 -3 8 -3 -8 -8 -3z" fill="#fff8f0"/>
+        <path d="M54 172 q-15 -14 -27 0 q0 14 27 26 q27 -12 27 -26 q-12 -14 -27 0" fill="#efacb8" opacity=".85" transform="scale(.65) translate(10 74)"/>
+      </svg>
+      <span class="art-star art-star-one">✦</span><span class="art-star art-star-two">✧</span><span class="art-cloud">☁</span>
+    </div>
+  </section>
+  <div id="storageAlert" class="storage-alert" hidden role="alert">⚠️ Este navegador no permite guardar datos de forma permanente en esta página. Podéis usarla, pero exportad una copia JSON antes de cerrarla.</div>
+  <section id="day-summary" aria-labelledby="summary-title"><div class="section-head"><div><h2 id="summary-title">Así va su día</h2><div id="ageLabel" class="subtle">Sus pequeños momentos, de un vistazo</div></div><div class="date-tools"><input aria-label="Día del resumen" id="summaryDate" type="date"><button type="button" class="tinybtn" id="todayBtn">Hoy</button></div></div>
+    <div class="stats" aria-live="polite"><div class="stat"><span class="stat-icon">🤱</span><strong id="statFeeds">0</strong><small>Registros de tomas</small></div><div class="stat"><span class="stat-icon">🍼</span><strong id="statMilk">0 ml</strong><small>Leche que ha bebido</small></div><div class="stat"><span class="stat-icon">🫧</span><strong id="statExtract">0 ml</strong><small>Leche extraída con sacaleches</small></div><div class="stat"><span class="stat-icon">💧</span><strong id="statPee">0</strong><small>Pañales con pipí</small></div><div class="stat"><span class="stat-icon">💩</span><strong id="statPoo">0</strong><small>Pañales con caca</small></div><div class="stat"><span class="stat-icon">🕒</span><strong id="statLast">—</strong><small>Última toma del día</small></div></div>
+  </section>
+  <div class="layout">
+    <section class="panel" id="new-entry" aria-labelledby="form-title"><div class="panel-inner">
+      <h2 class="panel-title" id="form-title">¿Qué ha hecho Hodei?</h2><p class="panel-desc" id="formSubtitle">Un toquecito y queda anotado ♡</p>
+      <div class="tabs" role="tablist" aria-label="Tipo de registro">
+        <button type="button" class="tab" data-tab="feed" role="tab" aria-selected="true"><span class="emoji" aria-hidden="true">🤱</span>Toma</button>
+        <button type="button" class="tab" data-tab="extraction" role="tab" aria-selected="false"><span class="emoji" aria-hidden="true">🫧</span>Sacaleches</button>
+        <button type="button" class="tab" data-tab="diaper" role="tab" aria-selected="false"><span class="emoji" aria-hidden="true">💩</span>Pañal</button>
+        <button type="button" class="tab" data-tab="sleep" role="tab" aria-selected="false"><span class="emoji" aria-hidden="true">🌙</span>Sueño</button>
+        <button type="button" class="tab" data-tab="other" role="tab" aria-selected="false"><span class="emoji" aria-hidden="true">✏️</span>Otros</button>
+      </div>
+      <form id="entryForm" novalidate>
+        <div class="time-row"><div class="field"><label for="recordTime" id="recordTimeLabel">Fecha y hora</label><input class="control" id="recordTime" type="datetime-local" required></div><button type="button" class="tinybtn" id="nowBtn">Ahora</button></div><p class="time-feedback" id="nowFeedback" role="status" aria-live="polite"></p>
+        <div id="area-feed" class="form-area">
+          <fieldset class="block"><legend>Tipo de lactancia</legend><div class="segmented" id="milkChoices">
+            <button type="button" class="choice selected" data-milk="breast" aria-pressed="true"><span aria-hidden="true">🤱</span>Pecho</button>
+            <button type="button" class="choice" data-milk="expressed" aria-pressed="false"><span aria-hidden="true">🍼</span>Diferida</button>
+            <button type="button" class="choice" data-milk="formula" aria-pressed="false"><span aria-hidden="true">🥛</span>Artificial</button>
+          </div></fieldset>
+          <div id="breastFields" class="conditional block"><fieldset><legend>¿Con qué pecho empieza?</legend><div class="segmented sides" id="breastChoices"><button type="button" class="choice sides selected" data-side="left" aria-pressed="true"><span aria-hidden="true">◖</span> Izquierdo</button><button type="button" class="choice sides" data-side="right" aria-pressed="false"><span aria-hidden="true">◗</span> Derecho</button><button type="button" class="choice sides manual-side" data-side="both" aria-pressed="false">Ambos · anotación sin reloj</button></div></fieldset><p class="field-help breast-help">Durante la toma, usa <b>«Cambiar de pecho»</b> para registrar cada lado.</p></div>
+          <section id="bottleFields" class="conditional bottle-card block" hidden aria-labelledby="bottleTitle">
+            <div class="bottle-heading"><div class="bottle-icon" aria-hidden="true">🍼</div><div><h3 id="bottleTitle">¿Cuánta leche ha tomado?</h3><p id="bottleTypeTag">Leche materna extraída</p></div></div>
+            <div class="field bottle-main-field">
+              <label for="consumedMl">Cantidad que ha bebido Hodei <span class="required-tag">Necesario</span></label>
+              <div class="milk-quantity">
+                <button type="button" id="minusMilk" class="milk-step" aria-label="Restar 5 mililitros">−5</button>
+                <div class="milk-input-wrap"><input type="number" class="control" id="consumedMl" min="0" max="1000" step="1" inputmode="decimal" placeholder="0" required aria-describedby="milkAmountHelp milkAmountFeedback"><span>ml</span></div>
+                <button type="button" id="plusMilk" class="milk-step" aria-label="Sumar 5 mililitros">+5</button>
+              </div>
+              <p class="field-help" id="milkAmountHelp">Anotad los mililitros que ha bebido de verdad, aunque haya sobrado leche en el biberón.</p>
+              <p class="milk-feedback" id="milkAmountFeedback" role="status" aria-live="polite">Introducid la cantidad al terminar la toma.</p>
+            </div>
+            <details class="bottle-offered" id="bottleOfferedDetails"><summary>＋ También quiero anotar cuánto le ofrecimos</summary>
+              <div class="field bottle-offered-field"><label for="offeredMl">Cantidad preparada u ofrecida · opcional</label><div class="offered-input-wrap"><input type="number" class="control" id="offeredMl" min="0" max="1000" step="1" inputmode="decimal" placeholder="Ej. 60" aria-describedby="milkOfferedHelp"><span>ml</span></div><p id="milkOfferedHelp" class="field-help">Por ejemplo, si le ofrecisteis 60 ml y tomó 45 ml, apuntad 60 aquí y 45 arriba.</p></div>
+            </details>
+          </section>
+          <div class="breast-tracker" id="feedTimerBox" data-mode="idle">
+            <div class="tracker-label"><span>♡ TEMPORIZADOR DE TOMA</span><span id="timerStatus" class="tracker-state">Listo para empezar</span></div>
+            <div class="tracker-live"><div><div class="tracker-clock-caption">Tiempo total de la toma</div><div class="tracker-big" id="timerDisplay" role="timer" aria-label="Tiempo total de la toma">00:00</div></div><div class="tracker-symbol" aria-hidden="true">☁️</div></div>
+            <div class="tracker-clock-caption tracker-hint" id="timerHint">Selecciona el pecho y pulsa «Empezar toma».</div>
+            <div class="tracker-splits"><div class="tracker-split" id="leftSplit"><span><i class="side-dot" aria-hidden="true"></i> Pecho izquierdo</span><strong id="leftTimerDisplay">00:00</strong></div><div class="tracker-split" id="rightSplit"><span><i class="side-dot" aria-hidden="true"></i> Pecho derecho</span><strong id="rightTimerDisplay">00:00</strong></div><div class="tracker-split tracker-total-mini" hidden><span>⏱️ Total</span><strong id="totalTimerDisplay">00:00</strong></div></div>
+            <div class="tracker-times"><span>Inicio <strong id="timerStartedClock">—</strong></span><span>Fin <strong id="timerEndedClock">—</strong></span></div>
+            <div class="timer-buttons"><button type="button" id="timerStartBtn" class="start-action">▶ Empezar toma</button><button type="button" id="timerSwitchBtn" class="switch-action" hidden disabled>⇄ Cambiar de pecho</button><button type="button" id="timerStopBtn" class="finish-action" hidden disabled>■ Terminar y guardar</button></div>
+            <details class="tracker-details"><summary>¿Cómo funciona el cambio de pecho?</summary><p id="timerExplanation">Si cambias de pecho, pulsa el botón. Se detendrá la cuenta del anterior y empezará la del siguiente sin parar la toma.</p></details>
+            <button type="button" class="timer-cancel" id="timerCancelBtn" hidden>Descartar esta toma</button>
+            <div id="lastFeedSaved" class="tracker-done" role="status" aria-live="polite"></div>
+          </div>
+          <details class="manual-entry" id="manualFeedEntry"><summary>✎ Anotar una toma manualmente (sin temporizador)</summary><div class="form-grid block"><div class="field"><label for="feedEndTime">Hora de finalización · opcional</label><input type="datetime-local" class="control" id="feedEndTime"></div><div class="field"><label for="feedDuration">Duración total (minutos)</label><input type="number" class="control" id="feedDuration" min="0" max="720" step="0.01" inputmode="decimal" placeholder="Ej. 18"></div></div></details>
+          <button type="button" class="pump-after-feed" id="goToPump"><span aria-hidden="true">🫧</span> ¿Ahora toca sacaleches? <strong>Registrar extracción</strong><span aria-hidden="true">›</span></button>
+        </div>
+        <div id="area-extraction" class="form-area" hidden>
+          <section class="pump-card block" aria-labelledby="pumpTitle">
+            <div class="pump-heading"><span class="pump-icon" aria-hidden="true">🫧</span><div><h3 id="pumpTitle">Mi extracción con sacaleches</h3><p>Igual que en las tomas: elige un pecho, inicia el reloj y cambia cuando corresponda.</p></div></div>
+            <fieldset class="pump-block"><legend>¿En qué pecho empiezas la extracción?</legend>
+              <div class="pump-sides" id="pumpSideChoices" aria-label="Pecho utilizado en la extracción">
+                <button type="button" class="pump-side selected" data-extract-side="left" aria-pressed="true"><span aria-hidden="true">◖</span> Izquierdo</button>
+                <button type="button" class="pump-side" data-extract-side="right" aria-pressed="false"><span aria-hidden="true">◗</span> Derecho</button>
+                <button type="button" class="pump-side" data-extract-side="both" aria-pressed="false"><span aria-hidden="true">♡</span> Ambos a la vez</button>
+              </div>
+            </fieldset>
+            <div class="breast-tracker pump-tracker" id="pumpTimerBox" data-mode="idle">
+              <div class="tracker-label"><span>♡ RELOJ DEL SACALECHES</span><span id="pumpTimerStatus" class="tracker-state">Listo para empezar</span></div>
+              <div class="tracker-live"><div><div class="tracker-clock-caption">Tiempo total de extracción</div><div class="tracker-big" id="pumpTimerDisplay" role="timer" aria-label="Tiempo total de extracción">00:00</div></div><div class="tracker-symbol" aria-hidden="true">🫧</div></div>
+              <p class="tracker-clock-caption tracker-hint" id="pumpTimerHint">Selecciona el pecho y pulsa «Empezar extracción».</p>
+              <div class="tracker-splits"><div class="tracker-split" id="pumpLeftSplit"><span><i class="side-dot" aria-hidden="true"></i> Izquierdo</span><strong id="pumpLeftTime">00:00</strong></div><div class="tracker-split" id="pumpRightSplit"><span><i class="side-dot" aria-hidden="true"></i> Derecho</span><strong id="pumpRightTime">00:00</strong></div></div>
+              <div class="tracker-times"><span>Inicio <strong id="pumpStartedClock">—</strong></span><span>Fin <strong id="pumpEndedClock">—</strong></span></div>
+              <div class="timer-buttons"><button type="button" id="pumpStartBtn" class="start-action">▶ Empezar extracción</button><button type="button" id="pumpSwitchBtn" class="switch-action" hidden disabled>⇄ Cambiar de pecho</button><button type="button" id="pumpStopBtn" class="finish-action" hidden disabled>■ Terminar extracción</button></div>
+              <details class="tracker-details"><summary>¿Cómo se cuentan los tiempos?</summary><p>Si cambias de pecho, se detiene el contador anterior y empieza el otro. Puedes alternar varias veces. Si eliges «Ambos a la vez», ambos contadores avanzan juntos y el tiempo total no se duplica.</p></details>
+              <button type="button" class="timer-cancel" id="pumpCancelBtn" hidden>Descartar este reloj</button>
+            </div>
+            <div class="pump-measures" aria-labelledby="pumpAmountsTitle">
+              <h4 id="pumpAmountsTitle">Leche obtenida en cada pecho</h4>
+              <p class="field-help">Anota los mililitros al terminar. Se sumarán automáticamente.</p>
+              <div class="pump-ml-grid">
+                <div class="pump-ml-side"><label for="extractLeftMl">◖ Pecho izquierdo</label><div class="pump-ml-input"><input id="extractLeftMl" class="control" type="number" min="0" max="1500" step="1" inputmode="decimal" placeholder="0" aria-describedby="pumpFeedback"><span>ml</span></div><div class="pump-step-row"><button type="button" id="extractLeftMinus" aria-label="Restar 5 ml al pecho izquierdo">−5</button><button type="button" id="extractLeftPlus" aria-label="Sumar 5 ml al pecho izquierdo">+5</button></div></div>
+                <div class="pump-ml-side"><label for="extractRightMl">◗ Pecho derecho</label><div class="pump-ml-input"><input id="extractRightMl" class="control" type="number" min="0" max="1500" step="1" inputmode="decimal" placeholder="0" aria-describedby="pumpFeedback"><span>ml</span></div><div class="pump-step-row"><button type="button" id="extractRightMinus" aria-label="Restar 5 ml al pecho derecho">−5</button><button type="button" id="extractRightPlus" aria-label="Sumar 5 ml al pecho derecho">+5</button></div></div>
+              </div>
+              <div class="pump-total"><span>🍼 Total de leche extraída</span><strong id="extractTotalDisplay" aria-live="polite">0 ml</strong></div>
+              <p id="pumpFeedback" class="pump-feedback" role="status" aria-live="polite">Indica los ml extraídos de cada pecho utilizado.</p>
+            </div>
+            <details class="manual-entry pump-manual" id="manualPumpEntry"><summary>✎ Anotar o corregir la duración manualmente</summary><div class="form-grid block"><div class="field"><label for="pumpEndTime">Hora de finalización · opcional</label><input class="control" type="datetime-local" id="pumpEndTime"></div><div class="field"><label for="extractDuration">Duración (minutos)</label><input class="control" id="extractDuration" type="number" step="0.01" min="0" max="720" inputmode="decimal" placeholder="Ej. 15"></div></div></details>
+            <div class="pump-note"><span aria-hidden="true">♡</span><p><strong>Estos mililitros son los que te has sacado.</strong> No se suman a lo que Hodei ha bebido. Si luego toma esa leche en biberón, registra también la toma diferida.</p></div>
+          </section>
+        </div>
+        <div id="area-diaper" class="form-area" hidden><div class="block" style="margin-top:17px"><label>¿Qué había en el pañal?</label><div class="check-grid"><label class="check-tile"><input type="checkbox" id="diaperPee"><span aria-hidden="true">💧</span>Pipí</label><label class="check-tile"><input type="checkbox" id="diaperPoo"><span aria-hidden="true">💩</span>Caca</label></div><p class="field-help">Podéis seleccionar las dos opciones si había pipí y caca.</p></div>
+          <div id="pooFields" class="conditional block" hidden><div class="form-grid"><div class="field"><label for="pooColor">Color de la caca</label><select class="control" id="pooColor"><option value="">Sin especificar</option><option value="Negra / meconio">Negra / meconio</option><option value="Verde">Verde</option><option value="Amarilla">Amarilla</option><option value="Marrón">Marrón</option><option value="Rojiza / con sangre">Rojiza / con sangre</option><option value="Blanca / gris muy pálida">Blanca / gris muy pálida</option></select></div><div class="field"><label for="pooTexture">Consistencia</label><select class="control" id="pooTexture"><option value="">Sin especificar</option><option>Pastosa</option><option>Líquida / muy suelta</option><option>Con grumitos</option><option>Dura</option><option>Pegajosa</option></select></div></div><p class="field-help">Si observáis sangre o heces blancas/grisáceas, consultad con un profesional sanitario.</p></div>
+        </div>
+        <div id="area-sleep" class="form-area" hidden><div class="form-grid block"><div class="field"><label for="sleepDuration">Tiempo dormido (min)</label><input class="control" id="sleepDuration" type="number" step="1" min="0" max="1440" inputmode="numeric" placeholder="Ej. 90"></div><div class="field"><label for="sleepMood">Cómo ha dormido</label><select class="control" id="sleepMood"><option value="">Sin especificar</option><option>Tranquilo</option><option>Inquieto</option><option>Con despertares</option></select></div></div><p class="field-help">Indicad la hora a la que empezó a dormir y el tiempo total.</p></div>
+        <div id="area-other" class="form-area" hidden><div class="form-grid block"><div class="field full"><label for="otherType">¿Qué queréis registrar?</label><select class="control" id="otherType"><option value="temperature">🌡️ Temperatura</option><option value="weight">⚖️ Peso</option><option value="vitamin">💧 Vitamina / suplemento</option><option value="medication">💊 Medicación prescrita</option><option value="spitup">🍼 Regurgitación / vómito</option><option value="bath">🛁 Baño</option><option value="observation">📝 Observación general</option></select></div><div class="field full" id="otherValueBox"><label for="otherValue" id="otherValueLabel">Temperatura (°C)</label><input class="control" id="otherValue" type="text" placeholder="Ej. 36,7" maxlength="120"></div></div><p id="otherHelp" class="other-help block">Si Hodei tiene menos de 3 meses y registra 38 °C o más, buscad valoración médica urgente.</p></div>
+        <div class="field common-note"><label for="recordNote">Notas · opcional</label><textarea class="control" id="recordNote" maxlength="900" placeholder="Cómo ha ido, si estaba tranquilo, cualquier detalle útil…"></textarea></div>
+        <div class="submit-line"><button type="submit" class="primary" id="saveBtn">＋ Guardar registro</button><button type="button" class="secondary" id="cancelEdit" hidden>Cancelar</button></div><p id="formMessage" class="message" aria-live="polite"></p>
+      </form>
+    </div></section>
+    <section class="panel history-panel" aria-labelledby="history-title"><div class="panel-inner"><h2 class="panel-title" id="history-title">Nuestro diario de momentos</h2><p class="panel-desc" id="historyCount">Cada pequeño detalle, guardado con cariño.</p><p class="history-intro">De un vistazo: cuándo ha comido, cuánto ha tomado y todos sus pequeños cuidados.</p>
+        <div class="history-filterchips" role="group" aria-label="Mostrar registros de">
+          <button type="button" data-history-filter="all" aria-pressed="true">Todos</button>
+          <button type="button" data-history-filter="feed" aria-pressed="false"><span aria-hidden="true">🤱</span> Tomas</button>
+          <button type="button" data-history-filter="bottle" aria-pressed="false"><span aria-hidden="true">🍼</span> Biberones</button>
+          <button type="button" data-history-filter="diaper" aria-pressed="false"><span aria-hidden="true">💧</span> Pañales</button>
+          <button type="button" data-history-filter="extraction" aria-pressed="false"><span aria-hidden="true">🫧</span> Sacaleches</button>
+          <button type="button" data-history-filter="sleep" aria-pressed="false"><span aria-hidden="true">🌙</span> Sueño</button>
+          <button type="button" data-history-filter="other" aria-pressed="false">Otros</button>
+        </div>
+        <div class="history-tools">
+          <label class="history-find" for="historySearch"><span aria-hidden="true">⌕</span><input id="historySearch" type="search" placeholder="Buscar notas o cuidados" autocomplete="off" aria-label="Buscar registros en el diario"></label>
+          <label class="history-date-filter" for="historyDate"><span>Fecha</span><input id="historyDate" aria-label="Filtrar por fecha" type="date"></label>
+          <button class="tinybtn" id="historyToday" type="button">Hoy</button>
+          <button class="tinybtn" id="clearFilters" type="button">Limpiar</button>
+          <select id="historyKind" class="sr-only" aria-label="Tipo de registro en historial"><option value="all">Todos</option><option value="feed">Tomas</option><option value="bottle">Biberones</option><option value="diaper">Pañales</option><option value="sleep">Sueño</option><option value="extraction">Sacaleches</option><option value="other">Otros cuidados</option></select>
+        </div>
+        <div id="historyOverview" class="history-overview" role="status" aria-live="polite"></div>
+      </div><div class="timeline" id="timeline" aria-label="Registros guardados"></div>
+      <div class="backup"><h3>Guardar una copia del diario</h3><p>Los datos se guardan en este navegador, en este dispositivo. No se sincronizan entre móviles. Para conservarlos, exportad una copia de vez en cuando.</p><div class="backup-actions"><button id="exportJSON" type="button">⬇ Copia de seguridad</button><button id="exportCSV" type="button">⬇ Excel / CSV</button><label for="importJSON">⬆ Recuperar copia<input id="importJSON" type="file" accept="application/json,.json"></label><button id="wipeData" class="danger" type="button">Borrar todo</button></div><details class="settings"><summary>Personalizar el diario</summary><div class="settings-row"><label for="birthDate">Fecha de nacimiento</label><input type="date" id="birthDate"><button type="button" class="tinybtn" id="saveSettings">Guardar</button></div></details></div>
+    </section>
+  </div>
+  <section class="info-grid" aria-label="Información para las familias"><div class="info-card"><h3>🌿 Una ayuda para el seguimiento</h3><p>En los primeros días son frecuentes las tomas a demanda (a menudo 8–12 al día). Los pañales, el estado del bebé y su evolución de peso ayudan a valorar si se está alimentando bien. Hacia el 5.º–6.º día suelen esperarse unos 6 pañales bien mojados al día. Cada bebé y cada situación tienen sus particularidades.</p><a href="https://www.nhs.uk/baby/breastfeeding-and-bottle-feeding/bottle-feeding/formula-milk-questions/" target="_blank" rel="noopener noreferrer">Consultar información sanitaria</a></div><div class="info-card urgent"><h3>🩺 Cuándo pedir ayuda</h3><p>En menores de 3 meses, una temperatura de 38 °C o más requiere valoración médica urgente. También si hay dificultad para respirar, cuesta despertarle, rechaza las tomas o muestra signos de deshidratación. Seguid siempre las indicaciones concretas de vuestro equipo pediátrico.</p><a href="https://www.nhs.uk/baby/health/when-to-get-urgent-medical-help-for-babies-and-children-under-5/" target="_blank" rel="noopener noreferrer">Señales de alerta en bebés</a></div></section>
+</main>
+<footer>Hecho con mucho amor para Hodei ♡ · Los registros se guardan en este navegador</footer>
+<nav class="mobile-nav" aria-label="Navegación rápida">
+  <a href="#day-summary"><span aria-hidden="true">☀</span><span>Resumen</span></a>
+  <a href="#new-entry" class="nav-add"><span aria-hidden="true">＋</span><span>Anotar</span></a>
+  <a href="#history-title"><span aria-hidden="true">▤</span><span>Historial</span></a>
+</nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  'use strict';
+  const DATA_KEY='diarioHodei_v2_records', SETTINGS_KEY='diarioHodei_v2_settings', TIMER_KEY='diarioHodei_v2_timer', PUMP_TIMER_KEY='diarioHodei_v2_pump_timer';
+  const $=id=>document.getElementById(id);
+  let storageWorks=true, entries=[], settings={birthDate:''}, activeTab='feed', milkType='breast', breastSide='left', extractSide='left', editingId=null, timerState=null, pumpTimerState=null, lastFeedSummary='', toastTimeout, nowButtonTimeout;
+  function getStore(k){try{return localStorage.getItem(k)}catch(e){storageWorks=false;return null}}
+  function putStore(k,v){try{localStorage.setItem(k,v)}catch(e){storageWorks=false;$('storageAlert').hidden=false;return false}return true}
+  function removeStore(k){try{localStorage.removeItem(k)}catch(e){storageWorks=false}}
+  function safeDate(d){return d instanceof Date&&!Number.isNaN(d.getTime())}
+  function dateLocalString(date=new Date()){const pad=x=>String(x).padStart(2,'0');return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`}
+  function dayString(date=new Date()){return dateLocalString(date).slice(0,10)}
+  function setNow(){
+    if((activeTab==='feed'&&timerState?.status==='running')||(activeTab==='extraction'&&pumpTimerState?.status==='running')){toast('El inicio lo registra el temporizador; no es necesario cambiarlo.');return}
+    const input=$('recordTime'), current=new Date(), value=dateLocalString(current);
+    input.value=value;
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+    input.dispatchEvent(new Event('change',{bubbles:true}));
+    const currentTime=String(current.getHours()).padStart(2,'0')+':'+String(current.getMinutes()).padStart(2,'0');
+    $('nowFeedback').textContent='✓ Fecha y hora actualizadas a las '+currentTime;
+    const btn=$('nowBtn');btn.textContent='✓ Ahora';btn.classList.add('is-set');
+    clearTimeout(nowButtonTimeout);
+    nowButtonTimeout=setTimeout(()=>{btn.textContent='Ahora';btn.classList.remove('is-set')},2200);
+    toast('Hora actualizada: '+currentTime);
+  }
+  function parseTime(v){if(typeof v!=='string')return null;let d=new Date(v);return safeDate(d)?d:null}
+  function formatDate(iso){const d=parseTime(iso);return d?new Intl.DateTimeFormat('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(d):'Fecha desconocida'}
+  function formatClock(iso){const d=parseTime(iso);return d?new Intl.DateTimeFormat('es-ES',{hour:'2-digit',minute:'2-digit'}).format(d):'—'}
+  function exactClock(ms){const d=new Date(ms);return safeDate(d)?new Intl.DateTimeFormat('es-ES',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(d):'—'}
+  function formatNum(n){return new Intl.NumberFormat('es-ES',{maximumFractionDigits:1}).format(n)}
+  function truncate(s,n=300){return String(s??'').slice(0,n)}
+  function escapeHTML(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function uid(){return 'h-'+Date.now()+'-'+Math.random().toString(36).slice(2,10)}
+  function num(id){let v=$(id).value.trim().replace(',','.');if(v==='')return null;let n=Number(v);return Number.isFinite(n)?n:null}
+  function validNonnegative(n,max){return n===null || (n>=0 && n<=max)}
+  function saveEntries(){putStore(DATA_KEY,JSON.stringify(entries))}
+  function toast(message){const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>el.classList.remove('show'),2600)}
+  function setMessage(message='',error=false){const el=$('formMessage');el.textContent=message;el.className='message '+(message?(error?'error':'ok'):'')}
+  function load(){try{const raw=getStore(DATA_KEY);const parsed=raw?JSON.parse(raw):[];if(Array.isArray(parsed))entries=parsed.filter(isValidRecord).slice(0,20000)}catch(e){entries=[];$('storageAlert').hidden=false;$('storageAlert').textContent='⚠️ No se ha podido leer el historial guardado. Recuperadlo desde una copia JSON si tenéis una.'}
+    try{const raw=getStore(SETTINGS_KEY);const parsed=raw?JSON.parse(raw):{};if(parsed&&typeof parsed.birthDate==='string')settings.birthDate=parsed.birthDate}catch(e){}
+    try{const raw=getStore(TIMER_KEY);if(raw){let restored;try{restored=JSON.parse(raw)}catch(e){restored=Number(raw)}
+      if(typeof restored==='number'&&Number.isFinite(restored))restored={status:'running',milk:'breast',startedAt:restored,endAt:null,segments:[{side:'left',startAt:restored,endAt:null}]};
+      if(validTimerState(restored)&&restored.startedAt<=Date.now()&&Date.now()-restored.startedAt<12*60*60*1000){timerState=restored;setMilk(timerState.milk,true);const seg=activeTimerSegment();if(seg&&seg.side!=='bottle')setSide(seg.side,true)}else removeStore(TIMER_KEY)}}catch(e){removeStore(TIMER_KEY)}
+    try{const raw=getStore(PUMP_TIMER_KEY);if(raw){const t=JSON.parse(raw);if(t&&['running','finished'].includes(t.status)&&Number.isFinite(t.startedAt)&&Array.isArray(t.segments)&&t.segments.length>0&&t.segments.length<100&&t.segments.every(seg=>['left','right','both'].includes(seg.side)&&Number.isFinite(seg.startAt)&&(seg.endAt===null||Number.isFinite(seg.endAt)))&&Date.now()-t.startedAt<12*60*60*1000){pumpTimerState=t;extractSide=t.segments[0].side; if(t.status==='finished'){$('pumpEndTime').value=dateLocalString(new Date(t.endAt));$('extractDuration').value=String(Math.round((t.endAt-t.startedAt)/600)/100)}}else removeStore(PUMP_TIMER_KEY)}}catch(e){removeStore(PUMP_TIMER_KEY)}
+    if(!storageWorks)$('storageAlert').hidden=false;
+    $('birthDate').value=settings.birthDate||'';
+    $('recordTime').value=timerState?dateLocalString(new Date(timerState.startedAt)):dateLocalString();$('summaryDate').value=dayString();
+    if(timerState?.status==='finished'){populateFinishedTimer()}
+    updateTimer();updatePumpTimer();updateSummary();renderHistory();updateAge();
+  }
+  function isValidRecord(item){return item&&typeof item==='object'&&typeof item.id==='string'&&['feed','diaper','sleep','extraction','other'].includes(item.kind)&&typeof item.ts==='string'&&!!parseTime(item.ts)}
+  function setTab(tab){if(!['feed','diaper','sleep','extraction','other'].includes(tab))return;activeTab=tab;if(tab==='extraction'&&pumpTimerState)$('recordTime').value=dateLocalString(new Date(pumpTimerState.startedAt));else if(tab==='feed'&&timerState)$('recordTime').value=dateLocalString(new Date(timerState.startedAt));else $('recordTime').value=dateLocalString();$('recordTimeLabel').textContent=tab==='feed'?'Inicio de la toma':tab==='extraction'?'Fecha y hora de la extracción':'Fecha y hora';$('form-title').textContent=tab==='extraction'?'¿Te has sacado leche?':'¿Qué ha hecho Hodei?';$('formSubtitle').textContent=tab==='extraction'?'Tu registro de sacaleches, separado de sus tomas ♡':'Un toquecito y queda anotado ♡';document.querySelectorAll('[data-tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===tab)));document.querySelectorAll('.form-area').forEach(el=>el.hidden=el.id!=='area-'+tab);setMessage('');updateTimer();updatePumpTimer();}
+  function setMilk(value,force=false){if(timerState&&timerState.milk!==value&&!force){toast('Terminada la toma, podréis cambiar el tipo de lactancia.');return}milkType=['breast','expressed','formula'].includes(value)?value:'breast';document.querySelectorAll('[data-milk]').forEach(b=>{let is=b.dataset.milk===milkType;b.classList.toggle('selected',is);b.setAttribute('aria-pressed',String(is))});$('breastFields').hidden=milkType!=='breast';$('bottleFields').hidden=milkType==='breast';$('bottleTypeTag').textContent=milkType==='expressed'?'Leche materna extraída':milkType==='formula'?'Leche de fórmula':'';updateBottleFeedback();updateTimer()}
+  function setSide(value,force=false){if(timerState&&timerState.status==='running'&&!force){toast('Para cambiar de pecho, usad «Cambiar de pecho» y contaremos los tiempos.');return}breastSide=['left','right','both'].includes(value)?value:'left';document.querySelectorAll('[data-side]').forEach(b=>{let is=b.dataset.side===breastSide;b.classList.toggle('selected',is);b.setAttribute('aria-pressed',String(is))});if(!force&&breastSide==='both')$('manualFeedEntry').open=true;updateTimer()}
+  function updateBottleFeedback(){const input=$('consumedMl'),amount=input.value.trim(),offered=$('offeredMl').value.trim(),feedback=$('milkAmountFeedback');let message='Introducid la cantidad al terminar la toma.';if(amount!==''){const ml=Number(amount.replace(',','.'));if(Number.isFinite(ml)&&ml>=0&&ml<=1000){message='✓ '+formatNum(ml)+' ml tomados'+(offered!==''?' de '+offered+' ml ofrecidos':'')+' · quedará anotado en el diario.'}else message='Revisad la cantidad introducida.'}feedback.textContent=message;feedback.classList.toggle('filled',amount!=='')}
+  function changeMilkAmount(delta){const input=$('consumedMl'),current=Number(input.value)||0;const next=Math.min(1000,Math.max(0,current+delta));input.value=String(next);input.dispatchEvent(new Event('input',{bubbles:true}));}
+  function focusBottleAmount(){const field=$('consumedMl');$('bottleFields').scrollIntoView({behavior:'smooth',block:'center'});field.focus({preventScroll:true})}
+  function setExtractSide(value,force=false){
+    if(pumpTimerState?.status==='running'&&!force){toast('Para cambiar de pecho, utiliza el botón del reloj.');return}
+    extractSide=['left','right','both'].includes(value)?value:'left';
+    document.querySelectorAll('[data-extract-side]').forEach(b=>{let selected=b.dataset.extractSide===extractSide;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));b.setAttribute('aria-disabled',String(pumpTimerState?.status==='running'))});
+    if(!force){if(extractSide==='left')$('extractRightMl').value='';if(extractSide==='right')$('extractLeftMl').value=''}
+    updateExtractFeedback();updatePumpTimer();
+  }
+  function changeExtractAmount(side,delta){const field=$(side==='left'?'extractLeftMl':'extractRightMl'),current=Number(field.value)||0;field.value=String(Math.min(1500,Math.max(0,current+delta)));field.dispatchEvent(new Event('input',{bubbles:true}))}
+  function updateExtractFeedback(){
+    const left=num('extractLeftMl'),right=num('extractRightMl'),total=(left||0)+(right||0),valid=validNonnegative(left,1500)&&validNonnegative(right,1500)&&total<=1500;
+    $('extractTotalDisplay').textContent=formatNum(total)+' ml';
+    const f=$('pumpFeedback');f.textContent=!valid?'Revisa las cantidades: el total no puede superar 1.500 ml.':
+      left===null&&right===null?'Introduce los mililitros obtenidos en el pecho izquierdo y/o derecho.':
+      '✓ '+formatNum(total)+' ml extraídos · izquierdo '+formatNum(left||0)+' ml y derecho '+formatNum(right||0)+' ml.';
+    f.classList.toggle('filled',valid&&(left!==null||right!==null));
+  }
+  function persistPumpTimer(){if(pumpTimerState)putStore(PUMP_TIMER_KEY,JSON.stringify(pumpTimerState));else removeStore(PUMP_TIMER_KEY)}
+  function pumpSegmentSeconds(seg,now=Date.now()){return Math.max(0,((seg.endAt??now)-seg.startAt)/1000)}
+  function pumpSeconds(side,now=Date.now()){
+    return pumpTimerState?pumpTimerState.segments.reduce((sum,seg)=>sum+((!side||seg.side===side||seg.side==='both')?pumpSegmentSeconds(seg,now):0),0):0
+  }
+  function updatePumpTimer(){
+    const t=pumpTimerState,active=t?.status==='running',done=t?.status==='finished',seg=t?.segments?.[t.segments.length-1],side=seg?.side||extractSide,now=Date.now();
+    $('pumpTimerDisplay').textContent=clockElapsed(pumpSeconds(null,now));$('pumpLeftTime').textContent=clockElapsed(pumpSeconds('left',now));$('pumpRightTime').textContent=clockElapsed(pumpSeconds('right',now));
+    $('pumpLeftSplit').classList.toggle('active',active&&(side==='left'||side==='both'));$('pumpRightSplit').classList.toggle('active',active&&(side==='right'||side==='both'));
+    $('pumpStartedClock').textContent=t?exactClock(t.startedAt):'—';$('pumpEndedClock').textContent=done?exactClock(t.endAt):'—';
+    $('pumpTimerStatus').textContent=active?'● '+(side==='both'?'Ambos activos':side==='left'?'Izquierdo activo':'Derecho activo'):done?'Extracción terminada':'Listo para empezar';
+    $('pumpTimerHint').textContent=active?(side==='both'?'Extracción simultánea en ambos pechos.':'Extrayendo del pecho '+(side==='left'?'izquierdo':'derecho')+'.'):done?'Revisa los ml de cada pecho y guarda.':'Elige el pecho inicial y empieza el reloj.';
+    $('pumpTimerBox').dataset.mode=active?'running':done?'finished':'idle';
+    $('pumpStartBtn').hidden=!!t;$('pumpStartBtn').disabled=!!t||editingId!==null||!!timerState?.status==='running';
+    $('pumpSwitchBtn').hidden=!active||side==='both';$('pumpSwitchBtn').disabled=!active||side==='both';$('pumpSwitchBtn').textContent='⇄ Cambiar al '+(side==='left'?'derecho':'izquierdo');
+    $('pumpStopBtn').hidden=!active;$('pumpStopBtn').disabled=!active;$('pumpCancelBtn').hidden=!t;
+    document.querySelectorAll('[data-extract-side]').forEach(b=>{
+      b.setAttribute('aria-disabled',String(active));
+      if(t){const current=active?side:(new Set(t.segments.flatMap(seg=>seg.side==='both'?['left','right']:[seg.side])).size===2?'both':t.segments[0].side);
+        const is=b.dataset.extractSide===current;b.classList.toggle('selected',is);b.setAttribute('aria-pressed',String(is))}
+    });
+    $('saveBtn').disabled=(activeTab==='extraction'&&active)||(activeTab==='feed'&&timerState?.status==='running');
+    $('nowBtn').disabled=(activeTab==='extraction'&&active)||(activeTab==='feed'&&timerState?.status==='running');
+    if(activeTab==='extraction'&&t)$('recordTime').value=dateLocalString(new Date(t.startedAt));
+  }
+  function startPumpTimer(){
+    if(pumpTimerState){toast('Esta extracción está iniciada o pendiente de guardar.');return}
+    if(timerState?.status==='running'){toast('Termina primero la toma en curso.');return}
+    if(editingId){toast('Guarda o cancela la edición antes de empezar.');return}
+    const now=Date.now();pumpTimerState={status:'running',startedAt:now,endAt:null,segments:[{side:extractSide,startAt:now,endAt:null}]};
+    $('recordTime').value=dateLocalString(new Date(now));$('pumpEndTime').value='';$('extractDuration').value='';
+    persistPumpTimer();updatePumpTimer();setMessage('');toast('Extracción iniciada');
+  }
+  function switchPumpBreast(){
+    if(pumpTimerState?.status!=='running')return;
+    const previous=pumpTimerState.segments[pumpTimerState.segments.length-1];if(previous.side==='both')return;
+    const now=Date.now(),side=previous.side==='left'?'right':'left';previous.endAt=now;
+    pumpTimerState.segments.push({side,startAt:now,endAt:null});extractSide='both';persistPumpTimer();updatePumpTimer();toast('Cambio registrado · pecho '+(side==='left'?'izquierdo':'derecho'));
+  }
+  function cancelPumpTimer(){
+    if(!pumpTimerState)return;if(!confirm('¿Descartar el temporizador de sacaleches?'))return;
+    pumpTimerState=null;persistPumpTimer();$('pumpEndTime').value='';$('extractDuration').value='';resetForm();toast('Temporizador descartado')
+  }
+  function stopPumpTimer(){
+    if(pumpTimerState?.status!=='running')return;
+    const now=Date.now(),seg=pumpTimerState.segments[pumpTimerState.segments.length-1];seg.endAt=now;pumpTimerState.endAt=now;pumpTimerState.status='finished';
+    persistPumpTimer();$('recordTime').value=dateLocalString(new Date(pumpTimerState.startedAt));$('pumpEndTime').value=dateLocalString(new Date(now));$('extractDuration').value=String(Math.round((now-pumpTimerState.startedAt)/600)/100);
+    $('manualPumpEntry').open=true;updatePumpTimer();setMessage('✓ Tiempo registrado. Anota los mililitros de cada pecho y pulsa «Guardar registro».');
+  }
+  function updatePoo(){$('pooFields').hidden=!$('diaperPoo').checked}
+  const otherMeta={
+    temperature:{label:'Temperatura (°C)',placeholder:'Ej. 36,7',help:'En un bebé menor de 3 meses, una temperatura de 38 °C o más requiere valoración médica urgente.'},
+    weight:{label:'Peso (gramos)',placeholder:'Ej. 3250',help:'Si tenéis un control de peso indicado por pediatría o matrona, podéis anotarlo aquí.'},
+    vitamin:{label:'Nombre y cantidad',placeholder:'Ej. Vitamina D, pauta prescrita',help:'Registrad únicamente la administración según la pauta indicada por su profesional sanitario.'},
+    medication:{label:'Nombre y dosis administrada',placeholder:'Ej. Nombre del medicamento y dosis indicada',help:'Esta función sirve para anotar medicamentos prescritos; no calcula ni recomienda dosis.'},
+    spitup:{label:'Descripción breve (opcional)',placeholder:'Ej. Pequeña regurgitación',help:'Los vómitos verdes, con sangre o persistentes requieren valoración médica.'},
+    bath:{label:'Detalle (opcional)',placeholder:'Ej. Baño de la tarde',help:'Podéis incluir en notas el cuidado del ombligo, la piel o cualquier observación.'},
+    observation:{label:'Observación (opcional)',placeholder:'Ej. Más tranquilo, revisión pediátrica…',help:'Para cualquier cosa que os resulte importante recordar.'}
+  };
+  function setOtherFields(){const meta=otherMeta[$('otherType').value]||otherMeta.observation;$('otherValueLabel').textContent=meta.label;$('otherValue').placeholder=meta.placeholder;$('otherHelp').textContent=meta.help}
+  function resetForm(keepTab=true){$('manualFeedEntry').open=false;$('manualPumpEntry').open=false;$('bottleOfferedDetails').open=false;let previous=activeTab;editingId=null;$('form-title').textContent='¿Qué ha hecho Hodei?';$('entryForm').reset();setExtractSide('left');$('recordTime').value=dateLocalString();$('nowFeedback').textContent='';setMilk(timerState?timerState.milk:'breast',true);const seg=activeTimerSegment();setSide(seg&&seg.side!=='bottle'?seg.side:'left',true);if(timerState){$('recordTime').value=dateLocalString(new Date(timerState.startedAt));if(timerState.status==='finished')populateFinishedTimer()}updatePoo();setOtherFields();setTab(keepTab?previous:'feed');$('saveBtn').textContent='＋ Guardar registro';$('cancelEdit').hidden=true;setMessage('');updateTimer();updatePumpTimer()}
+  function buildEntry(){const ts=$('recordTime').value;if(!ts||!parseTime(ts)){setMessage('Seleccionad una fecha y hora válidas.',true);return null}
+    const item={id:editingId||uid(),kind:activeTab,ts,note:truncate($('recordNote').value.trim(),900)};
+    if(activeTab==='feed'){
+      let duration=num('feedDuration');let endTs=$('feedEndTime').value||null;
+      if(timerState?.status==='finished'){item.ts=dateLocalString(new Date(timerState.startedAt));endTs=dateLocalString(new Date(timerState.endAt));duration=Math.round((timerState.endAt-timerState.startedAt)/600)/100}
+      else if(endTs){const startDate=parseTime(item.ts),endDate=parseTime(endTs);if(!endDate||endDate<startDate){setMessage('La hora de fin debe ser igual o posterior al inicio.',true);return null}if(duration===null)duration=Math.round((endDate-startDate)/600)/100}
+      if(!validNonnegative(duration,720)){setMessage('La duración debe estar entre 0 y 720 minutos.',true);return null}
+      item.milk=timerState?.status==='finished'?timerState.milk:milkType;item.duration=duration;if(endTs)item.endTs=endTs;
+      if(item.milk==='breast'){
+        if(timerState?.status==='finished'){item.feedSegments=timerState.segments.map(s=>({...s}));item.side=item.feedSegments.length===1?item.feedSegments[0].side:'both'}
+        else {item.side=breastSide;const original=editingId?entries.find(e=>e.id===editingId):null;if(original?.feedSegments?.length&&original.milk==='breast'){item.feedSegments=original.feedSegments.map(s=>({...s}));if(!endTs&&original.endTs)item.endTs=original.endTs}}
+      }
+      else{const ml=num('consumedMl'),offered=num('offeredMl');if(ml===null){setMessage('Para guardar una toma diferida o artificial, indicad cuántos ml ha tomado Hodei.',true);focusBottleAmount();return null}if(!validNonnegative(ml,1000)||!validNonnegative(offered,1000)){setMessage('Comprobad las cantidades de leche (entre 0 y 1.000 ml).',true);focusBottleAmount();return null}if(offered!==null&&ml>offered){setMessage('Los ml tomados no pueden superar la cantidad ofrecida.',true);$('bottleOfferedDetails').open=true;focusBottleAmount();return null}item.ml=ml;item.offered=offered}
+    }else if(activeTab==='diaper'){
+      item.pee=$('diaperPee').checked;item.poo=$('diaperPoo').checked;if(!item.pee&&!item.poo){setMessage('Marcád pipí, caca o ambas opciones.',true);return null}if(item.poo){item.pooColor=$('pooColor').value;item.pooTexture=$('pooTexture').value}
+    }else if(activeTab==='sleep'){
+      const duration=num('sleepDuration');if(!validNonnegative(duration,1440)){setMessage('Revisad la duración del sueño.',true);return null}item.duration=duration;item.mood=$('sleepMood').value;
+    }else if(activeTab==='extraction'){
+      const left=num('extractLeftMl'),right=num('extractRightMl');let duration=num('extractDuration'),endTs=$('pumpEndTime').value||null;
+      if(pumpTimerState?.status==='finished'){item.ts=dateLocalString(new Date(pumpTimerState.startedAt));endTs=dateLocalString(new Date(pumpTimerState.endAt));duration=Math.round((pumpTimerState.endAt-pumpTimerState.startedAt)/600)/100}
+      else if(endTs){const end=parseTime(endTs);if(!end||end<parseTime(item.ts)){setMessage('La hora de fin debe ser posterior al inicio.',true);return null}if(duration===null)duration=Math.round((end-parseTime(item.ts))/600)/100}
+      const used=pumpTimerState?.status==='finished'?[...new Set(pumpTimerState.segments.flatMap(seg=>seg.side==='both'?['left','right']:[seg.side]))]:left!==null&&right!==null?['left','right']:left!==null?['left']:right!==null?['right']:extractSide==='both'?['left','right']:[extractSide];
+      if((used.includes('left')&&left===null)||(used.includes('right')&&right===null)){
+        setMessage('Indica los mililitros extraídos de cada pecho utilizado (pon 0 si no salió leche).',true);$(used.includes('left')&&left===null?'extractLeftMl':'extractRightMl').focus();return null}
+      if((!used.includes('left')&&left!==null)||(!used.includes('right')&&right!==null)){
+        setMessage('Hay una cantidad anotada en un pecho no seleccionado. Elige «Ambos a la vez» o revisa las cantidades.',true);return null}
+      const total=(left||0)+(right||0);
+      if(!validNonnegative(left,1500)||!validNonnegative(right,1500)||total>1500||!validNonnegative(duration,720)){setMessage('Revisa los mililitros y la duración de la extracción.',true);return null}
+      item.ml=total;item.leftMl=left;item.rightMl=right;item.side=used.length===2?'both':used[0];item.duration=duration;
+      if(endTs)item.endTs=endTs;
+      if(pumpTimerState?.status==='finished'){item.pumpSegments=pumpTimerState.segments.map(seg=>({...seg}));}
+      else {const original=editingId?entries.find(e=>e.id===editingId):null;if(original?.pumpSegments?.length)item.pumpSegments=original.pumpSegments.map(seg=>({...seg}))}
+    }else if(activeTab==='other'){
+      item.otherType=$('otherType').value;item.otherValue=truncate($('otherValue').value.trim(),120);
+      if(item.otherType==='temperature'&&item.otherValue){const t=Number(item.otherValue.replace(',','.'));if(!Number.isFinite(t)||t<30||t>45){setMessage('Introducid una temperatura válida en °C.',true);return null}}
+      if(item.otherType==='weight'&&item.otherValue){const weight=Number(item.otherValue.replace(',','.'));if(!Number.isFinite(weight)||weight<300||weight>25000){setMessage('Introducid el peso en gramos (por ejemplo, 3250).',true);return null}}
+      if(!item.otherValue&&!item.note){setMessage('Añadid un dato o una nota para este registro.',true);return null}
+    }
+    return item;
+  }
+  function saveEntry(ev){if(ev)ev.preventDefault();if(activeTab==='feed'&&timerState?.status==='running'){setMessage('La toma sigue en curso. Pulsad «Finalizar y guardar» para completar los tiempos.',true);return false}if(activeTab==='extraction'&&pumpTimerState?.status==='running'){setMessage('La extracción sigue en curso. Pulsa «Terminar extracción» antes de guardar.',true);return false}
+    const item=buildEntry();if(!item)return false;
+    const wasEditing=Boolean(editingId);if(wasEditing)entries=entries.map(e=>e.id===editingId?item:e);else entries.push(item);
+    if(item.kind==='feed'&&timerState?.status==='finished'){const segs=item.feedSegments||[];const parts=segs.length?' · '+segs.map(s=>(s.side==='left'?'Izq.':'Dcha.')+' '+secondsLabel((s.endAt-s.startAt)/1000)).join(' → '):'';lastFeedSummary='✓ Toma guardada: '+(segs.length?exactClock(segs[0].startAt):formatClock(item.ts))+'–'+(segs.length?exactClock(segs[segs.length-1].endAt):formatClock(item.endTs||item.ts))+parts;timerState=null;persistTimer()}
+    if(item.kind==='extraction'&&pumpTimerState?.status==='finished'){pumpTimerState=null;persistPumpTimer()}
+    saveEntries();resetForm();updateSummary();renderHistory();toast(wasEditing?'Registro actualizado ✓':item.kind==='extraction'?'Extracción guardada · '+formatNum(item.ml)+' ml ♡':'Registro añadido ✓');if(item.kind==='other'&&item.otherType==='temperature'&&Number(item.otherValue.replace(',','.'))>=38){window.alert('Aviso importante: en un bebé menor de 3 meses, una temperatura de 38 °C o más requiere valoración médica urgente. No esperéis a que la aplicación os avise.')}
+    if(item.kind==='diaper'&&item.poo&&['Rojiza / con sangre','Blanca / gris muy pálida'].includes(item.pooColor))toast('Registro añadido. Consultad este color de heces con pediatría.');return true;
+  }
+  function editEntry(id){const item=entries.find(e=>e.id===id);if(!item)return;if(timerState||pumpTimerState){toast('Terminad o descartad primero el temporizador que esté en curso.');return}resetForm(false);editingId=id;setTab(item.kind);$('recordTime').value=item.ts;$('recordNote').value=item.note||'';
+    if(item.kind==='feed'){setMilk(item.milk||'breast');setSide(item.side||'left');$('feedDuration').value=item.duration??'';$('feedEndTime').value=item.endTs||'';$('consumedMl').value=item.ml??'';$('offeredMl').value=item.offered??'';$('bottleOfferedDetails').open=item.offered!==null&&item.offered!==undefined;updateBottleFeedback()}
+    else if(item.kind==='diaper'){$('diaperPee').checked=!!item.pee;$('diaperPoo').checked=!!item.poo;$('pooColor').value=item.pooColor||'';$('pooTexture').value=item.pooTexture||'';updatePoo()}
+    else if(item.kind==='sleep'){$('sleepDuration').value=item.duration??'';$('sleepMood').value=item.mood||''}
+    else if(item.kind==='extraction'){setExtractSide(item.side||'both',true);$('extractDuration').value=item.duration??'';$('pumpEndTime').value=item.endTs||'';$('extractLeftMl').value=item.leftMl??(item.side==='left'?item.ml??'':'');$('extractRightMl').value=item.rightMl??(item.side==='right'?item.ml??'':'');$('manualPumpEntry').open=!!item.duration;updateExtractFeedback()}
+    else if(item.kind==='other'){$('otherType').value=item.otherType||'observation';setOtherFields();$('otherValue').value=item.otherValue||''}
+    $('form-title').textContent='Editar registro';$('saveBtn').textContent='✓ Guardar cambios';$('cancelEdit').hidden=false;document.getElementById('new-entry').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function deleteEntry(id){const item=entries.find(e=>e.id===id);if(!item)return;if(!confirm('¿Eliminar este registro del historial?'))return;entries=entries.filter(e=>e.id!==id);saveEntries();if(editingId===id)cancelEdit();updateSummary();renderHistory();toast('Registro eliminado')}
+  function cancelEdit(){resetForm();$('form-title').textContent='¿Qué ha hecho Hodei?'}
+  function updateSummary(){const sel=$('summaryDate').value||dayString();const rows=entries.filter(e=>e.ts.slice(0,10)===sel);const feeds=rows.filter(e=>e.kind==='feed');const ml=feeds.reduce((acc,e)=>acc+(e.milk!=='breast'&&Number.isFinite(Number(e.ml))&&e.ml!==null?Number(e.ml):0),0);const diapers=rows.filter(e=>e.kind==='diaper');const last=feeds.sort((a,b)=>new Date(b.ts)-new Date(a.ts))[0];$('statFeeds').textContent=feeds.length;$('statMilk').textContent=formatNum(ml)+' ml';$('statExtract').textContent=formatNum(rows.filter(e=>e.kind==='extraction').reduce((sum,e)=>sum+(Number(e.ml)||0),0))+' ml';$('statPee').textContent=diapers.filter(e=>e.pee).length;$('statPoo').textContent=diapers.filter(e=>e.poo).length;$('statLast').textContent=last?formatClock(last.ts):'—';updateAge()}
+  function updateAge(){const birth=settings.birthDate;let label='Sus pequeños momentos, de un vistazo';if(birth){const birthDate=new Date(birth+'T12:00:00'),chosen=new Date(($('summaryDate').value||dayString())+'T12:00:00');if(safeDate(birthDate)&&safeDate(chosen)){const days=Math.round((chosen-birthDate)/86400000);if(days>=0)label=`Hodei · ${days===0?'día de nacimiento':days===1?'1 día de vida':days+' días de vida'}`}}$('ageLabel').textContent=label}
+  const sideName={left:'Izquierdo',right:'Derecho',both:'Ambos'};
+  const kindIcon={feed:'🤱',diaper:'💩',sleep:'🌙',extraction:'🫧',other:'✏️'};
+  const otherTitle={temperature:'Temperatura',weight:'Peso',vitamin:'Vitamina / suplemento',medication:'Medicación prescrita',spitup:'Regurgitación / vómito',bath:'Baño',observation:'Observación'};
+  function entryText(e){const parts=[];let title='';
+    if(e.kind==='feed'){title=e.milk==='breast'?'Pecho':e.milk==='expressed'?'Lactancia diferida':'Leche artificial';if(e.milk==='breast'){if(Array.isArray(e.feedSegments)&&e.feedSegments.length){const segments=e.feedSegments.filter(s=>['left','right'].includes(s.side)&&Number.isFinite(s.startAt)&&Number.isFinite(s.endAt));if(segments.length){parts.push(segments.map(s=>(s.side==='left'?'Izquierdo':'Derecho')+' '+exactClock(s.startAt)+'–'+exactClock(s.endAt)+' ('+secondsLabel((s.endAt-s.startAt)/1000)+')').join(' → '));const l=segments.filter(s=>s.side==='left').reduce((sum,s)=>sum+(s.endAt-s.startAt),0),r=segments.filter(s=>s.side==='right').reduce((sum,s)=>sum+(s.endAt-s.startAt),0);parts.push('Total izquierdo '+secondsLabel(l/1000)+' · derecho '+secondsLabel(r/1000))}}else if(sideName[e.side])parts.push('Pecho '+sideName[e.side].toLowerCase())}else{if(e.ml!==null&&e.ml!==undefined)parts.push(formatNum(Number(e.ml))+' ml tomados');if(e.offered!==null&&e.offered!==undefined)parts.push(formatNum(Number(e.offered))+' ml ofrecidos')}if(e.endTs)parts.push('Fin '+formatClock(e.endTs));if(e.duration!==null&&e.duration!==undefined)parts.push('Total '+formatNum(Number(e.duration))+' min')}
+    else if(e.kind==='diaper'){title=e.pee&&e.poo?'Pañal · pipí y caca':e.poo?'Pañal · caca':'Pañal · pipí';if(e.pooColor)parts.push(e.pooColor);if(e.pooTexture)parts.push(e.pooTexture)}
+    else if(e.kind==='sleep'){title='Sueño';if(e.duration!==null&&e.duration!==undefined)parts.push(formatNum(Number(e.duration))+' min');if(e.mood)parts.push(e.mood)}
+    else if(e.kind==='extraction'){title='Sacaleches · extracción';if(e.ml!==null&&e.ml!==undefined)parts.push(formatNum(Number(e.ml))+' ml extraídos');if(sideName[e.side])parts.push('Pecho '+sideName[e.side].toLowerCase());if(e.side==='both'&&e.leftMl!==undefined&&e.rightMl!==undefined)parts.push('Izq. '+formatNum(Number(e.leftMl))+' ml · dcho. '+formatNum(Number(e.rightMl))+' ml');if(e.duration!==null&&e.duration!==undefined)parts.push(formatNum(Number(e.duration))+' min')}
+    else{title=otherTitle[e.otherType]||'Otros cuidados';if(e.otherValue){let value=e.otherValue;if(e.otherType==='temperature')value+=' °C';if(e.otherType==='weight')value+=' g';parts.push(value)}}
+    return {title,details:parts.join(' · ')};
+  }
+  function getFilterableText(e){
+    const info=entryText(e);
+    return [info.title,info.details,e.note,e.milk,e.pooColor,e.pooTexture,e.otherValue,e.otherType,formatClock(e.ts)].filter(Boolean).join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  }
+  function readableMinutes(mins){if(mins===null||mins===undefined||!Number.isFinite(Number(mins)))return null;const n=Number(mins);return formatNum(n)+' min'}
+  function momentMetric(value,caption,emphasis=false){return `<div class="moment-metric${emphasis?' major':''}"><strong>${escapeHTML(value)}</strong><span>${escapeHTML(caption)}</span></div>`}
+  function dayHeading(date,dayRows){
+    const today=dayString(),yesterday=dayString(new Date(Date.now()-86400000));
+    const when=date===today?'Hoy':date===yesterday?'Ayer':formatDate(date+'T12:00');
+    const sub=date===today||date===yesterday?formatDate(date+'T12:00'):'';
+    const feeds=dayRows.filter(e=>e.kind==='feed').length;
+    const bl=dayRows.filter(e=>e.kind==='feed'&&e.milk!=='breast').reduce((n,e)=>n+(Number(e.ml)||0),0);
+    const mini=[feeds?feeds+' '+(feeds===1?'toma':'tomas'):'',bl?formatNum(bl)+' ml bebidos':''].filter(Boolean).join(' · ');
+    return `<div class="day-divider"><div><h3>${escapeHTML(when)}</h3>${sub?`<span>${escapeHTML(sub)}</span>`:''}</div><span class="day-count">${dayRows.length} ${dayRows.length===1?'registro':'registros'}${mini?' · '+escapeHTML(mini):''}</span></div>`;
+  }
+  function momentCard(e){
+    const info=entryText(e),time=formatClock(e.ts),note=e.note?`<div class="moment-note"><span aria-hidden="true">✎</span><p>${escapeHTML(e.note)}</p></div>`:'';
+    let icon='✿',title=info.title,label='',data='',subtitle='',extra='',kind=e.kind;
+    const segments=Array.isArray(e.feedSegments)?e.feedSegments.filter(s=>s&&['left','right'].includes(s.side)&&Number.isFinite(s.startAt)&&Number.isFinite(s.endAt)):[];
+    const mins=e.duration!==null&&e.duration!==undefined?Number(e.duration):null;
+    const measured=segments.length?segments.reduce((x,s)=>x+(s.endAt-s.startAt)/60000,0):null;
+    const duration=readableMinutes(mins!==null?mins:measured);
+    if(e.kind==='feed'){
+      if(e.milk==='breast'){
+        icon='🤱';title='Toma al pecho';label='Lactancia materna';kind='feed';
+        const secondsLeft=segments.filter(s=>s.side==='left').reduce((x,s)=>x+(s.endAt-s.startAt)/1000,0);
+        const secondsRight=segments.filter(s=>s.side==='right').reduce((x,s)=>x+(s.endAt-s.startAt)/1000,0);
+        const hasLeft=segments.some(s=>s.side==='left'),hasRight=segments.some(s=>s.side==='right');
+        const primary=duration||'Sin tiempo';
+        data=momentMetric(primary,'Duración de la toma',true);
+        if(segments.length){
+          const overall=secondsLeft+secondsRight||1;
+          extra=`<div class="breast-breakdown"><div class="breast-break-row"><span>Izquierdo</span><strong>${escapeHTML(secondsLabel(secondsLeft))}</strong><div class="breast-progress"><i style="width:${Math.max(0,Math.min(100,(secondsLeft/overall)*100)).toFixed(1)}%"></i></div></div><div class="breast-break-row"><span>Derecho</span><strong>${escapeHTML(secondsLabel(secondsRight))}</strong><div class="breast-progress"><i style="width:${Math.max(0,Math.min(100,(secondsRight/overall)*100)).toFixed(1)}%"></i></div></div></div>`;
+        }else{subtitle=`<span class="moment-inline-chip">Pecho: ${escapeHTML(sideName[e.side]||'Sin especificar')}</span>`}
+      }else{
+        kind='bottle';icon='🍼';const expressed=e.milk==='expressed';title=expressed?'Leche materna en biberón':'Leche artificial';label=expressed?'Lactancia diferida':'Fórmula';
+        data=momentMetric(e.ml!==null&&e.ml!==undefined?formatNum(Number(e.ml))+' ml':'—','Cantidad que ha bebido',true);
+        const extras=[];if(e.offered!==null&&e.offered!==undefined)extras.push('Ofrecidos: '+formatNum(Number(e.offered))+' ml');if(duration)extras.push('Duración: '+duration);
+        subtitle=extras.map(t=>`<span class="moment-inline-chip">${escapeHTML(t)}</span>`).join('');
+      }
+      if(e.endTs)subtitle+=`<span class="moment-inline-chip">Fin ${escapeHTML(formatClock(e.endTs))}</span>`;
+    }else if(e.kind==='diaper'){
+      icon='💧';title='Cambio de pañal';label='Pañal';
+      data=momentMetric(e.pee&&e.poo?'Pipí y caca':e.poo?'Caca':'Pipí','Contenido del pañal',true);
+      subtitle=[e.pooColor,e.pooTexture].filter(Boolean).map(t=>`<span class="moment-inline-chip">${escapeHTML(t)}</span>`).join('');
+    }else if(e.kind==='extraction'){
+      icon='🫧';title='Extracción con sacaleches';label='Leche extraída';
+      data=momentMetric(e.ml!==null&&e.ml!==undefined?formatNum(Number(e.ml))+' ml':'—','Cantidad extraída',true);
+      const parts=[];
+      if(e.leftMl!==null&&e.leftMl!==undefined)parts.push('◖ Izquierdo '+formatNum(Number(e.leftMl))+' ml');
+      if(e.rightMl!==null&&e.rightMl!==undefined)parts.push('◗ Derecho '+formatNum(Number(e.rightMl))+' ml');
+      if(e.leftMl===undefined&&e.rightMl===undefined&&sideName[e.side])parts.push('Pecho '+sideName[e.side].toLowerCase()+' (registro anterior)');
+      if(duration){const exact=Array.isArray(e.pumpSegments)&&e.pumpSegments.length&&e.pumpSegments.every(seg=>Number.isFinite(seg.endAt))?secondsLabel(e.pumpSegments.reduce((t,seg)=>t+Math.max(0,(seg.endAt-seg.startAt)/1000),0)):duration;parts.push('Tiempo total: '+exact)}
+      if(e.endTs)parts.push('Fin '+formatClock(e.endTs));
+      subtitle=parts.map(t=>`<span class="moment-inline-chip">${escapeHTML(t)}</span>`).join('');
+      if(Array.isArray(e.pumpSegments)&&e.pumpSegments.length){
+        const pumpTime=side=>e.pumpSegments.reduce((t,seg)=>t+((seg.side===side||seg.side==='both')?Math.max(0,(seg.endAt-seg.startAt)/1000):0),0);
+        const leftTime=pumpTime('left'),rightTime=pumpTime('right');
+        extra=`<div class="breast-breakdown"><div class="breast-break-row"><span>Izquierdo</span><strong>${escapeHTML(secondsLabel(leftTime))}</strong></div><div class="breast-break-row"><span>Derecho</span><strong>${escapeHTML(secondsLabel(rightTime))}</strong></div></div>`;
+      }
+    }else if(e.kind==='sleep'){
+      icon='🌙';title='Siesta o descanso';label='Sueño';data=momentMetric(duration||'Sin duración','Tiempo de sueño',true);
+      if(e.mood)subtitle=`<span class="moment-inline-chip">${escapeHTML(e.mood)}</span>`;
+    }else{
+      icon='✏️';title=info.title;label='Cuidados';
+      const val=String(e.otherValue||'Anotación');let value=val;if(e.otherType==='temperature')value+=' °C';if(e.otherType==='weight')value+=' g';
+      data=momentMetric(value,'Dato registrado',true);
+    }
+    return `<article class="moment-card" data-kind="${escapeHTML(kind)}">
+      <div class="moment-top"><div class="moment-ident"><div class="moment-icon" aria-hidden="true">${icon}</div><div><span class="moment-category">${escapeHTML(label)}</span><h4>${escapeHTML(title)}</h4></div></div><time datetime="${escapeHTML(e.ts)}" class="moment-clock"><span aria-hidden="true">◷</span> ${escapeHTML(time)}</time></div>
+      <div class="moment-main">${data}${extra}</div>
+      ${subtitle?`<div class="moment-chips">${subtitle}</div>`:''}
+      ${segments.length>1?`<details class="moment-detail"><summary>Ver los ${segments.length} tramos de la toma</summary><ol>${segments.map(s=>`<li>${escapeHTML(s.side==='left'?'Izquierdo':'Derecho')}: ${escapeHTML(exactClock(s.startAt))}–${escapeHTML(exactClock(s.endAt))} (${escapeHTML(secondsLabel((s.endAt-s.startAt)/1000))})</li>`).join('')}</ol></details>`:''}
+      ${note}
+      <div class="moment-footer"><button type="button" data-action="edit" data-id="${escapeHTML(e.id)}" aria-label="Editar ${escapeHTML(info.title)} de las ${escapeHTML(time)}">✎ <span>Editar</span></button><button type="button" data-action="delete" data-id="${escapeHTML(e.id)}" aria-label="Eliminar ${escapeHTML(info.title)} de las ${escapeHTML(time)}" class="moment-delete"><span aria-hidden="true">⌫</span> Eliminar</button></div>
+    </article>`;
+  }
+  function renderHistory(){
+    const filter=$('historyKind').value, filterDate=$('historyDate').value;
+    const query=$('historySearch').value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    const filtered=entries.filter(e=>{
+      const kindMatch=filter==='all'||(filter==='bottle'?e.kind==='feed'&&e.milk!=='breast':e.kind===filter);
+      return kindMatch&&(!filterDate||e.ts.slice(0,10)===filterDate)&&(!query||getFilterableText(e).includes(query));
+    }).sort((a,b)=>(new Date(b.ts)-new Date(a.ts))||(Number(String(b.id).split('-')[1])||0)-(Number(String(a.id).split('-')[1])||0));
+    document.querySelectorAll('[data-history-filter]').forEach(b=>{const active=b.dataset.historyFilter===filter;b.classList.toggle('selected',active);b.setAttribute('aria-pressed',String(active))});
+    const howMany=filtered.length===1?'1 registro':filtered.length+' registros';
+    $('historyCount').textContent=filtered.length===entries.length?howMany+' en el diario · del más reciente al más antiguo':howMany+' de '+entries.length+' en el diario';
+    const feedCount=filtered.filter(e=>e.kind==='feed').length;
+    const diaperCount=filtered.filter(e=>e.kind==='diaper').length;
+    const pumpCount=filtered.filter(e=>e.kind==='extraction').length;
+    const bits=[feedCount?`<span>🤱 ${feedCount} ${feedCount===1?'toma':'tomas'}</span>`:'',diaperCount?`<span>💧 ${diaperCount} ${diaperCount===1?'pañal':'pañales'}</span>`:'',pumpCount?`<span>🫧 ${pumpCount} ${pumpCount===1?'extracción':'extracciones'}</span>`:''].filter(Boolean);
+    $('historyOverview').innerHTML=bits.join('');
+    const area=$('timeline');
+    if(!filtered.length){area.innerHTML=`<div class="history-empty"><div aria-hidden="true">🧸</div><strong>${entries.length?'No hay registros con estos filtros':'Aquí empieza el diario de Hodei'}</strong><p>${entries.length?'Prueba con otra fecha o pulsa «Limpiar».':'Registra una toma, un pañal o una extracción y aparecerá aquí, ordenada por día.'}</p><a href="#new-entry">＋ Añadir registro</a></div>`;return}
+    const groups=new Map();for(const e of filtered){const d=e.ts.slice(0,10);if(!groups.has(d))groups.set(d,[]);groups.get(d).push(e)}
+    const html=[];for(const [date,dayRows] of groups){html.push(`<section class="history-day" aria-label="Registros de ${escapeHTML(formatDate(date+'T12:00'))}">`);html.push(dayHeading(date,dayRows));for(const e of dayRows)html.push(momentCard(e));html.push('</section>')}
+    area.innerHTML=html.join('');
+  }
+  function validTimerState(t){return !!(t&&typeof t==='object'&&['running','finished'].includes(t.status)&&['breast','expressed','formula'].includes(t.milk)&&Number.isFinite(t.startedAt)&&Array.isArray(t.segments)&&t.segments.length>0&&t.segments.length<100&&t.segments.every(seg=>seg&&['left','right','bottle'].includes(seg.side)&&Number.isFinite(seg.startAt)&&(seg.endAt===null||Number.isFinite(seg.endAt)))&&(t.status==='running'||Number.isFinite(t.endAt)))}
+  function activeTimerSegment(){return timerState?.segments?.[timerState.segments.length-1]||null}
+  function persistTimer(){if(timerState)putStore(TIMER_KEY,JSON.stringify(timerState));else removeStore(TIMER_KEY)}
+  function segmentSeconds(seg,now=Date.now()){if(!seg)return 0;return Math.max(0,((seg.endAt??now)-seg.startAt)/1000)}
+  function timerSeconds(side,now=Date.now()){return timerState?timerState.segments.filter(seg=>!side||seg.side===side).reduce((total,seg)=>total+segmentSeconds(seg,now),0):0}
+  function clockElapsed(total){const sec=Math.max(0,Math.floor(total)),h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return(h?String(h)+':':'')+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+  function secondsLabel(value){const sec=Math.max(0,Math.round(value)),m=Math.floor(sec/60),s=sec%60;return m?m+' min'+(s?' '+s+' s':''):s+' s'}
+  function populateFinishedTimer(){if(!timerState||timerState.status!=='finished')return;$('recordTime').value=dateLocalString(new Date(timerState.startedAt));$('feedEndTime').value=dateLocalString(new Date(timerState.endAt));$('feedDuration').value=String(Math.round((timerState.endAt-timerState.startedAt)/600)/100)}
+  function updateTimer(){const t=timerState,active=t?.status==='running',done=t?.status==='finished',seg=activeTimerSegment(),now=Date.now(),isBreast=(t?t.milk:milkType)==='breast',side=seg?.side||breastSide;
+    $('timerDisplay').textContent=clockElapsed(timerSeconds(null,now));$('totalTimerDisplay').textContent=clockElapsed(timerSeconds(null,now));$('leftTimerDisplay').textContent=clockElapsed(timerSeconds('left',now));$('rightTimerDisplay').textContent=clockElapsed(timerSeconds('right',now));
+    $('leftSplit').classList.toggle('active',active&&side==='left');$('rightSplit').classList.toggle('active',active&&side==='right');
+    $('timerStatus').textContent=active?(isBreast?'En el '+(side==='left'?'izquierdo':'derecho'):'Biberón en curso'):done?'Toma finalizada':'Sin iniciar';$('timerStatus').classList.toggle('running',active);
+    $('timerStartedClock').textContent=t?exactClock(t.startedAt):'—';$('timerEndedClock').textContent=done?exactClock(t.endAt):'—';$('timerCancelBtn').hidden=!t;
+    $('timerHint').textContent=active?(isBreast?'Ahora está tomando del pecho '+(side==='left'?'IZQUIERDO':'DERECHO')+'.':'Toma con biberón en curso.'):done?'Toma finalizada. Revisad los datos y guardad.':isBreast?'Elegid el pecho inicial y pulsad «Empezar toma».':'Pulsad «Empezar toma» para contar el tiempo del biberón.';
+    $('feedTimerBox').dataset.mode=active?'running':done?'finished':'idle';$('feedTimerBox').classList.toggle('bottle-mode',!isBreast);
+    document.querySelector('#breastFields legend').textContent=active?'Pecho en uso ahora':done?'Pecho utilizado':'¿Con qué pecho empieza?';
+    document.querySelectorAll('#breastChoices button').forEach(b=>{b.setAttribute('aria-disabled',String(!!active));b.classList.toggle('locked',!!active)});
+    $('timerStartBtn').hidden=!!t;$('timerStartBtn').disabled=!!t||editingId!==null||(isBreast&&breastSide==='both');
+    $('timerSwitchBtn').hidden=!active||!isBreast;$('timerSwitchBtn').disabled=!active||!isBreast;
+    $('timerSwitchBtn').textContent=active?'⇄ Cambiar al '+(side==='left'?'derecho':'izquierdo'):'⇄ Cambiar de pecho';
+    $('timerStopBtn').hidden=!active;$('timerStopBtn').disabled=!active;$('timerStopBtn').textContent='■ Terminar y guardar';
+    $('timerExplanation').textContent=isBreast?'Al cambiar, se para el contador del pecho anterior y empieza el del otro. Puedes cambiar varias veces: se acumula el tiempo de cada pecho.':'Al finalizar un biberón, anota los mililitros que realmente ha tomado Hodei.';
+    $('timerStatus').textContent=active?(isBreast?'● '+(side==='left'?'Izquierdo':'Derecho')+' activo':'● Biberón en curso'):done?'Toma finalizada':'Listo para empezar';
+    $('timerHint').textContent=active?(isBreast?'Ahora está tomando del pecho '+(side==='left'?'izquierdo':'derecho')+'.':'El tiempo del biberón está contando.'):done?'Toma finalizada.':(isBreast&&breastSide==='both')?'Modo manual: anota la toma sin temporizador.':'Elige el pecho inicial y pulsa el botón.';
+    $('manualFeedEntry').open=done||($('manualFeedEntry').open && !active);
+    $('saveBtn').disabled=(activeTab==='feed'&&!!active)||(activeTab==='extraction'&&pumpTimerState?.status==='running');
+    $('lastFeedSaved').textContent=lastFeedSummary;
+    $('nowBtn').disabled=(activeTab==='feed'&&!!active)||(activeTab==='extraction'&&pumpTimerState?.status==='running');
+  }
+  function startTimer(){if(pumpTimerState?.status==='running'){toast('Termina primero la extracción en curso.');return}if(timerState){toast('Esta toma ya está iniciada o pendiente de guardar.');return}if(editingId){toast('Terminada la edición podréis iniciar otra toma.');return}
+    if(milkType==='breast'&&breastSide==='both'){setMessage('Elegid izquierdo o derecho como primer pecho para usar el temporizador.',true);return}
+    const startedAt=Date.now(),side=milkType==='breast'?breastSide:'bottle';timerState={status:'running',milk:milkType,startedAt,endAt:null,segments:[{side,startAt:startedAt,endAt:null}]};lastFeedSummary='';
+    $('recordTime').value=dateLocalString(new Date(startedAt));$('feedEndTime').value='';$('feedDuration').value='';persistTimer();updateTimer();setMessage('');toast('Toma iniciada · '+(side==='bottle'?'biberón':side==='left'?'pecho izquierdo':'pecho derecho'))}
+  function switchTimerBreast(){if(!timerState||timerState.status!=='running'||timerState.milk!=='breast')return;const current=activeTimerSegment(),now=Date.now();if(!current)return;current.endAt=now;const newSide=current.side==='left'?'right':'left';timerState.segments.push({side:newSide,startAt:now,endAt:null});setSide(newSide,true);persistTimer();updateTimer();toast('Cambio registrado · ahora pecho '+(newSide==='left'?'izquierdo':'derecho'))}
+  function cancelTimer(){if(!timerState)return;if(!confirm('¿Descartar este temporizador? No se guardarán los tiempos de esta toma.'))return;timerState=null;lastFeedSummary='';persistTimer();resetForm();updateTimer();toast('Temporizador descartado')}
+  function stopTimer(){if(!timerState||timerState.status!=='running')return;const now=Date.now(),seg=activeTimerSegment();if(seg)seg.endAt=now;timerState.endAt=now;timerState.status='finished';persistTimer();populateFinishedTimer();updateTimer();
+    if(timerState.milk==='breast'){setMessage('');saveEntry({preventDefault(){}})}else if($('consumedMl').value.trim()!==''){saveEntry({preventDefault(){}})}else{setMessage('✓ Tiempo calculado. Introducid los ml que realmente ha tomado Hodei y pulsad «Guardar registro».');focusBottleAmount();toast('Temporizador finalizado; faltan los mililitros')}
+  }
+  function downloadBlob(content,filename,mime){const blob=new Blob([content],{type:mime});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=filename;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),4000)}
+  function exportJSON(){const data={format:'Diario de Hodei',version:3,exportedAt:new Date().toISOString(),settings,records:entries};downloadBlob(JSON.stringify(data,null,2),'hodei_copia_'+dayString()+'.json','application/json;charset=utf-8');toast('Copia JSON preparada')}
+  function csvCell(value){let s=String(value??'');if(/^[\t\r\n\s]*[=+\-@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'}
+  function exportCSV(){
+    const head=['Fecha','Hora','Tipo','Lactancia','Pecho','Leche tomada por Hodei (ml)','Leche ofrecida (ml)','Leche extraída con sacaleches (ml)','Extraída izquierda (ml)','Extraída derecha (ml)','Duración (min)','Pipí','Caca','Color caca','Consistencia','Otro tipo','Dato','Notas','Fin de toma','Pecho izquierdo toma (segundos)','Pecho derecho toma (segundos)','Cambios de pecho','Fin de extracción','Sacaleches izquierdo (segundos)','Sacaleches derecho (segundos)','Tramos de sacaleches'];
+    const rows=entries.slice().sort((a,b)=>new Date(a.ts)-new Date(b.ts)).map(e=>[e.ts.slice(0,10),formatClock(e.ts),{feed:'Toma',diaper:'Pañal',sleep:'Sueño',extraction:'Sacaleches',other:'Otros'}[e.kind],{breast:'Pecho',expressed:'Diferida',formula:'Artificial'}[e.milk]||'',sideName[e.side]||'',e.kind==='feed'&&e.milk!=='breast'?e.ml??'':'',e.kind==='feed'?e.offered??'':'',e.kind==='extraction'?e.ml??'':'',e.kind==='extraction'?e.leftMl??'':'',e.kind==='extraction'?e.rightMl??'':'',e.duration??'',e.kind==='diaper'?(e.pee?'Sí':'No'):'',e.kind==='diaper'?(e.poo?'Sí':'No'):'',e.pooColor||'',e.pooTexture||'',otherTitle[e.otherType]||'',e.otherValue||'',e.note||'',e.kind==='feed'?(e.endTs||''):'',e.kind==='feed'&&Array.isArray(e.feedSegments)?Math.round(e.feedSegments.filter(s=>s.side==='left').reduce((x,s)=>x+(s.endAt-s.startAt)/1000,0)):'',e.kind==='feed'&&Array.isArray(e.feedSegments)?Math.round(e.feedSegments.filter(s=>s.side==='right').reduce((x,s)=>x+(s.endAt-s.startAt)/1000,0)):'',e.kind==='feed'&&Array.isArray(e.feedSegments)?e.feedSegments.map(s=>(s.side==='left'?'Izquierdo':'Derecho')+' '+dateLocalString(new Date(s.startAt))+'-'+dateLocalString(new Date(s.endAt))).join(' > '):'',e.kind==='extraction'?e.endTs||'':'',e.kind==='extraction'&&Array.isArray(e.pumpSegments)?Math.round(e.pumpSegments.filter(s=>s.side==='left'||s.side==='both').reduce((x,s)=>x+(s.endAt-s.startAt)/1000,0)):'',e.kind==='extraction'&&Array.isArray(e.pumpSegments)?Math.round(e.pumpSegments.filter(s=>s.side==='right'||s.side==='both').reduce((x,s)=>x+(s.endAt-s.startAt)/1000,0)):'',e.kind==='extraction'&&Array.isArray(e.pumpSegments)?e.pumpSegments.map(s=>s.side+' '+dateLocalString(new Date(s.startAt))+'-'+dateLocalString(new Date(s.endAt))).join(' > '):'']);
+    const csv='\uFEFF'+[head,...rows].map(r=>r.map(csvCell).join(';')).join('\r\n');downloadBlob(csv,'hodei_registros_'+dayString()+'.csv','text/csv;charset=utf-8');toast('Archivo CSV preparado')
+  }
+  async function importJSON(event){const file=event.target.files?.[0];if(!file)return;try{if(file.size>5*1024*1024)throw Error('El archivo es demasiado grande.');const parsed=JSON.parse(await file.text());const incoming=Array.isArray(parsed)?parsed:parsed.records;if(!Array.isArray(incoming)||incoming.length>20000||incoming.some(e=>!isValidRecord(e)))throw Error('La copia no tiene un formato válido.');const before=entries.length;const ids=new Set(entries.map(e=>e.id));for(const e of incoming){if(!ids.has(e.id)){entries.push(e);ids.add(e.id)}}if(parsed.settings&&typeof parsed.settings.birthDate==='string'&&!settings.birthDate){settings.birthDate=parsed.settings.birthDate;$('birthDate').value=settings.birthDate;putStore(SETTINGS_KEY,JSON.stringify(settings))}saveEntries();updateSummary();renderHistory();toast((entries.length-before)+' registros recuperados (sin duplicados)')}catch(err){alert('No se ha podido importar la copia. '+err.message)}finally{event.target.value=''}}
+  document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
+  document.querySelectorAll('[data-milk]').forEach(b=>b.addEventListener('click',()=>setMilk(b.dataset.milk)));
+  document.querySelectorAll('[data-side]').forEach(b=>b.addEventListener('click',()=>setSide(b.dataset.side)));
+  $('consumedMl').addEventListener('input',updateBottleFeedback);$('offeredMl').addEventListener('input',updateBottleFeedback);
+  $('minusMilk').addEventListener('click',()=>changeMilkAmount(-5));$('plusMilk').addEventListener('click',()=>changeMilkAmount(5));
+  document.querySelectorAll('[data-extract-side]').forEach(b=>b.addEventListener('click',()=>setExtractSide(b.dataset.extractSide)));
+  $('extractLeftMinus').addEventListener('click',()=>changeExtractAmount('left',-5));$('extractLeftPlus').addEventListener('click',()=>changeExtractAmount('left',5));
+  $('extractRightMinus').addEventListener('click',()=>changeExtractAmount('right',-5));$('extractRightPlus').addEventListener('click',()=>changeExtractAmount('right',5));
+  $('extractLeftMl').addEventListener('input',updateExtractFeedback);$('extractRightMl').addEventListener('input',updateExtractFeedback);
+  $('pumpStartBtn').addEventListener('click',startPumpTimer);$('pumpSwitchBtn').addEventListener('click',switchPumpBreast);
+  $('pumpStopBtn').addEventListener('click',stopPumpTimer);$('pumpCancelBtn').addEventListener('click',cancelPumpTimer);
+  $('goToPump').addEventListener('click',()=>{setTab('extraction');$('pumpTitle').scrollIntoView({behavior:'smooth',block:'start'})});
+  $('diaperPoo').addEventListener('change',updatePoo);$('otherType').addEventListener('change',setOtherFields);
+  $('nowBtn').addEventListener('click',setNow);$('todayBtn').addEventListener('click',()=>{$('summaryDate').value=dayString();updateSummary()});
+  $('summaryDate').addEventListener('change',updateSummary);$('entryForm').addEventListener('submit',saveEntry);
+  $('cancelEdit').addEventListener('click',cancelEdit);
+  document.querySelectorAll('[data-history-filter]').forEach(b=>b.addEventListener('click',()=>{$('historyKind').value=b.dataset.historyFilter;renderHistory()}));
+  $('historyKind').addEventListener('change',renderHistory);$('historyDate').addEventListener('change',renderHistory);
+  $('historySearch').addEventListener('input',renderHistory);
+  $('historyToday').addEventListener('click',()=>{$('historyDate').value=dayString();renderHistory()});
+  $('clearFilters').addEventListener('click',()=>{$('historyDate').value='';$('historyKind').value='all';$('historySearch').value='';renderHistory()});
+  document.querySelectorAll('[role=tablist] [role=tab]').forEach((b,i,all)=>b.addEventListener('keydown',ev=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(ev.key))return;ev.preventDefault();const target=ev.key==='Home'?0:ev.key==='End'?all.length-1:((i+(ev.key==='ArrowRight'?1:-1)+all.length)%all.length);all[target].focus();all[target].click()}));
+  $('timeline').addEventListener('click',event=>{const btn=event.target.closest('button[data-action]');if(!btn)return;if(btn.dataset.action==='edit')editEntry(btn.dataset.id);if(btn.dataset.action==='delete')deleteEntry(btn.dataset.id)});
+  $('timerStartBtn').addEventListener('click',startTimer);$('timerSwitchBtn').addEventListener('click',switchTimerBreast);$('timerStopBtn').addEventListener('click',stopTimer);$('timerCancelBtn').addEventListener('click',cancelTimer);
+  $('exportJSON').addEventListener('click',exportJSON);$('exportCSV').addEventListener('click',exportCSV);$('importJSON').addEventListener('change',importJSON);
+  $('wipeData').addEventListener('click',()=>{if(!entries.length)return toast('El diario ya está vacío');if(!confirm('¿Queréis borrar TODOS los registros guardados en este dispositivo? Haced una copia antes si queréis conservarlos.'))return;if(!confirm('Esta acción no se puede deshacer. ¿Borrar definitivamente?'))return;entries=[];saveEntries();cancelEdit();updateSummary();renderHistory();toast('Se han borrado los registros')});
+  $('saveSettings').addEventListener('click',()=>{settings.birthDate=$('birthDate').value;putStore(SETTINGS_KEY,JSON.stringify(settings));updateAge();toast('Fecha de nacimiento guardada')});
+  window.setInterval(()=>{updateTimer();updatePumpTimer()},1000);
+  window.addEventListener('storage',event=>{if(event.key===DATA_KEY){try{const v=JSON.parse(event.newValue||'[]');if(Array.isArray(v)){entries=v.filter(isValidRecord);updateSummary();renderHistory()}}catch(e){}}});
+  load();
+  setExtractSide(pumpTimerState?.segments?.[0]?.side||'left',true);
+  updatePumpTimer();
+  $('activationHelp').hidden=true;
+})();
+</script>
+</body>
+</html>
