@@ -1,26 +1,47 @@
-# Hodei — sincronización familiar (versión preparada)
+# Hodei — Diario sincronizado para dos móviles
 
-Esta rama contiene la ampliación opcional del diario para compartir los registros entre móviles.
+Esta rama es una **versión en pruebas**. No fusionar en `main` hasta configurar la seguridad, D1 y haber guardado copias locales.
 
-## Antes de activarla
-1. En cada móvil, abre el diario actual y descarga la **copia JSON** desde Historial. Consérvala.
-2. En el panel de Cloudflare, entra en **Storage & databases → D1 → Create database** y crea una base llamada `hodei-diario`.
-3. En **Workers & Pages → tu proyecto Pages → Settings → Bindings → Add → D1 database**, selecciona esa base y asigna el nombre exacto **`HODEI_DB`**.
-4. En **Settings → Variables and Secrets → Add**, añade **`HODEI_SYNC_KEY`** como **secret cifrado** (pulsa Encrypt), con una clave larga, aleatoria y privada, de al menos 20 caracteres. No la publiques en GitHub.
-5. La base y el secreto deben pertenecer al entorno **Production** del proyecto que sirve la web.
-6. Una vez configurado todo, incorpora esta rama a `main` y deja que Cloudflare despliegue de nuevo la web (o pulsa Retry deployment).
+## 1. Conservar el historial
+- En **cada móvil**, abre la web actual en el navegador que utilizas habitualmente.
+- En Historial, exporta una **copia JSON** y guárdala en lugar seguro.
+- No borres los datos del navegador ni importes copias de seguridad a ciegas en el otro móvil.
 
-## Desde los dos móviles
-- Abrir **la misma dirección** de Cloudflare Pages.
-- Desplegar **☁️ Diario compartido** y escribir **la misma clave familiar** en cada móvil.
-- Esperar a que aparezca **✓ Compartido**.
-- Los registros existentes se unen por identificador, evitando duplicados. Comprueba que aparecen todos antes de borrar nada.
-- El historial se actualiza aproximadamente cada 12 segundos y al volver a la página.
+## 2. Crear la base compartida
+- En [Cloudflare Dashboard](https://dash.cloudflare.com/) → Storage & databases → D1, crear `hodei-diario`.
+- En Workers & Pages → proyecto actual → Settings → Bindings, añadir D1 database binding, **Variable name** exactamente `HODEI_DB`, base `hodei-diario`, entorno **Production**.
+- Volver a desplegar tras configurar bindings.
 
-### Límites
-Los temporizadores en curso solo están activos en el teléfono que los inició. Una vez guardada la toma o extracción, la verá el otro teléfono. La fecha de nacimiento configurada sigue siendo local por ahora. Si no hay conexión, el teléfono mantiene una copia local y envía los cambios cuando vuelve la conexión.
+## 3. Restringir el acceso
+El sitio y la API deben estar protegidos con **Cloudflare Access** para las dos personas. No se utiliza una clave dentro del diario.
 
-### Privacidad
-El sitio web de Pages es público. Los registros no se guardan en GitHub ni se envían con el HTML: quedan en D1, accesibles desde la API únicamente con la clave familiar por HTTPS. Utiliza una contraseña robusta y no la compartas con otras personas; se recomienda añadir acceso por cuentas personales en una fase posterior.
+- En Zero Trust → Access controls → Applications, configurar el acceso al hostname **de producción** `<tu-proyecto>.pages.dev` y a los previews, siguiendo la documentación oficial de Cloudflare Pages. Solo autorizar las **dos direcciones de correo concretas** mediante una política Allow de Emails. No autorizar dominios completos.
+- Si aún no está activado One-time PIN (código por correo), habilitar ese método de inicio de sesión. La primera vez puede solicitar un código y después la sesión se mantiene hasta que caduque.
+- No basta con habilitar **Enable access policy** para las vistas previas: por defecto **no protege el dominio principal .pages.dev**. Comprobar protección también del dominio de producción.
+- Anotar el **Team domain** (p. ej. `equipo.cloudflareaccess.com`) y el **Application Audience (AUD) Tag** de la aplicación de producción; el AUD se obtiene en Additional settings de Access.
 
-**No publiques copias JSON ni contraseñas en este repositorio.**
+## 4. Variables de Cloudflare Pages (Production)
+En Settings → Variables and Secrets:
+- `HODEI_ACCESS_TEAM`: dominio del equipo sin `https://` (por ejemplo `equipo.cloudflareaccess.com`).
+- `HODEI_ACCESS_AUD`: AUD Tag de la aplicación de Access de producción.
+- `HODEI_ALLOWED_EMAILS`: **los dos correos exactos**, separados por comas.
+- D1 binding `HODEI_DB` como se indicó en el paso 2.
+
+**No configures `HODEI_SYNC_KEY`**. Esta versión ya no requiere clave familiar. La API verifica firma JWT, emisor, AUD, caducidad y dirección de correo de Cloudflare Access. Nunca publiques copias JSON o datos familiares en GitHub.
+
+## 5. Activación
+Una vez configurado todo, fusionar la propuesta de GitHub `sincronizacion-cloudflare` en `main`. Cloudflare Pages desplegará la nueva versión; confirmar éxito y revisar funcionamiento antes de confiar en ella.
+
+## 6. Comprobar entre móviles
+- Primero guardar exportación JSON de ambos móviles.
+- Entrar en la **misma dirección** del diario en el navegador habitual de cada móvil y autorizar el correo correspondiente si lo pide Cloudflare.
+- Abrir el panel **☁️ Diario compartido** y comprobar el estado **✓ Compartido**.
+- Verificar que aparece **todo el historial anterior** de ambos móviles.
+- Registrar una toma de prueba en uno y consultar el otro tras unos 12 segundos o pulsando **Actualizar historial**.
+- Comprobar una edición y la eliminación de un registro de prueba.
+- No borrar las copias JSON hasta verificar la migración.
+
+### Limitaciones
+Los temporizadores activos solo continúan en el dispositivo donde se iniciaron; los registros guardados sí se sincronizan. Con poca cobertura, un dispositivo conserva su copia local y reintenta la sincronización. Ediciones simultáneas sobre el mismo registro pueden sobrescribirse: durante la migración, evita modificar el mismo evento en los dos móviles. El nacimiento/ajustes locales no se sincronizan aún.
+
+**Estado actual:** preparado en rama de pruebas. Sin activar en producción.
