@@ -364,6 +364,14 @@
     .breast-tracker .timer-buttons .start-action{color:white;background:#a06587;border-color:#a06587;box-shadow:0 4px 10px #a065872d}
     .breast-tracker .timer-buttons .switch-action{color:#fff;background:#94607f;border-color:#94607f;box-shadow:0 4px 10px #a065872d;min-height:55px;font-size:16px}
     .breast-tracker .timer-buttons .finish-action{color:#784e69;background:#fffdfd;border-color:#dfcad8;box-shadow:none;min-height:45px;font-size:13px}
+    .breast-tracker .timer-buttons .pause-action{color:#654818;background:#ffedc4;border:1px solid #dfc078;min-height:52px;font-size:15px}
+    .breast-tracker .timer-buttons .resume-action{color:white;background:#267353;border:1px solid #267353;min-height:55px;font-size:16px}
+    #feedTimerBox[data-mode="paused"]{border:2px solid #dfc078;background:linear-gradient(160deg,#fffaf0,#fff4de)}
+    #feedTimerBox[data-mode="paused"] .tracker-state{background:#f9e6b5;color:#67490f}
+    #feedTimerBox[data-mode="paused"] .tracker-big{color:#755b31}
+    #feedTimerBox[data-mode="paused"] .tracker-symbol{background:#ffedc4}
+    .tracker-pause-info{margin-top:10px;padding:10px 12px;font-size:12px;line-height:1.45;color:#664e2c;background:#fff5db;border-radius:12px;font-weight:700}
+    .tracker-pause-info[hidden]{display:none!important}
     .tracker-details{font-size:11px;margin-top:10px;color:#867386}
     .tracker-details summary{font-size:11px;font-weight:750;color:#946e8a;cursor:pointer;list-style-position:inside}
     .tracker-details p{margin:5px 0 0;line-height:1.5}
@@ -710,7 +718,7 @@
             <button type="button" class="choice" data-milk="expressed" aria-pressed="false"><span aria-hidden="true">🍼</span>Diferida</button>
             <button type="button" class="choice" data-milk="formula" aria-pressed="false"><span aria-hidden="true">🥛</span>Artificial</button>
           </div></fieldset>
-          <div id="breastFields" class="conditional block"><fieldset><legend>¿Con qué pecho empieza?</legend><div class="segmented sides" id="breastChoices"><button type="button" class="choice sides selected" data-side="left" aria-pressed="true"><span aria-hidden="true">◖</span> Izquierdo</button><button type="button" class="choice sides" data-side="right" aria-pressed="false"><span aria-hidden="true">◗</span> Derecho</button><button type="button" class="choice sides manual-side" data-side="both" aria-pressed="false">Ambos · anotación sin reloj</button></div></fieldset><p class="field-help breast-help">Durante la toma, usa <b>«Cambiar de pecho»</b> para registrar cada lado.</p></div>
+          <div id="breastFields" class="conditional block"><fieldset><legend>¿Con qué pecho empieza?</legend><div class="segmented sides" id="breastChoices"><button type="button" class="choice sides selected" data-side="left" aria-pressed="true"><span aria-hidden="true">◖</span> Izquierdo</button><button type="button" class="choice sides" data-side="right" aria-pressed="false"><span aria-hidden="true">◗</span> Derecho</button><button type="button" class="choice sides manual-side" data-side="both" aria-pressed="false">Ambos · anotación sin reloj</button></div></fieldset><p class="field-help breast-help">Durante la toma, puedes <b>pausar y reanudar</b> para descansar, y usar <b>«Cambiar de pecho»</b> cuando cambies de lado.</p></div>
           <section id="bottleFields" class="conditional bottle-card block" hidden aria-labelledby="bottleTitle">
             <div class="bottle-heading"><div class="bottle-icon" aria-hidden="true">🍼</div><div><h3 id="bottleTitle">¿Cuánta leche ha tomado?</h3><p id="bottleTypeTag">Leche materna extraída</p></div></div>
             <div class="field bottle-main-field">
@@ -733,8 +741,8 @@
             <div class="tracker-clock-caption tracker-hint" id="timerHint">Selecciona el pecho y pulsa «Empezar toma».</div>
             <div class="tracker-splits"><div class="tracker-split" id="leftSplit"><span><i class="side-dot" aria-hidden="true"></i> Pecho izquierdo</span><strong id="leftTimerDisplay">00:00</strong></div><div class="tracker-split" id="rightSplit"><span><i class="side-dot" aria-hidden="true"></i> Pecho derecho</span><strong id="rightTimerDisplay">00:00</strong></div><div class="tracker-split tracker-total-mini" hidden><span>⏱️ Total</span><strong id="totalTimerDisplay">00:00</strong></div></div>
             <div class="tracker-times"><span>Inicio <strong id="timerStartedClock">—</strong></span><span>Fin <strong id="timerEndedClock">—</strong></span></div>
-            <div class="timer-buttons"><button type="button" id="timerStartBtn" class="start-action">▶ Empezar toma</button><button type="button" id="timerSwitchBtn" class="switch-action" hidden disabled>⇄ Cambiar de pecho</button><button type="button" id="timerStopBtn" class="finish-action" hidden disabled>■ Terminar y guardar</button></div>
-            <details class="tracker-details"><summary>¿Cómo funciona el cambio de pecho?</summary><p id="timerExplanation">Si cambias de pecho, pulsa el botón. Se detendrá la cuenta del anterior y empezará la del siguiente sin parar la toma.</p></details>
+            <div class="timer-buttons"><button type="button" id="timerStartBtn" class="start-action">▶ Empezar toma</button><button type="button" id="timerSwitchBtn" class="switch-action" hidden disabled>⇄ Cambiar de pecho</button><button type="button" id="timerPauseBtn" class="pause-action" hidden disabled>⏸ Pausar toma</button><button type="button" id="timerResumeBtn" class="resume-action" hidden disabled>▶ Reanudar toma</button><button type="button" id="timerStopBtn" class="finish-action" hidden disabled>■ Terminar y guardar</button></div>
+            <div id="timerPauseInfo" class="tracker-pause-info" role="status" aria-live="polite" hidden></div><details class="tracker-details"><summary>¿Cómo funcionan las pausas y el cambio de pecho?</summary><p id="timerExplanation">Pulsa «Pausar toma» cuando Hodei descanse o eche el aire; al reanudar sigue el mismo pecho. Las pausas no suman minutos. Si cambias de pecho, pulsa el botón correspondiente.</p></details>
             <button type="button" class="timer-cancel" id="timerCancelBtn" hidden>Descartar esta toma</button>
             <div id="lastFeedSaved" class="tracker-done" role="status" aria-live="polite"></div>
           </div>
@@ -803,7 +811,7 @@
         </div>
         <div id="historyOverview" class="history-overview" role="status" aria-live="polite"></div>
       </div><div class="timeline" id="timeline" aria-label="Registros guardados"></div>
-      <div class="backup"><h3>Guardar una copia del diario</h3><p>Los datos se guardan en el dispositivo y, si activáis el Diario compartido de arriba, se sincronizan mediante Cloudflare. Exportad copias JSON con regularidad.</p><div class="backup-actions"><button id="exportJSON" type="button">⬇ Copia de seguridad</button><button id="exportCSV" type="button">⬇ Excel / CSV</button><label for="importJSON">⬆ Recuperar copia<input id="importJSON" type="file" accept="application/json,.json"></label><button id="wipeData" class="danger" type="button">Borrar todo</button></div><details class="settings"><summary>Personalizar el diario</summary><div class="settings-row"><label for="birthDate">Fecha de nacimiento</label><input type="date" id="birthDate"><button type="button" class="tinybtn" id="saveSettings">Guardar</button></div></details></div>
+      <div class="backup"><h3>Guardar una copia del diario</h3><p>Los datos se guardan en el dispositivo y, si activáis el Diario compartido, se sincronizan mediante Cloudflare. Exportad copias JSON con regularidad.</p><div class="backup-actions"><button id="exportJSON" type="button">⬇ Copia de seguridad</button><button id="exportCSV" type="button">⬇ Excel / CSV</button><label for="importJSON">⬆ Recuperar copia<input id="importJSON" type="file" accept="application/json,.json"></label><button id="wipeData" class="danger" type="button">Borrar todo</button></div><details class="settings"><summary>Personalizar el diario</summary><div class="settings-row"><label for="birthDate">Fecha de nacimiento</label><input type="date" id="birthDate"><button type="button" class="tinybtn" id="saveSettings">Guardar</button></div></details></div>
     </section>
   </div>
   <section class="info-grid" aria-label="Información para las familias"><div class="info-card"><h3>🌿 Una ayuda para el seguimiento</h3><p>En los primeros días son frecuentes las tomas a demanda (a menudo 8–12 al día). Los pañales, el estado del bebé y su evolución de peso ayudan a valorar si se está alimentando bien. Hacia el 5.º–6.º día suelen esperarse unos 6 pañales bien mojados al día. Cada bebé y cada situación tienen sus particularidades.</p><a href="https://www.nhs.uk/baby/breastfeeding-and-bottle-feeding/bottle-feeding/formula-milk-questions/" target="_blank" rel="noopener noreferrer">Consultar información sanitaria</a></div><div class="info-card urgent"><h3>🩺 Cuándo pedir ayuda</h3><p>En menores de 3 meses, una temperatura de 38 °C o más requiere valoración médica urgente. También si hay dificultad para respirar, cuesta despertarle, rechaza las tomas o muestra signos de deshidratación. Seguid siempre las indicaciones concretas de vuestro equipo pediátrico.</p><a href="https://www.nhs.uk/baby/health/when-to-get-urgent-medical-help-for-babies-and-children-under-5/" target="_blank" rel="noopener noreferrer">Señales de alerta en bebés</a></div></section>
@@ -828,7 +836,7 @@
   function dateLocalString(date=new Date()){const pad=x=>String(x).padStart(2,'0');return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`}
   function dayString(date=new Date()){return dateLocalString(date).slice(0,10)}
   function setNow(){
-    if((activeTab==='feed'&&timerState?.status==='running')||(activeTab==='extraction'&&pumpTimerState?.status==='running')){toast('El inicio lo registra el temporizador; no es necesario cambiarlo.');return}
+    if((activeTab==='feed'&&['running','paused'].includes(timerState?.status))||(activeTab==='extraction'&&pumpTimerState?.status==='running')){toast('El inicio lo registra el temporizador; no es necesario cambiarlo.');return}
     const input=$('recordTime'), current=new Date(), value=dateLocalString(current);
     input.value=value;
     input.dispatchEvent(new Event('input',{bubbles:true}));
@@ -868,7 +876,7 @@
   function isValidRecord(item){return item&&typeof item==='object'&&typeof item.id==='string'&&['feed','diaper','sleep','extraction','other'].includes(item.kind)&&typeof item.ts==='string'&&!!parseTime(item.ts)}
   function setTab(tab){if(!['feed','diaper','sleep','extraction','other'].includes(tab))return;activeTab=tab;if(tab==='extraction'&&pumpTimerState)$('recordTime').value=dateLocalString(new Date(pumpTimerState.startedAt));else if(tab==='feed'&&timerState)$('recordTime').value=dateLocalString(new Date(timerState.startedAt));else $('recordTime').value=dateLocalString();$('recordTimeLabel').textContent=tab==='feed'?'Inicio de la toma':tab==='extraction'?'Fecha y hora de la extracción':'Fecha y hora';$('form-title').textContent=tab==='extraction'?'¿Te has sacado leche?':'¿Qué ha hecho Hodei?';$('formSubtitle').textContent=tab==='extraction'?'Tu registro de sacaleches, separado de sus tomas ♡':'Un toquecito y queda anotado ♡';document.querySelectorAll('[data-tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===tab)));document.querySelectorAll('.form-area').forEach(el=>el.hidden=el.id!=='area-'+tab);setMessage('');updateTimer();updatePumpTimer();}
   function setMilk(value,force=false){if(timerState&&timerState.milk!==value&&!force){toast('Terminada la toma, podréis cambiar el tipo de lactancia.');return}milkType=['breast','expressed','formula'].includes(value)?value:'breast';document.querySelectorAll('[data-milk]').forEach(b=>{let is=b.dataset.milk===milkType;b.classList.toggle('selected',is);b.setAttribute('aria-pressed',String(is))});$('breastFields').hidden=milkType!=='breast';$('bottleFields').hidden=milkType==='breast';$('bottleTypeTag').textContent=milkType==='expressed'?'Leche materna extraída':milkType==='formula'?'Leche de fórmula':'';updateBottleFeedback();updateTimer()}
-  function setSide(value,force=false){if(timerState&&timerState.status==='running'&&!force){toast('Para cambiar de pecho, usad «Cambiar de pecho» y contaremos los tiempos.');return}breastSide=['left','right','both'].includes(value)?value:'left';document.querySelectorAll('[data-side]').forEach(b=>{let is=b.dataset.side===breastSide;b.classList.toggle('selected',is);b.setAttribute('aria-pressed',String(is))});if(!force&&breastSide==='both')$('manualFeedEntry').open=true;updateTimer()}
+  function setSide(value,force=false){if(timerState&&['running','paused'].includes(timerState.status)&&!force){toast('Reanudamos primero la toma y después podemos cambiar de pecho.');return}breastSide=['left','right','both'].includes(value)?value:'left';document.querySelectorAll('[data-side]').forEach(b=>{let is=b.dataset.side===breastSide;b.classList.toggle('selected',is);b.setAttribute('aria-pressed',String(is))});if(!force&&breastSide==='both')$('manualFeedEntry').open=true;updateTimer()}
   function updateBottleFeedback(){const input=$('consumedMl'),amount=input.value.trim(),offered=$('offeredMl').value.trim(),feedback=$('milkAmountFeedback');let message='Introducid la cantidad al terminar la toma.';if(amount!==''){const ml=Number(amount.replace(',','.'));if(Number.isFinite(ml)&&ml>=0&&ml<=1000){message='✓ '+formatNum(ml)+' ml tomados'+(offered!==''?' de '+offered+' ml ofrecidos':'')+' · quedará anotado en el diario.'}else message='Revisad la cantidad introducida.'}feedback.textContent=message;feedback.classList.toggle('filled',amount!=='')}
   function changeMilkAmount(delta){const input=$('consumedMl'),current=Number(input.value)||0;const next=Math.min(1000,Math.max(0,current+delta));input.value=String(next);input.dispatchEvent(new Event('input',{bubbles:true}));}
   function focusBottleAmount(){const field=$('consumedMl');$('bottleFields').scrollIntoView({behavior:'smooth',block:'center'});field.focus({preventScroll:true})}
@@ -953,13 +961,13 @@
     const item={id:editingId||uid(),kind:activeTab,ts,note:truncate($('recordNote').value.trim(),900)};
     if(activeTab==='feed'){
       let duration=num('feedDuration');let endTs=$('feedEndTime').value||null;
-      if(timerState?.status==='finished'){item.ts=dateLocalString(new Date(timerState.startedAt));endTs=dateLocalString(new Date(timerState.endAt));duration=Math.round((timerState.endAt-timerState.startedAt)/600)/100}
+      if(timerState?.status==='finished'){item.ts=dateLocalString(new Date(timerState.startedAt));endTs=dateLocalString(new Date(timerState.endAt));duration=Math.round(timerSeconds(null,timerState.endAt)*100/60)/100}
       else if(endTs){const startDate=parseTime(item.ts),endDate=parseTime(endTs);if(!endDate||endDate<startDate){setMessage('La hora de fin debe ser igual o posterior al inicio.',true);return null}if(duration===null)duration=Math.round((endDate-startDate)/600)/100}
       if(!validNonnegative(duration,720)){setMessage('La duración debe estar entre 0 y 720 minutos.',true);return null}
-      item.milk=timerState?.status==='finished'?timerState.milk:milkType;item.duration=duration;if(endTs)item.endTs=endTs;
+      item.milk=timerState?.status==='finished'?timerState.milk:milkType;item.duration=duration;if(endTs)item.endTs=endTs;if(timerState?.status==='finished'&&(timerState.pauses||[]).length){item.feedPauses=timerState.pauses.map(p=>({...p}));item.pauseSeconds=timerPauseSeconds(timerState.endAt)}else if(editingId){const original=entries.find(e=>e.id===editingId);if(Array.isArray(original?.feedPauses))item.feedPauses=original.feedPauses.map(p=>({...p}));if(Number.isFinite(original?.pauseSeconds))item.pauseSeconds=original.pauseSeconds}
       if(item.milk==='breast'){
-        if(timerState?.status==='finished'){item.feedSegments=timerState.segments.map(s=>({...s}));item.side=item.feedSegments.length===1?item.feedSegments[0].side:'both'}
-        else {item.side=breastSide;const original=editingId?entries.find(e=>e.id===editingId):null;if(original?.feedSegments?.length&&original.milk==='breast'){item.feedSegments=original.feedSegments.map(s=>({...s}));if(!endTs&&original.endTs)item.endTs=original.endTs}}
+        if(timerState?.status==='finished'){item.feedSegments=timerState.segments.map(s=>({...s}));item.side=new Set(item.feedSegments.map(s=>s.side)).size===1?item.feedSegments[0].side:'both'}
+        else {item.side=breastSide;const original=editingId?entries.find(e=>e.id===editingId):null;if(original?.feedSegments?.length&&original.milk==='breast'){item.feedSegments=original.feedSegments.map(s=>({...s}));if(Array.isArray(original.feedPauses))item.feedPauses=original.feedPauses.map(p=>({...p}));if(Number.isFinite(original.pauseSeconds))item.pauseSeconds=original.pauseSeconds;if(!endTs&&original.endTs)item.endTs=original.endTs}}
       }
       else{const ml=num('consumedMl'),offered=num('offeredMl');if(ml===null){setMessage('Para guardar una toma diferida o artificial, indicad cuántos ml ha tomado Hodei.',true);focusBottleAmount();return null}if(!validNonnegative(ml,1000)||!validNonnegative(offered,1000)){setMessage('Comprobad las cantidades de leche (entre 0 y 1.000 ml).',true);focusBottleAmount();return null}if(offered!==null&&ml>offered){setMessage('Los ml tomados no pueden superar la cantidad ofrecida.',true);$('bottleOfferedDetails').open=true;focusBottleAmount();return null}item.ml=ml;item.offered=offered}
     }else if(activeTab==='diaper'){
@@ -989,7 +997,7 @@
     }
     return item;
   }
-  function saveEntry(ev){if(ev)ev.preventDefault();if(activeTab==='feed'&&timerState?.status==='running'){setMessage('La toma sigue en curso. Pulsad «Finalizar y guardar» para completar los tiempos.',true);return false}if(activeTab==='extraction'&&pumpTimerState?.status==='running'){setMessage('La extracción sigue en curso. Pulsa «Terminar extracción» antes de guardar.',true);return false}
+  function saveEntry(ev){if(ev)ev.preventDefault();if(activeTab==='feed'&&['running','paused'].includes(timerState?.status)){setMessage('La toma sigue abierta. Pulsad «Terminar y guardar» cuando Hodei haya acabado.',true);return false}if(activeTab==='extraction'&&pumpTimerState?.status==='running'){setMessage('La extracción sigue en curso. Pulsa «Terminar extracción» antes de guardar.',true);return false}
     const item=buildEntry();if(!item)return false;
     const wasEditing=Boolean(editingId);if(wasEditing)entries=entries.map(e=>e.id===editingId?item:e);else entries.push(item);
     if(item.kind==='feed'&&timerState?.status==='finished'){const segs=item.feedSegments||[];const parts=segs.length?' · '+segs.map(s=>(s.side==='left'?'Izq.':'Dcha.')+' '+secondsLabel((s.endAt-s.startAt)/1000)).join(' → '):'';lastFeedSummary='✓ Toma guardada: '+(segs.length?exactClock(segs[0].startAt):formatClock(item.ts))+'–'+(segs.length?exactClock(segs[segs.length-1].endAt):formatClock(item.endTs||item.ts))+parts;timerState=null;persistTimer()}
@@ -1060,6 +1068,7 @@
         const extras=[];if(e.offered!==null&&e.offered!==undefined)extras.push('Ofrecidos: '+formatNum(Number(e.offered))+' ml');if(duration)extras.push('Duración: '+duration);
         subtitle=extras.map(t=>`<span class="moment-inline-chip">${escapeHTML(t)}</span>`).join('');
       }
+      if(Array.isArray(e.feedPauses)&&e.feedPauses.length)subtitle+=`<span class="moment-inline-chip">⏸ ${e.feedPauses.length} ${e.feedPauses.length===1?'pausa':'pausas'} · ${escapeHTML(secondsLabel(Number(e.pauseSeconds)||0))}</span>`;
       if(e.endTs)subtitle+=`<span class="moment-inline-chip">Fin ${escapeHTML(formatClock(e.endTs))}</span>`;
     }else if(e.kind==='diaper'){
       icon='💧';title='Cambio de pañal';label='Pañal';
@@ -1118,42 +1127,52 @@
     const html=[];for(const [date,dayRows] of groups){html.push(`<section class="history-day" aria-label="Registros de ${escapeHTML(formatDate(date+'T12:00'))}">`);html.push(dayHeading(date,dayRows));for(const e of dayRows)html.push(momentCard(e));html.push('</section>')}
     area.innerHTML=html.join('');
   }
-  function validTimerState(t){return !!(t&&typeof t==='object'&&['running','finished'].includes(t.status)&&['breast','expressed','formula'].includes(t.milk)&&Number.isFinite(t.startedAt)&&Array.isArray(t.segments)&&t.segments.length>0&&t.segments.length<100&&t.segments.every(seg=>seg&&['left','right','bottle'].includes(seg.side)&&Number.isFinite(seg.startAt)&&(seg.endAt===null||Number.isFinite(seg.endAt)))&&(t.status==='running'||Number.isFinite(t.endAt)))}
+  function validTimerState(t){return !!(t&&typeof t==='object'&&['running','paused','finished'].includes(t.status)&&['breast','expressed','formula'].includes(t.milk)&&Number.isFinite(t.startedAt)&&Array.isArray(t.segments)&&t.segments.length>0&&t.segments.length<100&&t.segments.every(seg=>seg&&['left','right','bottle'].includes(seg.side)&&Number.isFinite(seg.startAt)&&(seg.endAt===null||Number.isFinite(seg.endAt)))&&(t.status==='running'||t.status==='paused'||Number.isFinite(t.endAt))&&(!t.pauses||Array.isArray(t.pauses)&&t.pauses.every(p=>Number.isFinite(p.startAt)&&(p.endAt===null||Number.isFinite(p.endAt)))))}
   function activeTimerSegment(){return timerState?.segments?.[timerState.segments.length-1]||null}
   function persistTimer(){if(timerState)putStore(TIMER_KEY,JSON.stringify(timerState));else removeStore(TIMER_KEY)}
   function segmentSeconds(seg,now=Date.now()){if(!seg)return 0;return Math.max(0,((seg.endAt??now)-seg.startAt)/1000)}
   function timerSeconds(side,now=Date.now()){return timerState?timerState.segments.filter(seg=>!side||seg.side===side).reduce((total,seg)=>total+segmentSeconds(seg,now),0):0}
+  function timerPauseSeconds(now=Date.now()){return timerState?(timerState.pauses||[]).reduce((sum,p)=>sum+Math.max(0,((p.endAt??now)-p.startAt)/1000),0):0}
   function clockElapsed(total){const sec=Math.max(0,Math.floor(total)),h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return(h?String(h)+':':'')+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
   function secondsLabel(value){const sec=Math.max(0,Math.round(value)),m=Math.floor(sec/60),s=sec%60;return m?m+' min'+(s?' '+s+' s':''):s+' s'}
-  function populateFinishedTimer(){if(!timerState||timerState.status!=='finished')return;$('recordTime').value=dateLocalString(new Date(timerState.startedAt));$('feedEndTime').value=dateLocalString(new Date(timerState.endAt));$('feedDuration').value=String(Math.round((timerState.endAt-timerState.startedAt)/600)/100)}
-  function updateTimer(){const t=timerState,active=t?.status==='running',done=t?.status==='finished',seg=activeTimerSegment(),now=Date.now(),isBreast=(t?t.milk:milkType)==='breast',side=seg?.side||breastSide;
-    $('timerDisplay').textContent=clockElapsed(timerSeconds(null,now));$('totalTimerDisplay').textContent=clockElapsed(timerSeconds(null,now));$('leftTimerDisplay').textContent=clockElapsed(timerSeconds('left',now));$('rightTimerDisplay').textContent=clockElapsed(timerSeconds('right',now));
+  function populateFinishedTimer(){if(!timerState||timerState.status!=='finished')return;$('recordTime').value=dateLocalString(new Date(timerState.startedAt));$('feedEndTime').value=dateLocalString(new Date(timerState.endAt));$('feedDuration').value=String(Math.round(timerSeconds(null,timerState.endAt)*100/60)/100)}
+  function updateTimer(){
+    const t=timerState,active=t?.status==='running',paused=t?.status==='paused',done=t?.status==='finished';
+    const seg=activeTimerSegment(),now=Date.now(),isBreast=(t?t.milk:milkType)==='breast',side=seg?.side||breastSide;
+    const activeSeconds=timerSeconds(null,now);
+    $('timerDisplay').textContent=clockElapsed(activeSeconds);$('totalTimerDisplay').textContent=clockElapsed(activeSeconds);
+    $('leftTimerDisplay').textContent=clockElapsed(timerSeconds('left',now));$('rightTimerDisplay').textContent=clockElapsed(timerSeconds('right',now));
     $('leftSplit').classList.toggle('active',active&&side==='left');$('rightSplit').classList.toggle('active',active&&side==='right');
-    $('timerStatus').textContent=active?(isBreast?'En el '+(side==='left'?'izquierdo':'derecho'):'Biberón en curso'):done?'Toma finalizada':'Sin iniciar';$('timerStatus').classList.toggle('running',active);
     $('timerStartedClock').textContent=t?exactClock(t.startedAt):'—';$('timerEndedClock').textContent=done?exactClock(t.endAt):'—';$('timerCancelBtn').hidden=!t;
-    $('timerHint').textContent=active?(isBreast?'Ahora está tomando del pecho '+(side==='left'?'IZQUIERDO':'DERECHO')+'.':'Toma con biberón en curso.'):done?'Toma finalizada. Revisad los datos y guardad.':isBreast?'Elegid el pecho inicial y pulsad «Empezar toma».':'Pulsad «Empezar toma» para contar el tiempo del biberón.';
-    $('feedTimerBox').dataset.mode=active?'running':done?'finished':'idle';$('feedTimerBox').classList.toggle('bottle-mode',!isBreast);
-    document.querySelector('#breastFields legend').textContent=active?'Pecho en uso ahora':done?'Pecho utilizado':'¿Con qué pecho empieza?';
-    document.querySelectorAll('#breastChoices button').forEach(b=>{b.setAttribute('aria-disabled',String(!!active));b.classList.toggle('locked',!!active)});
+    $('feedTimerBox').dataset.mode=active?'running':paused?'paused':done?'finished':'idle';$('feedTimerBox').classList.toggle('bottle-mode',!isBreast);
+    $('timerStatus').textContent=paused?'⏸ En pausa':active?(isBreast?'● '+(side==='left'?'Izquierdo':'Derecho')+' activo':'● Biberón en curso'):done?'Toma finalizada':'Listo para empezar';
+    $('timerStatus').classList.toggle('running',active);
+    $('timerHint').textContent=paused?'Hodei está descansando. El contador está parado. Pulsa «Reanudar» para seguir en el mismo pecho.':active?(isBreast?'Está tomando del pecho '+(side==='left'?'izquierdo':'derecho')+'.':'El tiempo del biberón está contando.'):done?'Toma finalizada.':(isBreast&&breastSide==='both')?'Modo manual: anota la toma sin temporizador.':'Elige el pecho inicial y pulsa el botón.';
+    document.querySelector('#breastFields legend').textContent=active?'Pecho en uso ahora':paused?'Pecho seleccionado para reanudar':done?'Pecho utilizado':'¿Con qué pecho empieza?';
+    document.querySelectorAll('#breastChoices button').forEach(b=>{b.setAttribute('aria-disabled',String(active||paused));b.classList.toggle('locked',active||paused)});
     $('timerStartBtn').hidden=!!t;$('timerStartBtn').disabled=!!t||editingId!==null||(isBreast&&breastSide==='both');
     $('timerSwitchBtn').hidden=!active||!isBreast;$('timerSwitchBtn').disabled=!active||!isBreast;
-    $('timerSwitchBtn').textContent=active?'⇄ Cambiar al '+(side==='left'?'derecho':'izquierdo'):'⇄ Cambiar de pecho';
-    $('timerStopBtn').hidden=!active;$('timerStopBtn').disabled=!active;$('timerStopBtn').textContent='■ Terminar y guardar';
-    $('timerExplanation').textContent=isBreast?'Al cambiar, se para el contador del pecho anterior y empieza el del otro. Puedes cambiar varias veces: se acumula el tiempo de cada pecho.':'Al finalizar un biberón, anota los mililitros que realmente ha tomado Hodei.';
-    $('timerStatus').textContent=active?(isBreast?'● '+(side==='left'?'Izquierdo':'Derecho')+' activo':'● Biberón en curso'):done?'Toma finalizada':'Listo para empezar';
-    $('timerHint').textContent=active?(isBreast?'Ahora está tomando del pecho '+(side==='left'?'izquierdo':'derecho')+'.':'El tiempo del biberón está contando.'):done?'Toma finalizada.':(isBreast&&breastSide==='both')?'Modo manual: anota la toma sin temporizador.':'Elige el pecho inicial y pulsa el botón.';
-    $('manualFeedEntry').open=done||($('manualFeedEntry').open && !active);
-    $('saveBtn').disabled=(activeTab==='feed'&&!!active)||(activeTab==='extraction'&&pumpTimerState?.status==='running');
+    $('timerSwitchBtn').textContent='⇄ Cambiar al '+(side==='left'?'derecho':'izquierdo');
+    $('timerPauseBtn').hidden=!active;$('timerPauseBtn').disabled=!active;
+    $('timerResumeBtn').hidden=!paused;$('timerResumeBtn').disabled=!paused;
+    $('timerStopBtn').hidden=!(active||paused);$('timerStopBtn').disabled=!(active||paused);$('timerStopBtn').textContent='■ Terminar y guardar';
+    const pauses=t?.pauses||[];$('timerPauseInfo').hidden=!(paused||pauses.length);
+    $('timerPauseInfo').textContent=(paused?'⏸ Descanso en curso · ':'⏸ Descansos · ')+pauses.length+' '+(pauses.length===1?'pausa':'pausas')+' · '+clockElapsed(timerPauseSeconds(now))+' (no cuentan como tiempo de toma)';
+    $('timerExplanation').textContent=isBreast?'Pausar detiene el tiempo sin cerrar la toma. Reanudar continúa en el mismo pecho, y cambiar de pecho inicia la cuenta del otro. Los descansos no se suman.':'Puedes pausar y reanudar un biberón; al finalizar, indica cuánto ha bebido Hodei.';
+    $('manualFeedEntry').open=done||($('manualFeedEntry').open && !active && !paused);
+    $('saveBtn').disabled=(activeTab==='feed'&&(active||paused))||(activeTab==='extraction'&&pumpTimerState?.status==='running');
     $('lastFeedSaved').textContent=lastFeedSummary;
-    $('nowBtn').disabled=(activeTab==='feed'&&!!active)||(activeTab==='extraction'&&pumpTimerState?.status==='running');
+    $('nowBtn').disabled=(activeTab==='feed'&&(active||paused))||(activeTab==='extraction'&&pumpTimerState?.status==='running');
   }
   function startTimer(){if(pumpTimerState?.status==='running'){toast('Termina primero la extracción en curso.');return}if(timerState){toast('Esta toma ya está iniciada o pendiente de guardar.');return}if(editingId){toast('Terminada la edición podréis iniciar otra toma.');return}
     if(milkType==='breast'&&breastSide==='both'){setMessage('Elegid izquierdo o derecho como primer pecho para usar el temporizador.',true);return}
-    const startedAt=Date.now(),side=milkType==='breast'?breastSide:'bottle';timerState={status:'running',milk:milkType,startedAt,endAt:null,segments:[{side,startAt:startedAt,endAt:null}]};lastFeedSummary='';
+    const startedAt=Date.now(),side=milkType==='breast'?breastSide:'bottle';timerState={status:'running',milk:milkType,startedAt,endAt:null,pauses:[],segments:[{side,startAt:startedAt,endAt:null}]};lastFeedSummary='';
     $('recordTime').value=dateLocalString(new Date(startedAt));$('feedEndTime').value='';$('feedDuration').value='';persistTimer();updateTimer();setMessage('');toast('Toma iniciada · '+(side==='bottle'?'biberón':side==='left'?'pecho izquierdo':'pecho derecho'))}
   function switchTimerBreast(){if(!timerState||timerState.status!=='running'||timerState.milk!=='breast')return;const current=activeTimerSegment(),now=Date.now();if(!current)return;current.endAt=now;const newSide=current.side==='left'?'right':'left';timerState.segments.push({side:newSide,startAt:now,endAt:null});setSide(newSide,true);persistTimer();updateTimer();toast('Cambio registrado · ahora pecho '+(newSide==='left'?'izquierdo':'derecho'))}
+  function pauseTimer(){if(timerState?.status!=='running')return;const now=Date.now(),seg=activeTimerSegment();if(seg&&!Number.isFinite(seg.endAt))seg.endAt=now;timerState.pauses=timerState.pauses||[];timerState.pauses.push({startAt:now,endAt:null});timerState.status='paused';persistTimer();updateTimer();toast('Toma en pausa: puedes darle tiempo para descansar ♡')}
+  function resumeTimer(){if(timerState?.status!=='paused')return;const now=Date.now(),lastPause=(timerState.pauses||[]).at(-1);if(lastPause&&lastPause.endAt===null)lastPause.endAt=now;const side=activeTimerSegment()?.side||'left';timerState.segments.push({side,startAt:now,endAt:null});timerState.status='running';persistTimer();updateTimer();toast('Toma reanudada · pecho '+(side==='left'?'izquierdo':side==='right'?'derecho':'biberón'))}
   function cancelTimer(){if(!timerState)return;if(!confirm('¿Descartar este temporizador? No se guardarán los tiempos de esta toma.'))return;timerState=null;lastFeedSummary='';persistTimer();resetForm();updateTimer();toast('Temporizador descartado')}
-  function stopTimer(){if(!timerState||timerState.status!=='running')return;const now=Date.now(),seg=activeTimerSegment();if(seg)seg.endAt=now;timerState.endAt=now;timerState.status='finished';persistTimer();populateFinishedTimer();updateTimer();
+  function stopTimer(){if(!timerState||!['running','paused'].includes(timerState.status))return;const now=Date.now(),seg=activeTimerSegment();if(timerState.status==='running'&&seg&&!Number.isFinite(seg.endAt))seg.endAt=now;if(timerState.status==='paused'){const p=(timerState.pauses||[]).at(-1);if(p&&p.endAt===null)p.endAt=now}timerState.endAt=now;timerState.status='finished';persistTimer();populateFinishedTimer();updateTimer();
     if(timerState.milk==='breast'){setMessage('');saveEntry({preventDefault(){}})}else if($('consumedMl').value.trim()!==''){saveEntry({preventDefault(){}})}else{setMessage('✓ Tiempo calculado. Introducid los ml que realmente ha tomado Hodei y pulsad «Guardar registro».');focusBottleAmount();toast('Temporizador finalizado; faltan los mililitros')}
   }
   function downloadBlob(content,filename,mime){const blob=new Blob([content],{type:mime});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=filename;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),4000)}
@@ -1188,7 +1207,7 @@
   $('clearFilters').addEventListener('click',()=>{$('historyDate').value='';$('historyKind').value='all';$('historySearch').value='';renderHistory()});
   document.querySelectorAll('[role=tablist] [role=tab]').forEach((b,i,all)=>b.addEventListener('keydown',ev=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(ev.key))return;ev.preventDefault();const target=ev.key==='Home'?0:ev.key==='End'?all.length-1:((i+(ev.key==='ArrowRight'?1:-1)+all.length)%all.length);all[target].focus();all[target].click()}));
   $('timeline').addEventListener('click',event=>{const btn=event.target.closest('button[data-action]');if(!btn)return;if(btn.dataset.action==='edit')editEntry(btn.dataset.id);if(btn.dataset.action==='delete')deleteEntry(btn.dataset.id)});
-  $('timerStartBtn').addEventListener('click',startTimer);$('timerSwitchBtn').addEventListener('click',switchTimerBreast);$('timerStopBtn').addEventListener('click',stopTimer);$('timerCancelBtn').addEventListener('click',cancelTimer);
+  $('timerStartBtn').addEventListener('click',startTimer);$('timerSwitchBtn').addEventListener('click',switchTimerBreast);$('timerPauseBtn').addEventListener('click',pauseTimer);$('timerResumeBtn').addEventListener('click',resumeTimer);$('timerStopBtn').addEventListener('click',stopTimer);$('timerCancelBtn').addEventListener('click',cancelTimer);
   $('exportJSON').addEventListener('click',exportJSON);$('exportCSV').addEventListener('click',exportCSV);$('importJSON').addEventListener('change',importJSON);
   $('wipeData').addEventListener('click',()=>{if(!entries.length)return toast('El diario ya está vacío');if(!confirm('¿Queréis borrar TODOS los registros guardados en este dispositivo? Haced una copia antes si queréis conservarlos.'))return;if(!confirm('Esta acción no se puede deshacer. ¿Borrar definitivamente?'))return;entries=[];saveEntries();cancelEdit();updateSummary();renderHistory();toast('Se han borrado los registros')});
   $('saveSettings').addEventListener('click',()=>{settings.birthDate=$('birthDate').value;putStore(SETTINGS_KEY,JSON.stringify(settings));updateAge();toast('Fecha de nacimiento guardada')});
