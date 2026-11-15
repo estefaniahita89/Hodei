@@ -909,7 +909,7 @@
     $('pumpTimerStatus').textContent=active?'● '+(side==='both'?'Ambos activos':side==='left'?'Izquierdo activo':'Derecho activo'):done?'Extracción terminada':'Listo para empezar';
     $('pumpTimerHint').textContent=active?(side==='both'?'Extracción simultánea en ambos pechos.':'Extrayendo del pecho '+(side==='left'?'izquierdo':'derecho')+'.'):done?'Revisa los ml de cada pecho y guarda.':'Elige el pecho inicial y empieza el reloj.';
     $('pumpTimerBox').dataset.mode=active?'running':done?'finished':'idle';
-    $('pumpStartBtn').hidden=!!t;$('pumpStartBtn').disabled=!!t||editingId!==null||!!timerState?.status==='running';
+    $('pumpStartBtn').hidden=!!t;$('pumpStartBtn').disabled=!!t||editingId!==null||['running','paused'].includes(timerState?.status);
     $('pumpSwitchBtn').hidden=!active||side==='both';$('pumpSwitchBtn').disabled=!active||side==='both';$('pumpSwitchBtn').textContent='⇄ Cambiar al '+(side==='left'?'derecho':'izquierdo');
     $('pumpStopBtn').hidden=!active;$('pumpStopBtn').disabled=!active;$('pumpCancelBtn').hidden=!t;
     document.querySelectorAll('[data-extract-side]').forEach(b=>{
@@ -917,13 +917,13 @@
       if(t){const current=active?side:(new Set(t.segments.flatMap(seg=>seg.side==='both'?['left','right']:[seg.side])).size===2?'both':t.segments[0].side);
         const is=b.dataset.extractSide===current;b.classList.toggle('selected',is);b.setAttribute('aria-pressed',String(is))}
     });
-    $('saveBtn').disabled=(activeTab==='extraction'&&active)||(activeTab==='feed'&&timerState?.status==='running');
-    $('nowBtn').disabled=(activeTab==='extraction'&&active)||(activeTab==='feed'&&timerState?.status==='running');
+    $('saveBtn').disabled=(activeTab==='extraction'&&active)||(activeTab==='feed'&&['running','paused'].includes(timerState?.status));
+    $('nowBtn').disabled=(activeTab==='extraction'&&active)||(activeTab==='feed'&&['running','paused'].includes(timerState?.status));
     if(activeTab==='extraction'&&t)$('recordTime').value=dateLocalString(new Date(t.startedAt));
   }
   function startPumpTimer(){
     if(pumpTimerState){toast('Esta extracción está iniciada o pendiente de guardar.');return}
-    if(timerState?.status==='running'){toast('Termina primero la toma en curso.');return}
+    if(['running','paused'].includes(timerState?.status)){toast('Termina primero la toma en curso.');return}
     if(editingId){toast('Guarda o cancela la edición antes de empezar.');return}
     const now=Date.now();pumpTimerState={status:'running',startedAt:now,endAt:null,segments:[{side:extractSide,startAt:now,endAt:null}]};
     $('recordTime').value=dateLocalString(new Date(now));$('pumpEndTime').value='';$('extractDuration').value='';
