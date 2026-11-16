@@ -811,12 +811,12 @@
         </div>
         <div id="historyOverview" class="history-overview" role="status" aria-live="polite"></div>
       </div><div class="timeline" id="timeline" aria-label="Registros guardados"></div>
-      <div class="backup"><h3>Guardar una copia del diario</h3><p>Los datos se guardan en este navegador, en este dispositivo. No se sincronizan entre móviles. Para conservarlos, exportad una copia de vez en cuando.</p><div class="backup-actions"><button id="exportJSON" type="button">⬇ Copia de seguridad</button><button id="exportCSV" type="button">⬇ Excel / CSV</button><label for="importJSON">⬆ Recuperar copia<input id="importJSON" type="file" accept="application/json,.json"></label><button id="wipeData" class="danger" type="button">Borrar todo</button></div><details class="settings"><summary>Personalizar el diario</summary><div class="settings-row"><label for="birthDate">Fecha de nacimiento</label><input type="date" id="birthDate"><button type="button" class="tinybtn" id="saveSettings">Guardar</button></div></details></div>
+      <div class="backup"><h3>Guardar una copia del diario</h3><p>Los datos se guardan en el dispositivo y, si activáis el Diario compartido, se sincronizan mediante Cloudflare. Exportad copias JSON con regularidad.</p><div class="backup-actions"><button id="exportJSON" type="button">⬇ Copia de seguridad</button><button id="exportCSV" type="button">⬇ Excel / CSV</button><label for="importJSON">⬆ Recuperar copia<input id="importJSON" type="file" accept="application/json,.json"></label><button id="wipeData" class="danger" type="button">Borrar todo</button></div><details class="settings"><summary>Personalizar el diario</summary><div class="settings-row"><label for="birthDate">Fecha de nacimiento</label><input type="date" id="birthDate"><button type="button" class="tinybtn" id="saveSettings">Guardar</button></div></details></div>
     </section>
   </div>
   <section class="info-grid" aria-label="Información para las familias"><div class="info-card"><h3>🌿 Una ayuda para el seguimiento</h3><p>En los primeros días son frecuentes las tomas a demanda (a menudo 8–12 al día). Los pañales, el estado del bebé y su evolución de peso ayudan a valorar si se está alimentando bien. Hacia el 5.º–6.º día suelen esperarse unos 6 pañales bien mojados al día. Cada bebé y cada situación tienen sus particularidades.</p><a href="https://www.nhs.uk/baby/breastfeeding-and-bottle-feeding/bottle-feeding/formula-milk-questions/" target="_blank" rel="noopener noreferrer">Consultar información sanitaria</a></div><div class="info-card urgent"><h3>🩺 Cuándo pedir ayuda</h3><p>En menores de 3 meses, una temperatura de 38 °C o más requiere valoración médica urgente. También si hay dificultad para respirar, cuesta despertarle, rechaza las tomas o muestra signos de deshidratación. Seguid siempre las indicaciones concretas de vuestro equipo pediátrico.</p><a href="https://www.nhs.uk/baby/health/when-to-get-urgent-medical-help-for-babies-and-children-under-5/" target="_blank" rel="noopener noreferrer">Señales de alerta en bebés</a></div></section>
 </main>
-<footer>Hecho con mucho amor para Hodei ♡ · Los registros se guardan en este navegador</footer>
+<footer>Hecho con mucho amor para Hodei ♡ · Guarda tus registros y activa la sincronización familiar</footer>
 <nav class="mobile-nav" aria-label="Navegación rápida">
   <a href="#day-summary"><span aria-hidden="true">☀</span><span>Resumen</span></a>
   <a href="#new-entry" class="nav-add"><span aria-hidden="true">＋</span><span>Anotar</span></a>
@@ -1220,5 +1220,6 @@
   $('activationHelp').hidden=true;
 })();
 </script>
+<script defer src="./sync.js"></script>
 </body>
 </html>
