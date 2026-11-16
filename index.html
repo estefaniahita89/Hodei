@@ -655,7 +655,8 @@
     .pump-manual{margin-top:15px}
     .pump-measures .pump-feedback{margin-top:9px}
     @media(max-width:390px){.pump-ml-grid{gap:7px}.pump-ml-side{padding:10px 7px}.pump-ml-side label{font-size:11px}.pump-ml-input input{font-size:21px}.pump-total strong{font-size:22px}}
-.manual-breast-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0 16px;padding:14px;border-radius:16px;background:#fff8fb;border:1px solid #ead9e6}.manual-breast-grid[hidden]{display:none!important}.manual-breast-grid .field{min-width:0}.manual-breast-grid label{font-weight:750;font-size:14px}.manual-breast-grid input{font-size:18px;font-weight:700;max-width:100%}.manual-breast-total{grid-column:1/-1;padding:10px 12px;border-radius:12px;background:#f2e9f6;color:#573d58;margin:0;font-size:14px;font-weight:750}.past-feed-open{border:1px solid #cba9c3;border-radius:13px;background:#fbebf6;color:#70446b;font-weight:750;min-height:47px;width:100%;margin:11px 0;padding:10px 14px;cursor:pointer;text-align:center}.past-feed-open:focus-visible,.manual-breast-grid input:focus-visible{outline:3px solid #9f6794;outline-offset:2px}@media(max-width:380px){.manual-breast-grid{grid-template-columns:1fr}}</style>
+.manual-breast-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0 16px;padding:14px;border-radius:16px;background:#fff8fb;border:1px solid #ead9e6}.manual-breast-grid[hidden]{display:none!important}.manual-breast-grid .field{min-width:0}.manual-breast-grid label{font-weight:750;font-size:14px}.manual-breast-grid input{font-size:18px;font-weight:700;max-width:100%}.manual-breast-total{grid-column:1/-1;padding:10px 12px;border-radius:12px;background:#f2e9f6;color:#573d58;margin:0;font-size:14px;font-weight:750}.past-feed-open{border:1px solid #cba9c3;border-radius:13px;background:#fbebf6;color:#70446b;font-weight:750;min-height:47px;width:100%;margin:11px 0;padding:10px 14px;cursor:pointer;text-align:center}.past-feed-open:focus-visible,.manual-breast-grid input:focus-visible{outline:3px solid #9f6794;outline-offset:2px}@media(max-width:380px){.manual-breast-grid{grid-template-columns:1fr}}.next-feed-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:15px;align-items:center;padding:18px 20px;margin:15px 0 20px;background:linear-gradient(120deg,#fff6e9 0%,#fff5f9 58%,#f7f0fb 100%);border:1px solid #e9d7df;border-radius:22px;box-shadow:0 4px 18px rgba(105,67,87,.055)}.next-feed-eyebrow{display:flex;gap:7px;align-items:center;color:#81556e;font-size:12px;font-weight:800;letter-spacing:.035em}.next-feed-main{font-size:32px;line-height:1.13;color:#56374e;font-weight:850;letter-spacing:-.035em;margin-top:6px;font-variant-numeric:tabular-nums}.next-feed-date{font-size:12px;color:#866b7d;font-weight:650;margin-top:3px}.next-feed-countbox{border-radius:15px;background:#fff9fd;border:1px solid #ead8e7;padding:10px 13px;min-width:122px;text-align:center}.next-feed-countlabel{font-size:11px;color:#7e6579;font-weight:750}.next-feed-count{font-size:20px;font-weight:850;font-variant-numeric:tabular-nums;color:#654061;white-space:nowrap;margin:2px 0}.next-feed-status{font-size:12px;color:#6e5a6a;margin:5px 0 0;grid-column:1/-1}.next-feed-card[data-state="due"] .next-feed-countbox{background:#fff0e8;border-color:#f0cbbb}.next-feed-card[data-state="due"] .next-feed-count{color:#a3513d}.next-feed-note{color:#786778;font-size:11px;line-height:1.5;grid-column:1/-1;margin:0}.next-feed-card[data-state="none"] .next-feed-count{color:#7e6b79}@media(max-width:420px){.next-feed-card{padding:15px;gap:10px}.next-feed-main{font-size:28px}.next-feed-countbox{min-width:105px;padding:10px 7px}.next-feed-count{font-size:17px}}
+</style>
 </head>
 <body>
 <div id="activationHelp" class="activation-warning" role="alert">
@@ -698,6 +699,12 @@
   </section>
   <div id="storageAlert" class="storage-alert" hidden role="alert">⚠️ Este navegador no permite guardar datos de forma permanente en esta página. Podéis usarla, pero exportad una copia JSON antes de cerrarla.</div>
   <section id="day-summary" aria-labelledby="summary-title"><div class="section-head"><div><h2 id="summary-title">Así va su día</h2><div id="ageLabel" class="subtle">Sus pequeños momentos, de un vistazo</div></div><div class="date-tools"><input aria-label="Día del resumen" id="summaryDate" type="date"><button type="button" class="tinybtn" id="todayBtn">Hoy</button></div></div>
+    <section class="next-feed-card" id="nextFeedCard" data-state="none" aria-label="Previsión de próxima toma">
+      <div><div class="next-feed-eyebrow">🍼 PRÓXIMA TOMA · CADA 3 HORAS</div><div class="next-feed-main" id="nextFeedTime">—</div><div class="next-feed-date" id="nextFeedDate">Esperando una toma registrada</div></div>
+      <div class="next-feed-countbox"><div class="next-feed-countlabel">Cuenta atrás</div><div class="next-feed-count" id="nextFeedCountdown" role="timer" aria-live="off">—</div><div class="next-feed-countlabel" id="nextFeedCountLabel">Sin calcular</div></div>
+      <p class="next-feed-status" id="nextFeedFrom">Calculamos desde la hora de inicio de la última toma, también si la anotas más tarde.</p>
+      <p class="next-feed-note">Referencia orientativa, no una alarma médica. Si Hodei muestra hambre antes, ofrecedle alimento sin esperar; seguid las indicaciones de su equipo sanitario.</p>
+    </section>
     <div class="stats" aria-live="polite"><div class="stat"><span class="stat-icon">🤱</span><strong id="statFeeds">0</strong><small>Registros de tomas</small></div><div class="stat"><span class="stat-icon">🍼</span><strong id="statMilk">0 ml</strong><small>Leche que ha bebido</small></div><div class="stat"><span class="stat-icon">🫧</span><strong id="statExtract">0 ml</strong><small>Leche extraída con sacaleches</small></div><div class="stat"><span class="stat-icon">💧</span><strong id="statPee">0</strong><small>Pañales con pipí</small></div><div class="stat"><span class="stat-icon">💩</span><strong id="statPoo">0</strong><small>Pañales con caca</small></div><div class="stat"><span class="stat-icon">🕒</span><strong id="statLast">—</strong><small>Última toma del día</small></div></div>
   </section>
   <div class="layout">
@@ -1016,7 +1023,29 @@
   }
   function deleteEntry(id){const item=entries.find(e=>e.id===id);if(!item)return;if(!confirm('¿Eliminar este registro del historial?'))return;entries=entries.filter(e=>e.id!==id);saveEntries();if(editingId===id)cancelEdit();updateSummary();renderHistory();toast('Registro eliminado')}
   function cancelEdit(){resetForm();$('form-title').textContent='¿Qué ha hecho Hodei?'}
-  function updateSummary(){const sel=$('summaryDate').value||dayString();const rows=entries.filter(e=>e.ts.slice(0,10)===sel);const feeds=rows.filter(e=>e.kind==='feed');const ml=feeds.reduce((acc,e)=>acc+(e.milk!=='breast'&&Number.isFinite(Number(e.ml))&&e.ml!==null?Number(e.ml):0),0);const diapers=rows.filter(e=>e.kind==='diaper');const last=feeds.sort((a,b)=>new Date(b.ts)-new Date(a.ts))[0];$('statFeeds').textContent=feeds.length;$('statMilk').textContent=formatNum(ml)+' ml';$('statExtract').textContent=formatNum(rows.filter(e=>e.kind==='extraction').reduce((sum,e)=>sum+(Number(e.ml)||0),0))+' ml';$('statPee').textContent=diapers.filter(e=>e.pee).length;$('statPoo').textContent=diapers.filter(e=>e.poo).length;$('statLast').textContent=last?formatClock(last.ts):'—';updateAge()}
+  function updateNextFeed(){
+    const panel=$('nextFeedCard'),now=Date.now(),interval=3*60*60*1000;
+    const allStarts=entries.filter(e=>e.kind==='feed').map(e=>parseTime(e.ts)).filter(d=>d&&d.getTime()<=now+60000).map(d=>d.getTime());
+    if(timerState&&['running','paused','finished'].includes(timerState.status)&&Number.isFinite(timerState.startedAt)&&timerState.startedAt<=now+60000)allStarts.push(timerState.startedAt);
+    if(!allStarts.length){
+      panel.dataset.state='none';$('nextFeedTime').textContent='—';$('nextFeedDate').textContent='Anota la primera toma';$('nextFeedCountdown').textContent='—';$('nextFeedCountLabel').textContent='Sin calcular';$('nextFeedFrom').textContent='La cuenta comienza 3 horas después del INICIO de la toma más reciente.';return;
+    }
+    const started=Math.max(...allStarts),due=started+interval,remaining=due-now;
+    const planned=new Date(due),startDate=new Date(started);
+    const clock=new Intl.DateTimeFormat('es-ES',{hour:'2-digit',minute:'2-digit',hour12:false});
+    $('nextFeedTime').textContent=clock.format(planned);
+    const today=dayString(new Date(now)),tomorrow=dayString(new Date(now+86400000));
+    const date=dayString(planned),dateDesc=date===today?'Hoy':date===tomorrow?'Mañana':new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'long'}).format(planned);
+    $('nextFeedDate').textContent=dateDesc;
+    const secs=Math.max(0,Math.ceil(Math.abs(remaining)/1000)),h=Math.floor(secs/3600),m=Math.floor((secs%3600)/60),s=secs%60;
+    const count=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    panel.dataset.state=remaining>0?'upcoming':'due';
+    $('nextFeedCountdown').textContent=count;
+    $('nextFeedCountLabel').textContent=remaining>0?'Falta para la hora':'Desde la hora prevista';
+    const sourceDate=dayString(startDate),sourceTag=sourceDate===today?'hoy':sourceDate===tomorrow?'mañana':new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'short'}).format(startDate);
+    $('nextFeedFrom').textContent=(remaining>0?'Última toma iniciada ':'Hora orientativa alcanzada · última toma iniciada ')+sourceTag+' a las '+clock.format(startDate)+'. Se suman 3 horas, sin contar desde el final.';
+  }
+  function updateSummary(){updateNextFeed();const sel=$('summaryDate').value||dayString();const rows=entries.filter(e=>e.ts.slice(0,10)===sel);const feeds=rows.filter(e=>e.kind==='feed');const ml=feeds.reduce((acc,e)=>acc+(e.milk!=='breast'&&Number.isFinite(Number(e.ml))&&e.ml!==null?Number(e.ml):0),0);const diapers=rows.filter(e=>e.kind==='diaper');const last=feeds.sort((a,b)=>new Date(b.ts)-new Date(a.ts))[0];$('statFeeds').textContent=feeds.length;$('statMilk').textContent=formatNum(ml)+' ml';$('statExtract').textContent=formatNum(rows.filter(e=>e.kind==='extraction').reduce((sum,e)=>sum+(Number(e.ml)||0),0))+' ml';$('statPee').textContent=diapers.filter(e=>e.pee).length;$('statPoo').textContent=diapers.filter(e=>e.poo).length;$('statLast').textContent=last?formatClock(last.ts):'—';updateAge()}
   function updateAge(){const birth=settings.birthDate;let label='Sus pequeños momentos, de un vistazo';if(birth){const birthDate=new Date(birth+'T12:00:00'),chosen=new Date(($('summaryDate').value||dayString())+'T12:00:00');if(safeDate(birthDate)&&safeDate(chosen)){const days=Math.round((chosen-birthDate)/86400000);if(days>=0)label=`Hodei · ${days===0?'día de nacimiento':days===1?'1 día de vida':days+' días de vida'}`}}$('ageLabel').textContent=label}
   const sideName={left:'Izquierdo',right:'Derecho',both:'Ambos'};
   const kindIcon={feed:'🤱',diaper:'💩',sleep:'🌙',extraction:'🫧',other:'✏️'};
@@ -1212,7 +1241,7 @@
   $('exportJSON').addEventListener('click',exportJSON);$('exportCSV').addEventListener('click',exportCSV);$('importJSON').addEventListener('change',importJSON);
   $('wipeData').addEventListener('click',()=>{if(!entries.length)return toast('El diario ya está vacío');if(!confirm('¿Queréis borrar TODOS los registros guardados en este dispositivo? Haced una copia antes si queréis conservarlos.'))return;if(!confirm('Esta acción no se puede deshacer. ¿Borrar definitivamente?'))return;entries=[];saveEntries();cancelEdit();updateSummary();renderHistory();toast('Se han borrado los registros')});
   $('saveSettings').addEventListener('click',()=>{settings.birthDate=$('birthDate').value;putStore(SETTINGS_KEY,JSON.stringify(settings));updateAge();toast('Fecha de nacimiento guardada')});
-  window.setInterval(()=>{updateTimer();updatePumpTimer()},1000);
+  window.setInterval(()=>{updateTimer();updatePumpTimer();updateNextFeed()},1000);
   window.addEventListener('storage',event=>{if(event.key===DATA_KEY){try{const v=JSON.parse(event.newValue||'[]');if(Array.isArray(v)){entries=v.filter(isValidRecord);updateSummary();renderHistory()}}catch(e){}}});
   load();
   setExtractSide(pumpTimerState?.segments?.[0]?.side||'left',true);
